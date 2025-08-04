@@ -21,6 +21,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .summary-container, .gold-container, .app-container {
   max-width: 500px;
   margin: 20px auto;
@@ -50,4 +51,4 @@ body {
   padding: 8px;
   margin-bottom: 5px;
   border-radius: 5px;
-}
+} 
