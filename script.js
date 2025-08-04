@@ -35,13 +35,49 @@ document.addEventListener("DOMContentLoaded", () => {
 const CORRECT_USERNAME = "aykut";
 const CORRECT_PASSWORD = "123456";
 
-function saveSalary() {
-  const salary = parseFloat(document.getElementById("salaryInput").value);
-  if (!isNaN(salary)) {
-    localStorage.setItem("salary", salary);
-    alert("Maaş kaydedildi!");
-    document.getElementById("salaryInput").value = "";
+document.addEventListener("DOMContentLoaded", () => {
+  // Hatırlanmış kullanıcı varsa otomatik doldur
+  const savedUser = localStorage.getItem("savedUsername");
+  if (savedUser) {
+    document.getElementById("username").value = savedUser;
+    document.getElementById("rememberMe").checked = true;
   }
+
+  // Şifre göster/gizle
+  const toggle = document.getElementById("togglePassword");
+  const pass = document.getElementById("password");
+  if (toggle && pass) {
+    toggle.addEventListener("click", () => {
+      pass.type = pass.type === "password" ? "text" : "password";
+    });
+  }
+});
+
+function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorBox = document.getElementById("loginError");
+
+  if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+    // Oturumu kaydet
+    sessionStorage.setItem("isLoggedIn", "true");
+
+    // Kullanıcıyı hatırla
+    if (document.getElementById("rememberMe").checked) {
+      localStorage.setItem("savedUsername", username);
+    } else {
+      localStorage.removeItem("savedUsername");
+    }
+
+    errorBox.textContent = "";
+    window.location.href = "index.html"; // ✅ Ana sayfaya yönlendirme
+  } else {
+    errorBox.textContent = "❌ Hatalı kullanıcı adı veya şifre!";
+  }
+}
+
+function forgotPassword() {
+  alert("Şifrenizi unuttuysanız sistem yöneticisine başvurun.\nTest: aykut / 123456");
 }
 
 function addExpense() {
