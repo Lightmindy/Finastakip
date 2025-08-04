@@ -1,52 +1,36 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finans Takip</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giriş Yap - Finans Takip</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div id="loginPanel" class="panel">
-    <h2>Giriş Yap</h2>
+<body class="login-body">
+  <div class="login-container">
+    <div class="logo" id="logo">Aykut Coşar</div>
     <input type="text" id="username" placeholder="Kullanıcı Adı" />
     <input type="password" id="password" placeholder="Şifre" />
-    <button onclick="login()">Giriş</button>
+    <button onclick="login()">Giriş Yap</button>
     <p id="loginError" class="error"></p>
   </div>
 
-  <div id="mainPanel" class="panel hidden">
-    <header>
-      <h2>Finans Takip</h2>
-      <button onclick="showDetail()">Detaylı Panel</button>
-    </header>
-    <section class="summary">
-      <div>Maaş: <span id="salary">₺0</span></div>
-      <div>Harcama: <span id="expense">₺0</span></div>
-      <div>Kalan: <span id="balance">₺0</span></div>
-    </section>
-    <section class="inputArea">
-      <input type="text" id="expenseName" placeholder="Kategori" />
-      <input type="number" id="expenseAmount" placeholder="Tutar" />
-      <button onclick="addExpense()">Ekle</button>
-    </section>
-    <section id="expenseList"></section>
-  </div>
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("loginError");
 
-  <div id="detailPanel" class="panel hidden">
-    <h3>Detaylı Panel</h3>
-    <ul>
-      <li>📌 Borç ve Taksit Listesi</li>
-      <li>📊 Aylık Harcama Geçmişi</li>
-      <li>📈 Grafikler</li>
-      <li>🎯 Hedef ve Bütçe</li>
-      <li>🎨 Tema Ayarları</li>
-      <li>🔔 Bildirim Ayarları</li>
-      <li>📄 PDF/Excel Aktar</li>
-    </ul>
-    <button onclick="showMain()">Geri Dön</button>
-  </div>
-
-  <script src="script.js"></script>
+      if (user === "aykut" && pass === "123") {
+        const logo = document.getElementById("logo");
+        logo.classList.add("spin");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      } else {
+        error.textContent = "Hatalı kullanıcı adı veya şifre!";
+      }
+    }
+  </script>
 </body>
 </html>
