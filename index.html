@@ -2,70 +2,35 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finans Paneli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ana Sayfa | Finans Takip</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="light-theme">
-  <div class="app-container">
-    <header>
-      <h1>Finans Takip</h1>
-      <div class="top-actions">
-        <button onclick="toggleTheme()">🌗</button>
-        <button onclick="downloadPDF()">📄</button>
-        <button onclick="downloadExcel()">📊</button>
-      </div>
-    </header>
+<body>
+  <header class="main-header">
+    <h1>Finans Özeti</h1>
+    <button onclick="window.location.href='details.html'">📋 Detaylar</button>
+  </header>
 
-    <section class="inputs">
-      <label>Maaş:</label>
-      <input type="number" id="salary" placeholder="₺" />
-
-      <label>Altın Gram Fiyatı:</label>
-      <input type="number" id="goldPrice" placeholder="Örn: 1900" />
-
-      <label>Altın Miktarı (gr):</label>
-      <input type="number" id="goldAmount" placeholder="Örn: 5" />
-
-      <label>Harcama Tutarı:</label>
-      <input type="number" id="expense" placeholder="₺" />
-
-      <label>Açıklama:</label>
-      <input type="text" id="note" placeholder="Örn: Market alışverişi" />
-
-      <label>Kategori:</label>
-      <select id="category">
-        <option>Market</option>
-        <option>Fatura</option>
-        <option>Ulaşım</option>
-        <option>Diğer</option>
-      </select>
-
-      <button onclick="addExpense()">Harcama Ekle</button>
-    </section>
-
-    <section class="summary">
-      <p><strong>Toplam Maaş:</strong> <span id="totalSalary">0</span> ₺</p>
-      <p><strong>Toplam Harcama:</strong> <span id="totalExpense">0</span> ₺</p>
-      <p><strong>Kalan Bakiye:</strong> <span id="balance">0</span> ₺</p>
-      <p><strong>Altın Varlığı:</strong> <span id="totalGold">0</span> ₺</p>
-    </section>
-
-    <section>
-      <h3>Harcama Geçmişi</h3>
-      <ul id="expenseList"></ul>
-    </section>
-
-    <section class="extra-buttons">
-      <button onclick="showNotification()">🔔 Bildirim Testi</button>
-      <button onclick="window.location.href='charts.html'">📈 Harcama Grafikleri</button>
-      <button onclick="window.location.href='reminder.html'">📅 Borç & Taksitler</button>
-    </section>
+  <div class="summary-container">
+    <div class="summary-item">
+      <p>Toplam Maaş</p>
+      <h2><span id="totalSalary">0</span> ₺</h2>
+    </div>
+    <div class="summary-item">
+      <p>Toplam Gider</p>
+      <h2><span id="totalExpense">0</span> ₺</h2>
+    </div>
+    <div class="summary-item">
+      <p>Kalan Bakiye</p>
+      <h2><span id="remaining">0</span> ₺</h2>
+    </div>
+    <div class="summary-item">
+      <p>Yaklaşan Taksit</p>
+      <ul id="upcomingDebts"></ul>
+    </div>
   </div>
 
-  <audio id="dingSound" src="assets/ding.mp3" preload="auto"></audio>
   <script src="script.js"></script>
-  <script src="export.js"></script>
 </body>
 </html>
