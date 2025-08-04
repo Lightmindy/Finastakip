@@ -1,48 +1,16 @@
-function login() {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-  const error = document.getElementById("loginError");
+window.onload = () => {
+  document.getElementById('maas').value = localStorage.getItem('maas') || '';
+  document.getElementById('harcama').value = localStorage.getItem('harcama') || '';
+  document.getElementById('birikim').value = localStorage.getItem('birikim') || '';
+  document.getElementById('altin').value = localStorage.getItem('altin') || '';
+  document.getElementById('taksitler').value = localStorage.getItem('taksitler') || '';
+};
 
-  if (user === "aykut" && pass === "123") {
-    document.getElementById("loginPanel").classList.add("hidden");
-    document.getElementById("mainPanel").classList.remove("hidden");
-  } else {
-    error.textContent = "Hatalı kullanıcı adı veya şifre!";
-  }
-}
-
-function showDetail() {
-  document.getElementById("mainPanel").classList.add("hidden");
-  document.getElementById("detailPanel").classList.remove("hidden");
-}
-
-function showMain() {
-  document.getElementById("detailPanel").classList.add("hidden");
-  document.getElementById("mainPanel").classList.remove("hidden");
-}
-
-let totalSalary = 10000;
-let totalExpense = 0;
-
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("salary").textContent = `₺${totalSalary}`;
-  document.getElementById("balance").textContent = `₺${totalSalary - totalExpense}`;
-});
-
-function addExpense() {
-  const name = document.getElementById("expenseName").value;
-  const amount = parseFloat(document.getElementById("expenseAmount").value);
-  if (!name || isNaN(amount)) return;
-
-  totalExpense += amount;
-  document.getElementById("expense").textContent = `₺${totalExpense}`;
-  document.getElementById("balance").textContent = `₺${totalSalary - totalExpense}`;
-
-  const list = document.getElementById("expenseList");
-  const item = document.createElement("div");
-  item.textContent = `• ${name}: ₺${amount}`;
-  list.appendChild(item);
-
-  document.getElementById("expenseName").value = "";
-  document.getElementById("expenseAmount").value = "";
+function save() {
+  localStorage.setItem('maas', document.getElementById('maas').value);
+  localStorage.setItem('harcama', document.getElementById('harcama').value);
+  localStorage.setItem('birikim', document.getElementById('birikim').value);
+  localStorage.setItem('altin', document.getElementById('altin').value);
+  localStorage.setItem('taksitler', document.getElementById('taksitler').value);
+  alert("Veriler kaydedildi!");
 }
