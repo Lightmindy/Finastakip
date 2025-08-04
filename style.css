@@ -1,70 +1,37 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: #fff;
-}
-.login-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #1f1f1f;
-}
-.login-box {
-  background: #292929;
-  padding: 30px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 350px;
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   text-align: center;
 }
-.logo {
-  width: 80px;
-  margin-bottom: 10px;
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 20px;
 }
-input, textarea {
-  width: 90%;
-  padding: 10px;
-  margin: 10px auto;
-  border: none;
-  border-radius: 5px;
-  display: block;
+
+.animate-logo {
+  animation: zoomIn 1s ease;
 }
-button {
-  background: orange;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 5px;
+
+@keyframes zoomIn {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
-.error-msg {
+
+.fade-out {
+  animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: scale(0.9); }
+}
+
+.error {
   color: red;
+  font-size: 14px;
   margin-top: 10px;
-}
-.container {
-  padding: 20px;
-}
-.borc-liste {
-  background: #1e1e1e;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 8px;
-}
-.borc-liste h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-.borc-liste ul {
-  list-style: none;
-  padding: 0;
-}
-.borc-liste ul li {
-  padding: 6px 10px;
-  background: #2d2d2d;
-  margin-bottom: 6px;
-  border-radius: 5px;
-  font-size: 15px;
 }
