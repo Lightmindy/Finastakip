@@ -1,36 +1,25 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Giriş | Finans Takip</title>
+  <meta charset="UTF-8">
+  <title>Giriş Yap</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="login-theme">
+<body>
   <div class="login-container">
-    <img src="assets/logo.png" alt="Aykut Coşar" class="login-logo animate-logo" />
-    <h2>Finans Takip Giriş</h2>
-    <input type="password" id="password" placeholder="Şifreyi girin" />
+    <h2>🔐 Finans Takip Giriş</h2>
+    <input type="text" id="username" placeholder="Kullanıcı Adı">
+    <div class="password-box">
+      <input type="password" id="password" placeholder="Şifre">
+      <span id="togglePassword" title="Göster/Gizle">👁️</span>
+    </div>
+    <label>
+      <input type="checkbox" id="rememberMe"> Beni Hatırla
+    </label>
     <button onclick="login()">Giriş Yap</button>
-    <p id="loginMessage" class="error"></p>
+    <p><a href="#" onclick="forgotPassword()">Şifremi unuttum</a></p>
+    <p id="loginError" class="error-msg"></p>
   </div>
-
-  <script>
-    function login() {
-      const password = document.getElementById('password').value;
-      const loginMessage = document.getElementById('loginMessage');
-
-      if (password === '1234') {
-        loginMessage.textContent = '';
-        // Giriş başarılı → index sayfasına geçiş (animasyonlu)
-        document.body.classList.add("fade-out");
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 800);
-      } else {
-        loginMessage.textContent = "Hatalı şifre. Lütfen tekrar deneyin.";
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
