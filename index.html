@@ -1,58 +1,49 @@
 <!DOCTYPE html>
 <html lang="tr">
-
-<script>
-  if (!sessionStorage.getItem("isLoggedIn")) {
-    window.location.href = "login.html";
-  }
-</script>
 <head>
-  
-
-  
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ana Sayfa | Finans Takip</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finans Takibi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header class="main-header">
-    <h1>Finans Özeti</h1>
-    <button onclick="window.location.href='details.html'">📋 Detaylar</button>
+  <header class="app-header">
+    <div class="logo">
+      <img src="logo-aykut.png" alt="Logo">
+    </div>
+    <div class="alert">
+      <i class="fas fa-bell"></i> 1 Ocak’a kadar kredi borcu ödenmeli
+    </div>
   </header>
 
-  <div class="summary-container">
-    <div class="summary-item">
-      <p>Toplam Maaş</p>
-      <h2><span id="totalSalary">0</span> ₺</h2>
-    </div>
-    <div class="summary-item">
-      <p>Toplam Gider</p>
-      <h2><span id="totalExpense">0</span> ₺</h2>
-    </div>
-    <div class="summary-item">
-      <p>Kalan Bakiye</p>
-      <h2><span id="remaining">0</span> ₺</h2>
-    </div>
-    <div class="summary-item">
-      <p>Yaklaşan Taksit</p>
-      <ul id="upcomingDebts"></ul>
-    </div>
-  </div>
+  <main class="summary">
+    <div class="card">Aylık Maaş <br><span id="maas">0 TL</span></div>
+    <div class="card">Harcamalar <br><span id="harcama">0 TL</span></div>
+    <div class="card">Birikimler <br><span id="birikim">0 TL</span></div>
 
-  <section class="gold-container">
-    <h3>💰 Altın Takibi</h3>
-    <label>Gram Altın Fiyatı (₺):</label>
-    <input type="number" id="goldPrice" placeholder="Örn: 1950" />
-    <label>Yeni Altın (gram):</label>
-    <input type="number" id="goldInput" placeholder="Örn: 2.5" />
-    <button onclick="addGold()">Ekle</button>
-    <ul id="goldList"></ul>
-    <div class="summary-item">
-      <p>Toplam Altın: <span id="totalGoldGram">0</span> gr</p>
-      <p>Toplam Değer: <span id="totalGoldValue">0</span> ₺</p>
+    <div class="panel">
+      <canvas id="harcamaChart"></canvas>
     </div>
-  </section>
+
+    <div class="card">Varlıklarım <br><span id="altin">0 gram altın</span></div>
+
+    <div class="card">
+      <strong>Taksitler</strong><br>
+      <ul id="taksitListesi">
+        <li>Kredi Borcu - 4.000 TL</li>
+        <li>Telefon - 1.500 TL</li>
+        <li>Mobilya - 2.500 TL</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="bottom-nav">
+    <button><i class="fas fa-chart-pie"></i><br>Özet</button>
+    <button><i class="fas fa-clock"></i><br>Geçmiş</button>
+    <button><i class="fas fa-cog"></i><br>Ayarlar</button>
+  </footer>
 
   <script src="script.js"></script>
 </body>
