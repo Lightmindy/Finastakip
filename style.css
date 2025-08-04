@@ -1,36 +1,66 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Giriş Yap - Finans Takip</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body class="login-body">
-  <div class="login-container">
-    <div class="logo" id="logo">Aykut Coşar</div>
-    <input type="text" id="username" placeholder="Kullanıcı Adı" />
-    <input type="password" id="password" placeholder="Şifre" />
-    <button onclick="login()">Giriş Yap</button>
-    <p id="loginError" class="error"></p>
-  </div>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1f1f2e;
+  color: white;
+}
 
-  <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      const error = document.getElementById("loginError");
+/* Giriş ekranı */
+.login-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-      if (user === "aykut" && pass === "123") {
-        const logo = document.getElementById("logo");
-        logo.classList.add("spin");
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1000);
-      } else {
-        error.textContent = "Hatalı kullanıcı adı veya şifre!";
-      }
-    }
-  </script>
-</body>
-</html>
+.login-container {
+  width: 90%;
+  max-width: 340px;
+  background-color: #2b2b3d;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ccff;
+  margin-bottom: 20px;
+  transition: transform 0.6s ease-in-out;
+}
+
+.logo.spin {
+  transform: rotateY(360deg);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 6px;
+  background: #3d3d5a;
+  color: white;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #00ccff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0099cc;
+}
+
+.error {
+  margin-top: 15px;
+  color: red;
+}
