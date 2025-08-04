@@ -1,30 +1,71 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aykut Finans Panel</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finans Paneli</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>📊 Aykut Coşar – Finans Paneli</h2>
-    <label>Aylık Maaş:</label>
-    <input type="number" id="maas" placeholder="₺">
-    <label>Bu Hafta Harcama:</label>
-    <input type="number" id="harcama" placeholder="₺">
-    <label>Kalan Bakiye:</label>
-    <input type="text" id="kalan" disabled>
-    <label>Gram Altın (elinde):</label>
-    <input type="number" id="altin" placeholder="Gram">
-    <label>Borç / Taksit Listesi:</label>
-    <textarea id="borc" rows="4" placeholder="örn: 12 Ağustos – Kredi kartı 1500₺"></textarea>
-    <button onclick="verileriKaydet()">💾 Kaydet</button>
-    <div id="borcListesi" class="borc-liste">
-      <h3>📋 Kaydedilen Borçlar</h3>
-      <ul id="borcGoster"></ul>
-    </div>
+<body class="light-theme">
+  <div class="app-container">
+    <header>
+      <h1>Finans Takip</h1>
+      <div class="top-actions">
+        <button onclick="toggleTheme()">🌗</button>
+        <button onclick="downloadPDF()">📄</button>
+        <button onclick="downloadExcel()">📊</button>
+      </div>
+    </header>
+
+    <section class="inputs">
+      <label>Maaş:</label>
+      <input type="number" id="salary" placeholder="₺" />
+
+      <label>Altın Gram Fiyatı:</label>
+      <input type="number" id="goldPrice" placeholder="Örn: 1900" />
+
+      <label>Altın Miktarı (gr):</label>
+      <input type="number" id="goldAmount" placeholder="Örn: 5" />
+
+      <label>Harcama Tutarı:</label>
+      <input type="number" id="expense" placeholder="₺" />
+
+      <label>Açıklama:</label>
+      <input type="text" id="note" placeholder="Örn: Market alışverişi" />
+
+      <label>Kategori:</label>
+      <select id="category">
+        <option>Market</option>
+        <option>Fatura</option>
+        <option>Ulaşım</option>
+        <option>Diğer</option>
+      </select>
+
+      <button onclick="addExpense()">Harcama Ekle</button>
+    </section>
+
+    <section class="summary">
+      <p><strong>Toplam Maaş:</strong> <span id="totalSalary">0</span> ₺</p>
+      <p><strong>Toplam Harcama:</strong> <span id="totalExpense">0</span> ₺</p>
+      <p><strong>Kalan Bakiye:</strong> <span id="balance">0</span> ₺</p>
+      <p><strong>Altın Varlığı:</strong> <span id="totalGold">0</span> ₺</p>
+    </section>
+
+    <section>
+      <h3>Harcama Geçmişi</h3>
+      <ul id="expenseList"></ul>
+    </section>
+
+    <section class="extra-buttons">
+      <button onclick="showNotification()">🔔 Bildirim Testi</button>
+      <button onclick="window.location.href='charts.html'">📈 Harcama Grafikleri</button>
+      <button onclick="window.location.href='reminder.html'">📅 Borç & Taksitler</button>
+    </section>
   </div>
+
+  <audio id="dingSound" src="assets/ding.mp3" preload="auto"></audio>
   <script src="script.js"></script>
+  <script src="export.js"></script>
 </body>
 </html>
