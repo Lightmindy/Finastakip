@@ -1,15 +1,48 @@
-function hesapla() {
-  let maas = parseFloat(document.getElementById("maas").value);
-  let gider = parseFloat(document.getElementById("gider").value);
-  let altin = parseFloat(document.getElementById("altin").value);
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  const error = document.getElementById("loginError");
 
-  if (isNaN(maas)) maas = 0;
-  if (isNaN(gider)) gider = 0;
-  if (isNaN(altin)) altin = 0;
+  if (user === "aykut" && pass === "123") {
+    document.getElementById("loginPanel").classList.add("hidden");
+    document.getElementById("mainPanel").classList.remove("hidden");
+  } else {
+    error.textContent = "Hatalı kullanıcı adı veya şifre!";
+  }
+}
 
-  let kalan = maas - gider;
-  let altinDegeri = altin * 2450; // sabit gram fiyat
+function showDetail() {
+  document.getElementById("mainPanel").classList.add("hidden");
+  document.getElementById("detailPanel").classList.remove("hidden");
+}
 
-  document.getElementById("sonuc").innerText = "Kalan Bakiye: " + kalan + " TL";
-  document.getElementById("altinDeger").innerText = "Altın Değeri: " + altinDegeri + " TL";
+function showMain() {
+  document.getElementById("detailPanel").classList.add("hidden");
+  document.getElementById("mainPanel").classList.remove("hidden");
+}
+
+let totalSalary = 10000;
+let totalExpense = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("salary").textContent = `₺${totalSalary}`;
+  document.getElementById("balance").textContent = `₺${totalSalary - totalExpense}`;
+});
+
+function addExpense() {
+  const name = document.getElementById("expenseName").value;
+  const amount = parseFloat(document.getElementById("expenseAmount").value);
+  if (!name || isNaN(amount)) return;
+
+  totalExpense += amount;
+  document.getElementById("expense").textContent = `₺${totalExpense}`;
+  document.getElementById("balance").textContent = `₺${totalSalary - totalExpense}`;
+
+  const list = document.getElementById("expenseList");
+  const item = document.createElement("div");
+  item.textContent = `• ${name}: ₺${amount}`;
+  list.appendChild(item);
+
+  document.getElementById("expenseName").value = "";
+  document.getElementById("expenseAmount").value = "";
 }
