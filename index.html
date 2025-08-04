@@ -12,12 +12,6 @@
     <button onclick="window.location.href='details.html'">📋 Detaylar</button>
   </header>
 
-<!-- Ana bilgiler -->
-<div class="summary-container">
-  ...
-</div>
-
-
   <div class="summary-container">
     <div class="summary-item">
       <p>Toplam Maaş</p>
@@ -36,25 +30,20 @@
       <ul id="upcomingDebts"></ul>
     </div>
   </div>
-  
-  <!-- ALTIN PANEL BURADA -->
-<section class="gold-container">
-  <h3>💰 Altın Takibi</h3>
-  <label>Gram Altın Fiyatı (₺):</label>
-  <input type="number" id="goldPrice" placeholder="Örn: 1950" />
 
-  <label>Yeni Altın (gram):</label>
-  <input type="number" id="goldInput" placeholder="Örn: 2.5" />
-  <button onclick="addGold()">Ekle</button>
-
-  <ul id="goldList"></ul>
-
-  <div class="summary-item">
-    <p>Toplam Altın: <span id="totalGoldGram">0</span> gr</p>
-    <p>Toplam Değer: <span id="totalGoldValue">0</span> ₺</p>
-  </div>
-</section>
-
+  <section class="gold-container">
+    <h3>💰 Altın Takibi</h3>
+    <label>Gram Altın Fiyatı (₺):</label>
+    <input type="number" id="goldPrice" placeholder="Örn: 1950" />
+    <label>Yeni Altın (gram):</label>
+    <input type="number" id="goldInput" placeholder="Örn: 2.5" />
+    <button onclick="addGold()">Ekle</button>
+    <ul id="goldList"></ul>
+    <div class="summary-item">
+      <p>Toplam Altın: <span id="totalGoldGram">0</span> gr</p>
+      <p>Toplam Değer: <span id="totalGoldValue">0</span> ₺</p>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
