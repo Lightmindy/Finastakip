@@ -5,32 +5,7 @@ body {
   padding: 0;
 }
 
-.gold-container {
-  margin: 20px auto;
-  padding: 15px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-  max-width: 500px;
-}
 
-.gold-container input {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0 10px;
-}
-
-.gold-container ul {
-  padding-left: 0;
-  list-style: none;
-}
-
-.gold-container li {
-  background: #f3f3f3;
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-}
 
 .main-header {
   background-color: #2c3e50;
@@ -81,4 +56,31 @@ body {
   list-style-type: none;
   padding-left: 0;
   font-weight: bold;
+}
+
+.gold-container {
+  margin: 20px auto;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  max-width: 500px;
+}
+
+.gold-container input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 10px;
+}
+
+.gold-container ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.gold-container li {
+  background: #f3f3f3;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
