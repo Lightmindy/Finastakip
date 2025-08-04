@@ -53,6 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+function saveSalary() {
+  const salary = document.getElementById("salaryInput").value;
+  localStorage.setItem("maas", salary);
+  alert("Maaş bilgisi kaydedildi!");
+}
+
 function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
