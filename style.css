@@ -1,3 +1,45 @@
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card);
+  padding: 10px 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.nav-title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.nav-right button {
+  margin-left: 8px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.nav-right button:hover {
+  transform: scale(1.1);
+}
+
 /* Genel */
 body {
   margin: 0;
