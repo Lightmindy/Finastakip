@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Aykut Takip</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finans Takip</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>📊 Finans Takip</h1>
-  <p>Maaş: <input type="number" id="maas"></p>
-  <p>Gider: <input type="number" id="gider"></p>
-  <button onclick="hesapla()">Hesapla</button>
-  <p id="sonuc"></p>
+  <div id="loginPanel" class="panel">
+    <h2>Giriş Yap</h2>
+    <input type="text" id="username" placeholder="Kullanıcı Adı" />
+    <input type="password" id="password" placeholder="Şifre" />
+    <button onclick="login()">Giriş</button>
+    <p id="loginError" class="error"></p>
+  </div>
 
-  <h2>💰 Gram Altın</h2>
-  <p>Gram Altın Sayısı: <input type="number" id="altin"></p>
-  <p id="altinDeger"></p>
+  <div id="mainPanel" class="panel hidden">
+    <header>
+      <h2>Finans Takip</h2>
+      <button onclick="showDetail()">Detaylı Panel</button>
+    </header>
+    <section class="summary">
+      <div>Maaş: <span id="salary">₺0</span></div>
+      <div>Harcama: <span id="expense">₺0</span></div>
+      <div>Kalan: <span id="balance">₺0</span></div>
+    </section>
+    <section class="inputArea">
+      <input type="text" id="expenseName" placeholder="Kategori" />
+      <input type="number" id="expenseAmount" placeholder="Tutar" />
+      <button onclick="addExpense()">Ekle</button>
+    </section>
+    <section id="expenseList"></section>
+  </div>
+
+  <div id="detailPanel" class="panel hidden">
+    <h3>Detaylı Panel</h3>
+    <ul>
+      <li>📌 Borç ve Taksit Listesi</li>
+      <li>📊 Aylık Harcama Geçmişi</li>
+      <li>📈 Grafikler</li>
+      <li>🎯 Hedef ve Bütçe</li>
+      <li>🎨 Tema Ayarları</li>
+      <li>🔔 Bildirim Ayarları</li>
+      <li>📄 PDF/Excel Aktar</li>
+    </ul>
+    <button onclick="showMain()">Geri Dön</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
