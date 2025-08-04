@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detaylar | Finans Takip</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="main-header">
+    <h1>📋 Detaylı Takip</h1>
+    <button onclick="window.location.href='index.html'">🏠 Ana Sayfa</button>
+  </header>
+
+  <div class="app-container">
+
+    <!-- Maaş Belirleme -->
+    <section>
+      <h2>Maaş Bilgisi</h2>
+      <input type="number" id="salaryInput" placeholder="Maaş (₺)" />
+      <button onclick="saveSalary()">Kaydet</button>
+    </section>
+
+    <!-- Gider Girişi -->
+    <section>
+      <h2>Gider Ekle</h2>
+      <input type="text" id="expenseNote" placeholder="Açıklama" />
+      <input type="number" id="expenseAmount" placeholder="Tutar (₺)" />
+      <button onclick="addExpense()">Ekle</button>
+
+      <ul id="expenseList"></ul>
+    </section>
+
+    <!-- Borç/Taksit Girişi -->
+    <section>
+      <h2>Borç / Taksit Ekle</h2>
+      <input type="text" id="debtTitle" placeholder="Başlık" />
+      <input type="number" id="debtAmount" placeholder="Tutar (₺)" />
+      <input type="date" id="debtDate" />
+      <button onclick="addDebt()">Ekle</button>
+
+      <ul id="debtList"></ul>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
