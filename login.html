@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-body">
+  <div class="login-box">
+    <img src="logo.png" alt="Aykut Coşar" class="logo" />
+    <h2>Finans Takibi</h2>
+    <input type="text" id="username" placeholder="Kullanıcı Adı">
+    <input type="password" id="password" placeholder="Şifre">
+    <button onclick="girisYap()">Giriş Yap</button>
+    <p id="error" class="error-msg"></p>
+  </div>
+  <script>
+    function girisYap() {
+      const u = document.getElementById("username").value;
+      const p = document.getElementById("password").value;
+      if (u === "aykut" && p === "123") {
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("error").innerText = "Hatalı bilgi!";
+      }
+    }
+  </script>
+</body>
+</html>
