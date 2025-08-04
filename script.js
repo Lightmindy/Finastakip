@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadGoldList();
 });
 
+const CORRECT_USERNAME = "aykut";
+const CORRECT_PASSWORD = "123456";
+
 function saveSalary() {
   const salary = parseFloat(document.getElementById("salaryInput").value);
   if (!isNaN(salary)) {
