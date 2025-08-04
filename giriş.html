@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Giriş - Aykut Coşar Finans</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giriş – Aykut Coşar Finans</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="login-body">
   <div class="login-container">
@@ -14,16 +14,12 @@
     <button onclick="login()">Giriş Yap</button>
     <p id="loginError" class="error"></p>
   </div>
-
   <script>
     function login() {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
       const error = document.getElementById("loginError");
-
       if (user === "aykut" && pass === "123") {
-        const logo = document.getElementById("logo");
-        logo.classList.add("spin");
         setTimeout(() => {
           window.location.href = "index.html";
         }, 1000);
