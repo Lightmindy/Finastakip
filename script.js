@@ -1,3 +1,51 @@
+function addGold() {
+  const goldPrice = parseFloat(document.getElementById("goldPrice").value);
+  const goldInput = parseFloat(document.getElementById("goldInput").value);
+
+  if (isNaN(goldPrice) || isNaN(goldInput)) {
+    alert("Lütfen hem fiyat hem gram girin.");
+    return;
+  }
+
+  // Güncel kur ve yeni giriş
+  const goldList = JSON.parse(localStorage.getItem("goldList")) || [];
+  goldList.push({ gram: goldInput });
+  localStorage.setItem("goldList", JSON.stringify(goldList));
+  localStorage.setItem("goldPrice", goldPrice);
+
+  loadGoldList();
+}
+
+function loadGoldList() {
+  const goldPrice = parseFloat(localStorage.getItem("goldPrice")) || 0;
+  const goldList = JSON.parse(localStorage.getItem("goldList")) || [];
+
+  const ul = document.getElementById("goldList");
+  ul.innerHTML = "";
+
+  let totalGram = 0;
+  let totalValue = 0;
+
+  goldList.forEach((entry, i) => {
+    const value = goldPrice * entry.gram;
+    totalGram += entry.gram;
+    totalValue += value;
+
+    const li = document.createElement("li");
+    li.textContent = `${entry.gram} gr → ${value.toFixed(2)} ₺`;
+    ul.appendChild(li);
+  });
+
+  document.getElementById("totalGoldGram").textContent = totalGram.toFixed(2);
+  document.getElementById("totalGoldValue").textContent = totalValue.toFixed(2);
+}
+
+// Sayfa açıldığında altınları da yükle
+document.addEventListener("DOMContentLoaded", () => {
+  ...
+  loadGoldList(); // <-- bu satırı diğerlerine ekle
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const salary = parseFloat(localStorage.getItem("salary")) || 0;
   const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
