@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Giriş Yap - Finans Takip</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finans Takibi</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="login-body">
-  <div class="login-container">
-    <div class="logo" id="logo">Aykut Coşar</div>
-    <input type="text" id="username" placeholder="Kullanıcı Adı" />
-    <input type="password" id="password" placeholder="Şifre" />
-    <button onclick="login()">Giriş Yap</button>
-    <p id="loginError" class="error"></p>
+<body>
+  <div class="container">
+    <header>
+      <img src="logo.png" class="logo" />
+      <h1>Finans Takibi</h1>
+      <div class="not">🔔 <span id="not">1 Ocak’a kadar kredi borcu ödenmeli</span></div>
+    </header>
+
+    <section class="cards">
+      <div><label>Aylık Maaş</label><input id="maas" /></div>
+      <div><label>Harcamalar</label><input id="harcama" /></div>
+      <div><label>Birikimler</label><input id="birikim" /></div>
+    </section>
+
+    <section class="varlik">
+      <label>Varlıklarım (gram altın)</label>
+      <input id="altin" />
+    </section>
+
+    <section class="taksit">
+      <label>Taksitler</label>
+      <textarea id="taksitler" rows="5"></textarea>
+    </section>
+
+    <button onclick="save()">Kaydet</button>
   </div>
-
-  <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
-      const error = document.getElementById("loginError");
-
-      if (user === "aykut" && pass === "123") {
-        const logo = document.getElementById("logo");
-        logo.classList.add("spin");
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1000);
-      } else {
-        error.textContent = "Hatalı kullanıcı adı veya şifre!";
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
