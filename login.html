@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giriş Yap</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giriş | Finans Takip</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="login-body">
-  <div class="login-box">
-    <img src="logo.png" alt="Aykut Coşar" class="logo" />
-    <h2>Finans Takibi</h2>
-    <input type="text" id="username" placeholder="Kullanıcı Adı">
-    <input type="password" id="password" placeholder="Şifre">
-    <button onclick="girisYap()">Giriş Yap</button>
-    <p id="error" class="error-msg"></p>
+<body class="login-theme">
+  <div class="login-container">
+    <img src="assets/logo.png" alt="Aykut Coşar" class="login-logo animate-logo" />
+    <h2>Finans Takip Giriş</h2>
+    <input type="password" id="password" placeholder="Şifreyi girin" />
+    <button onclick="login()">Giriş Yap</button>
+    <p id="loginMessage" class="error"></p>
   </div>
+
   <script>
-    function girisYap() {
-      const u = document.getElementById("username").value;
-      const p = document.getElementById("password").value;
-      if (u === "aykut" && p === "123") {
-        window.location.href = "index.html";
+    function login() {
+      const password = document.getElementById('password').value;
+      const loginMessage = document.getElementById('loginMessage');
+
+      if (password === '1234') {
+        loginMessage.textContent = '';
+        // Giriş başarılı → index sayfasına geçiş (animasyonlu)
+        document.body.classList.add("fade-out");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 800);
       } else {
-        document.getElementById("error").innerText = "Hatalı bilgi!";
+        loginMessage.textContent = "Hatalı şifre. Lütfen tekrar deneyin.";
       }
     }
   </script>
