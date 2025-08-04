@@ -112,8 +112,8 @@ button {
   color: white;
   padding: 4px;
   border: none;
-  border-radius: 6px;
-  font-size: 15px;
+  border-radius: 4px;
+  font-size: 12px;
   cursor: pointer;
   transition: 0.3s;
 }
