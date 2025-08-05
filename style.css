@@ -4,13 +4,13 @@ body {
   background: linear-gradient(to bottom right, #f8fbff, #e8f0ff);
   margin: 0;
   padding: 0;
-  color: #3308C;
+  color: #133A41;
 }
 
 /* Başlık */
 h1, h2, h3 {
   text-align: center;
-  color: #3308C;
+  color: #133A41;
   margin-top: 10px;
 }
 
