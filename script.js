@@ -33,6 +33,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+function addIncoming() {
+  const name = document.getElementById("lenderName").value;
+  const amount = parseFloat(document.getElementById("lenderAmount").value);
+  const date = document.getElementById("lenderDate").value;
+  if (!name || isNaN(amount) || !date) {
+    alert("Tüm alanları doldurun.");
+    return;
+  }
+  const incoming = JSON.parse(localStorage.getItem("gelecek_paralar")) || [];
+  incoming.push({ name, amount, date });
+  localStorage.setItem("gelecek_paralar", JSON.stringify(incoming));
+  renderIncoming();
+}
+
+function renderIncoming() {
+  const list = document.getElementById("incomingList");
+  if (!list) return;
+  list.innerHTML = "";
+  const incoming = JSON.parse(localStorage.getItem("gelecek_paralar")) || [];
+  incoming.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} - ${item.amount}₺ - ${item.date}`;
+    list.appendChild(li);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderIncoming?.();
+});
+
   // Altın takibi
   const goldData = JSON.parse(localStorage.getItem("altinlar")) || [];
   let totalGram = 0;
