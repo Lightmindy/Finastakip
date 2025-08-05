@@ -1,192 +1,211 @@
-
-// Ana sayfa: toplam gelecek para
-if (document.getElementById("totalIncomingHome")) {
-  const incoming = JSON.parse(localStorage.getItem("incoming")) || [];
-  const toplam = incoming.reduce((sum, x) => sum + x.amount, 0);
-  document.getElementById("totalIncomingHome").innerText = toplam.toFixed(2);
-}
-
-
-// === Maaş ===
+// ---------- MAAŞ ----------
 function saveSalary() {
   const salary = parseFloat(document.getElementById("salaryInput").value);
   if (!isNaN(salary)) {
     localStorage.setItem("maas", salary);
     alert("Maaş kaydedildi!");
-    updateDashboard();
   }
 }
 
-// === Gider ===
+function getSalary() {
+  return parseFloat(localStorage.getItem("maas")) || 0;
+}
+
+// ---------- GİDER ----------
 function addExpense() {
   const note = document.getElementById("expenseNote").value;
   const amount = parseFloat(document.getElementById("expenseAmount").value);
   if (!note || isNaN(amount)) {
-    alert("Geçerli gider girin.");
+    alert("Lütfen açıklama ve tutar girin.");
     return;
   }
   const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
   expenses.push({ note, amount });
   localStorage.setItem("giderler", JSON.stringify(expenses));
-  alert("Gider kaydedildi!");
-  updateDashboard();
+  alert("Gider eklendi!");
 }
 
-function calculateExpenses() {
-  const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-  return expenses.reduce((sum, x) => sum + x.amount, 0);
+function getExpenses() {
+  return JSON.parse(localStorage.getItem("giderler")) || [];
 }
 
-// === Borç ===
+// ---------- BORÇ ----------
 function addDebt() {
   const title = document.getElementById("debtTitle").value;
   const amount = parseFloat(document.getElementById("debtAmount").value);
   const date = document.getElementById("debtDate").value;
   if (!title || isNaN(amount) || !date) {
-    alert("Lütfen tüm borç alanlarını doldurun.");
+    alert("Tüm alanları doldurun.");
     return;
   }
   const debts = JSON.parse(localStorage.getItem("borclar")) || [];
   debts.push({ title, amount, date });
   localStorage.setItem("borclar", JSON.stringify(debts));
   alert("Borç eklendi!");
-  updateDashboard();
 }
 
-function getUpcomingDebts() {
-  const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-  const today = new Date().toISOString().split("T")[0];
-  return debts.filter(debt => debt.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+function getDebts() {
+  return JSON.parse(localStorage.getItem("borclar")) || [];
 }
 
-// === Altın ===
-function addGold() {
-  const gram = parseFloat(document.getElementById("goldInput").value);
-  const price = parseFloat(document.getElementById("goldPrice").value);
-  if (isNaN(gram) || isNaN(price)) {
-    alert("Lütfen geçerli altın verileri girin.");
-    return;
-  }
-  const gold = JSON.parse(localStorage.getItem("gold")) || [];
-  gold.push({ gram, price });
-  localStorage.setItem("gold", JSON.stringify(gold));
-  updateDashboard();
-}
-
-// === Verilen Borç (Gelecek Para) ===
+// ---------- VERDİĞİM BORÇ ----------
 function addIncoming() {
   const name = document.getElementById("lenderName").value;
   const amount = parseFloat(document.getElementById("lenderAmount").value);
   const date = document.getElementById("lenderDate").value;
   if (!name || isNaN(amount) || !date) {
-    alert("Lütfen geçerli bilgi girin.");
+    alert("Tüm alanları doldurun.");
     return;
   }
-  const incoming = JSON.parse(localStorage.getItem("incoming")) || [];
-  incoming.push({ name, amount, date });
-  localStorage.setItem("incoming", JSON.stringify(incoming));
-  alert("Gelecek para eklendi!");
-  updateDashboard();
+  const list = JSON.parse(localStorage.getItem("gelecekPara")) || [];
+  list.push({ name, amount, date });
+  localStorage.setItem("gelecekPara", JSON.stringify(list));
+  alert("Gelecek para kaydedildi!");
 }
 
-// === Ana Panel Güncelleme ===
-function updateDashboard() {
+function getIncoming() {
+  return JSON.parse(localStorage.getItem("gelecekPara")) || [];
+}
+
+// ---------- ALTIN ----------
+function addGold() {
+  const gram = parseFloat(document.getElementById("goldInput").value);
+  const price = parseFloat(document.getElementById("goldPrice").value);
+  if (isNaN(gram) || isNaN(price)) {
+    alert("Geçerli değerler girin.");
+    return;
+  }
+  const golds = JSON.parse(localStorage.getItem("altinlar")) || [];
+  golds.push({ gram, price });
+  localStorage.setItem("altinlar", JSON.stringify(golds));
+  displayGold();
+}
+
+// ---------- ANASAYFA VERİLERİ ----------
+function updateIndex() {
   if (document.getElementById("totalSalary")) {
-    const maas = parseFloat(localStorage.getItem("maas")) || 0;
-    const gider = calculateExpenses();
-    const bakiye = maas - gider;
-    document.getElementById("totalSalary").innerText = maas.toFixed(2);
-    document.getElementById("totalExpense").innerText = gider.toFixed(2);
-    document.getElementById("remaining").innerText = bakiye.toFixed(2);
-  }
+    const salary = getSalary();
+    const expenses = getExpenses();
+    const debts = getDebts();
+    const incoming = getIncoming();
 
-  if (document.getElementById("upcomingDebts")) {
-    const list = document.getElementById("upcomingDebts");
-    list.innerHTML = "";
-    const debts = getUpcomingDebts();
-    debts.slice(0, 3).forEach(d => {
-      const li = document.createElement("li");
-      li.innerText = `${d.title}: ${d.amount}₺ (${d.date})`;
-      list.appendChild(li);
-    });
-  }
+    const totalExpense = expenses.reduce((sum, e) => sum + e.amount, 0);
+    const remaining = salary - totalExpense;
+    const totalIncoming = incoming.reduce((sum, e) => sum + e.amount, 0);
 
-  if (document.getElementById("goldList")) {
-    const gold = JSON.parse(localStorage.getItem("gold")) || [];
-    const list = document.getElementById("goldList");
-    list.innerHTML = "";
-    let totalGram = 0;
-    let totalValue = 0;
-    gold.forEach(g => {
-      totalGram += g.gram;
-      totalValue += g.gram * g.price;
-      const li = document.createElement("li");
-      li.innerText = `${g.gram} gr x ${g.price}₺ = ${(g.gram * g.price).toFixed(2)} ₺`;
-      list.appendChild(li);
-    });
-    document.getElementById("totalGoldGram").innerText = totalGram.toFixed(2);
-    document.getElementById("totalGoldValue").innerText = totalValue.toFixed(2);
-  }
+    document.getElementById("totalSalary").textContent = salary.toFixed(2);
+    document.getElementById("totalExpense").textContent = totalExpense.toFixed(2);
+    document.getElementById("remaining").textContent = remaining.toFixed(2);
+    document.getElementById("totalIncomingHome").textContent = totalIncoming.toFixed(2);
 
-  if (document.getElementById("expenseList")) {
-    const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-    const list = document.getElementById("expenseList");
-    list.innerHTML = "";
-    expenses.forEach((x, i) => {
-      const li = document.createElement("li");
-      li.innerText = `${x.note} - ${x.amount}₺ `;
-      const del = document.createElement("button");
-      del.textContent = "❌";
-      del.onclick = () => {
-        expenses.splice(i, 1);
-        localStorage.setItem("giderler", JSON.stringify(expenses));
-        updateDashboard();
-      };
-      li.appendChild(del);
-      list.appendChild(li);
-    });
-  }
+    const today = new Date();
+    const upcomingDebts = debts
+      .filter(d => new Date(d.date) >= today)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  if (document.getElementById("debtList")) {
-    const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-    const list = document.getElementById("debtList");
-    list.innerHTML = "";
-    debts.forEach((x, i) => {
+    const upcomingList = document.getElementById("upcomingDebts");
+    upcomingList.innerHTML = "";
+    upcomingDebts.slice(0, 3).forEach(d => {
       const li = document.createElement("li");
-      li.innerText = `${x.title} - ${x.amount}₺ (${x.date}) `;
-      const del = document.createElement("button");
-      del.textContent = "❌";
-      del.onclick = () => {
-        debts.splice(i, 1);
-        localStorage.setItem("borclar", JSON.stringify(debts));
-        updateDashboard();
-      };
-      li.appendChild(del);
-      list.appendChild(li);
+      li.textContent = `${d.title}: ${d.amount}₺ (${d.date})`;
+      upcomingList.appendChild(li);
     });
-  }
 
-  if (document.getElementById("incomingList")) {
-    const incoming = JSON.parse(localStorage.getItem("incoming")) || [];
-    const list = document.getElementById("incomingList");
-    list.innerHTML = "";
-    let toplam = 0;
-    incoming.forEach((x, i) => {
-      toplam += x.amount;
-      const li = document.createElement("li");
-      li.innerText = `${x.name} - ${x.amount}₺ (${x.date}) `;
-      const del = document.createElement("button");
-      del.textContent = "❌";
-      del.onclick = () => {
-        incoming.splice(i, 1);
-        localStorage.setItem("incoming", JSON.stringify(incoming));
-        updateDashboard();
-      };
-      li.appendChild(del);
-      list.appendChild(li);
-    });
-    document.getElementById("totalIncoming").innerText = toplam.toFixed(2);
+    displayGold();
   }
 }
 
-document.addEventListener("DOMContentLoaded", updateDashboard);
+// ---------- ALTIN GÖSTER ----------
+function displayGold() {
+  const golds = JSON.parse(localStorage.getItem("altinlar")) || [];
+  const totalGr = golds.reduce((sum, g) => sum + g.gram, 0);
+  const totalVal = golds.reduce((sum, g) => sum + g.gram * g.price, 0);
+
+  const list = document.getElementById("goldList");
+  const grSpan = document.getElementById("totalGoldGram");
+  const valSpan = document.getElementById("totalGoldValue");
+
+  if (list) {
+    list.innerHTML = "";
+    golds.forEach(g => {
+      const li = document.createElement("li");
+      li.textContent = `${g.gram} gr @ ${g.price}₺`;
+      list.appendChild(li);
+    });
+  }
+
+  if (grSpan) grSpan.textContent = totalGr.toFixed(2);
+  if (valSpan) valSpan.textContent = totalVal.toFixed(2);
+}
+
+// ---------- DETAY SAYFASI GÖSTER ----------
+function loadDetailData() {
+  const expenseList = document.getElementById("expenseList");
+  const debtList = document.getElementById("debtList");
+  const incomingList = document.getElementById("incomingList");
+  const totalIncoming = document.getElementById("totalIncoming");
+
+  if (expenseList) {
+    expenseList.innerHTML = "";
+    getExpenses().forEach((e, index) => {
+      const li = document.createElement("li");
+      li.textContent = `${e.note}: ${e.amount}₺`;
+      const del = document.createElement("button");
+      del.textContent = "X";
+      del.onclick = () => {
+        const arr = getExpenses();
+        arr.splice(index, 1);
+        localStorage.setItem("giderler", JSON.stringify(arr));
+        loadDetailData();
+      };
+      li.appendChild(del);
+      expenseList.appendChild(li);
+    });
+  }
+
+  if (debtList) {
+    debtList.innerHTML = "";
+    getDebts().forEach((d, index) => {
+      const li = document.createElement("li");
+      li.textContent = `${d.title}: ${d.amount}₺ (${d.date})`;
+      const del = document.createElement("button");
+      del.textContent = "X";
+      del.onclick = () => {
+        const arr = getDebts();
+        arr.splice(index, 1);
+        localStorage.setItem("borclar", JSON.stringify(arr));
+        loadDetailData();
+      };
+      li.appendChild(del);
+      debtList.appendChild(li);
+    });
+  }
+
+  if (incomingList && totalIncoming) {
+    const incoming = getIncoming();
+    incomingList.innerHTML = "";
+    const total = incoming.reduce((sum, e) => sum + e.amount, 0);
+    totalIncoming.textContent = total.toFixed(2);
+
+    incoming.forEach((e, index) => {
+      const li = document.createElement("li");
+      li.textContent = `${e.name}: ${e.amount}₺ (${e.date})`;
+      const del = document.createElement("button");
+      del.textContent = "X";
+      del.onclick = () => {
+        const arr = getIncoming();
+        arr.splice(index, 1);
+        localStorage.setItem("gelecekPara", JSON.stringify(arr));
+        loadDetailData();
+      };
+      li.appendChild(del);
+      incomingList.appendChild(li);
+    });
+  }
+}
+
+// ---------- SAYFA YÜKLENİNCE ----------
+window.onload = function () {
+  updateIndex();
+  loadDetailData();
+};
