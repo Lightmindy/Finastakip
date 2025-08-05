@@ -26,8 +26,6 @@
       <button onclick="addExpense()">Ekle</button>
       <ul id="expenseList"></ul>
     </section>
-    
-   
 
     <section>
       <h2>Borç / Taksit Ekle</h2>
@@ -37,137 +35,18 @@
       <button onclick="addDebt()">Ekle</button>
       <ul id="debtList"></ul>
     </section>
+
+    <section>
+      <h2>Verdiğim Borçlar</h2>
+      <input type="text" id="lenderName" placeholder="Kime" />
+      <input type="number" id="lenderAmount" placeholder="Tutar (₺)" />
+      <input type="date" id="lenderDate" />
+      <button onclick="addIncoming()">Ekle</button>
+      <ul id="incomingList"></ul>
+      <p>Toplam Beklenen: <span id="totalIncoming">0</span> ₺</p>
+    </section>
   </div>
 
-  <script>
-    let editingExpenseIndex = null;
-    let editingDebtIndex = null;
-
-    function saveSalary() {
-      const salary = document.getElementById("salaryInput").value;
-      if (salary) {
-        localStorage.setItem("maas", salary);
-        alert("Maaş kaydedildi!");
-      }
-    }
-
-    function addExpense() {
-      const note = document.getElementById("expenseNote").value;
-      const amount = parseFloat(document.getElementById("expenseAmount").value);
-      if (!note || isNaN(amount)) {
-        alert("Lütfen açıklama ve tutar girin.");
-        return;
-      }
-
-      const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-
-      if (editingExpenseIndex !== null) {
-        expenses[editingExpenseIndex] = { note, amount };
-        editingExpenseIndex = null;
-      } else {
-        expenses.push({ note, amount });
-      }
-
-      localStorage.setItem("giderler", JSON.stringify(expenses));
-      renderExpenses();
-      document.getElementById("expenseNote").value = "";
-      document.getElementById("expenseAmount").value = "";
-    }
-
-    function renderExpenses() {
-      const list = document.getElementById("expenseList");
-      list.innerHTML = "";
-      const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-
-      expenses.forEach((exp, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <strong>${exp.note}</strong> - ${exp.amount} ₺
-          <button onclick="editExpense(${index})">🖊️</button>
-          <button onclick="deleteExpense(${index})">🗑️</button>
-        `;
-        list.appendChild(li);
-      });
-    }
-
-    function deleteExpense(index) {
-      const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-      if (confirm("Bu gideri silmek istiyor musunuz?")) {
-        expenses.splice(index, 1);
-        localStorage.setItem("giderler", JSON.stringify(expenses));
-        renderExpenses();
-      }
-    }
-
-    function editExpense(index) {
-      const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
-      const selected = expenses[index];
-      document.getElementById("expenseNote").value = selected.note;
-      document.getElementById("expenseAmount").value = selected.amount;
-      editingExpenseIndex = index;
-    }
-
-    function addDebt() {
-      const title = document.getElementById("debtTitle").value;
-      const amount = parseFloat(document.getElementById("debtAmount").value);
-      const date = document.getElementById("debtDate").value;
-      if (!title || isNaN(amount) || !date) {
-        alert("Lütfen tüm alanları doldurun.");
-        return;
-      }
-
-      const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-
-      if (editingDebtIndex !== null) {
-        debts[editingDebtIndex] = { title, amount, date };
-        editingDebtIndex = null;
-      } else {
-        debts.push({ title, amount, date });
-      }
-
-      localStorage.setItem("borclar", JSON.stringify(debts));
-      renderDebts();
-      document.getElementById("debtTitle").value = "";
-      document.getElementById("debtAmount").value = "";
-      document.getElementById("debtDate").value = "";
-    }
-
-    function renderDebts() {
-      const list = document.getElementById("debtList");
-      list.innerHTML = "";
-      const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-      debts.forEach((debt, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <strong>${debt.title}</strong> - ${debt.amount} ₺ - ${debt.date}
-          <button onclick="editDebt(${index})">🖊️</button>
-          <button onclick="deleteDebt(${index})">🗑️</button>
-        `;
-        list.appendChild(li);
-      });
-    }
-
-    function deleteDebt(index) {
-      const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-      if (confirm("Bu borcu silmek istediğinizden emin misiniz?")) {
-        debts.splice(index, 1);
-        localStorage.setItem("borclar", JSON.stringify(debts));
-        renderDebts();
-      }
-    }
-
-    function editDebt(index) {
-      const debts = JSON.parse(localStorage.getItem("borclar")) || [];
-      const selected = debts[index];
-      document.getElementById("debtTitle").value = selected.title;
-      document.getElementById("debtAmount").value = selected.amount;
-      document.getElementById("debtDate").value = selected.date;
-      editingDebtIndex = index;
-    }
-
-    // Sayfa yüklenince listele
-    renderExpenses();
-    renderDebts();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
