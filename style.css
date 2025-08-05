@@ -1,73 +1,81 @@
 /* Genel Ayarlar */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #f8fbff, #e8f0ff);
   margin: 0;
   padding: 0;
   color: #333;
 }
 
+/* Başlık */
 h1, h2, h3 {
   text-align: center;
   color: #2c3e50;
+  margin-top: 10px;
 }
 
+/* Butonlar */
 button {
-  background-color: #3498db;
-  color: white;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  color: #fff;
   border: none;
   padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 8px;
+  font-size: 15px;
   cursor: pointer;
-  margin: 5px 0;
-  transition: background-color 0.3s ease;
+  margin-top: 6px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.3s;
 }
 
 button:hover {
-  background-color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Giriş Alanları */
 input[type="text"],
 input[type="number"],
 input[type="date"] {
-  padding: 8px;
+  padding: 10px;
   width: 100%;
-  margin: 5px 0 10px;
+  margin: 8px 0;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   box-sizing: border-box;
+  background: #fff;
 }
 
-/* Ana Başlık */
+/* Üst Menü */
 .main-header {
-  background-color: #2c3e50;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
   color: white;
-  padding: 15px;
+  padding: 18px;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Sayfa Container */
+/* Kutular */
 .summary-container,
 .app-container,
 .gold-container {
   max-width: 700px;
-  margin: 20px auto;
-  padding: 15px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin: 25px auto;
+  padding: 20px;
+  background: #ffffffd9;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(3px);
 }
 
-/* Özet Kartları */
+/* Kartlar */
 .summary-item {
   margin: 15px 0;
-  padding: 10px;
-  border-left: 5px solid #3498db;
-  background-color: #ecf0f1;
-  border-radius: 6px;
+  padding: 12px;
+  border-left: 5px solid #00bcd4;
+  background-color: #f3f9ff;
+  border-radius: 8px;
 }
 
 .summary-item h2 {
@@ -82,44 +90,42 @@ input[type="date"] {
   color: #666;
 }
 
-/* Listeleme */
+/* Listeler */
 ul {
   list-style: none;
   padding-left: 0;
+  margin-top: 10px;
 }
 
 ul li {
-  background: #f0f0f0;
-  margin: 6px 0;
-  padding: 8px 12px;
-  border-radius: 6px;
+  background: #eef6fc;
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 15px;
 }
 
-/* Silme Butonları */
+/* Silme Butonu */
 ul li button {
   background-color: #e74c3c;
   font-size: 12px;
-  padding: 5px 10px;
-  margin-left: 10px;
-  border-radius: 4px;
+  padding: 6px 10px;
+  border-radius: 5px;
 }
 
 ul li button:hover {
   background-color: #c0392b;
 }
 
-/* Altın Kutusu */
-.gold-container label {
-  font-weight: bold;
-  display: block;
+/* Etiketler */
+label {
+  font-weight: 500;
   margin-top: 10px;
-}
-
-.gold-container input {
-  margin-bottom: 10px;
+  display: block;
+  color: #333;
 }
 
 /* Responsive */
@@ -128,7 +134,7 @@ ul li button:hover {
   .app-container,
   .gold-container {
     margin: 10px;
-    padding: 10px;
+    padding: 12px;
   }
 
   button {
