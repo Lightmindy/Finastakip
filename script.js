@@ -1,3 +1,12 @@
+
+// Ana sayfa: toplam gelecek para
+if (document.getElementById("totalIncomingHome")) {
+  const incoming = JSON.parse(localStorage.getItem("incoming")) || [];
+  const toplam = incoming.reduce((sum, x) => sum + x.amount, 0);
+  document.getElementById("totalIncomingHome").innerText = toplam.toFixed(2);
+}
+
+
 // === Maaş ===
 function saveSalary() {
   const salary = parseFloat(document.getElementById("salaryInput").value);
