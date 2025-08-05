@@ -24,7 +24,6 @@
       <input type="text" id="expenseNote" placeholder="Açıklama" />
       <input type="number" id="expenseAmount" placeholder="Tutar (₺)" />
       <button onclick="addExpense()">Ekle</button>
-      <ul id="expenseList"></ul>
     </section>
 
     <section>
@@ -33,10 +32,44 @@
       <input type="number" id="debtAmount" placeholder="Tutar (₺)" />
       <input type="date" id="debtDate" />
       <button onclick="addDebt()">Ekle</button>
-      <ul id="debtList"></ul>
     </section>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function saveSalary() {
+      const salary = document.getElementById("salaryInput").value;
+      if (salary) {
+        localStorage.setItem("maas", salary);
+        alert("Maaş kaydedildi!");
+      }
+    }
+
+    function addExpense() {
+      const note = document.getElementById("expenseNote").value;
+      const amount = parseFloat(document.getElementById("expenseAmount").value);
+      if (!note || isNaN(amount)) {
+        alert("Lütfen açıklama ve tutar girin.");
+        return;
+      }
+      const expenses = JSON.parse(localStorage.getItem("giderler")) || [];
+      expenses.push({ note, amount });
+      localStorage.setItem("giderler", JSON.stringify(expenses));
+      alert("Gider kaydedildi!");
+    }
+
+    function addDebt() {
+      const title = document.getElementById("debtTitle").value;
+      const amount = parseFloat(document.getElementById("debtAmount").value);
+      const date = document.getElementById("debtDate").value;
+      if (!title || isNaN(amount) || !date) {
+        alert("Lütfen tüm alanları doldurun.");
+        return;
+      }
+      const debts = JSON.parse(localStorage.getItem("borclar")) || [];
+      debts.push({ title, amount, date });
+      localStorage.setItem("borclar", JSON.stringify(debts));
+      alert("Borç kaydedildi!");
+    }
+  </script>
 </body>
 </html>
