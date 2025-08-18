@@ -108,7 +108,7 @@ ul li {
   font-size: 15px;
 }
 
-/* Silme Butonu */
+/* Silme Butonu (genel) */
 ul li button {
   background-color: #e74c3c;
   font-size: 12px;
@@ -140,4 +140,54 @@ label {
   button {
     width: 100%;
   }
+}
+
+/* ==== ALTIN LİSTESİ (CRUD) ÖZEL STİLLER ==== */
+.gold-container ul { margin-top: 14px; }
+.gold-container ul li.gold-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #eef6fc;
+  border-radius: 10px;
+}
+
+.gold-container .gold-info strong { font-size: 15px; }
+.gold-container .gold-info .muted {
+  display: block;
+  font-size: 12px;
+  opacity: .75;
+  margin-top: 2px;
+}
+
+.gold-container .gold-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Edit butonu (override) */
+.gold-container .gold-actions button[data-act="edit"] {
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.gold-container .gold-actions button[data-act="edit"]:hover {
+  transform: translateY(-1px);
+}
+
+/* Sil butonu */
+.gold-container .gold-actions button[data-act="delete"] {
+  background-color: #e74c3c;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.gold-container .gold-actions button[data-act="delete"]:hover {
+  background-color: #c0392b;
+}
+
+/* Mobil */
+@media (max-width: 600px) {
+  .gold-container ul li.gold-item { align-items: flex-start; }
+  .gold-container .gold-actions { width: 100%; justify-content: flex-end; }
 }
