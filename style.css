@@ -1,34 +1,41 @@
 /* =========================
-   MOBILE-FIRST PROFESYONEL TEMA
-   (Mevcut HTML yapısına uyumlu)
+   MOBILE-FIRST PROFESYONEL TEMA (RENK REVİZE)
    ========================= */
 
-/* ---- Değişkenler ---- */
+/* ---- Değişkenler (renk paleti güncellendi) ---- */
 :root{
-  --bg: #0f172a;            /* arka plan (lacivertimsi koyu) */
-  --card: #111827;          /* kart zemin (koyu gri) */
-  --muted: #94a3b8;         /* ikincil metin */
-  --text: #e5e7eb;          /* ana metin */
-  --primary: #22d3ee;       /* vurgu buton rengi (camgöbeği) */
-  --primary-2: #06b6d4;     /* hover tonu */
-  --accent: #a78bfa;        /* ikincil vurgu (mor) */
-  --danger: #ef4444;        /* sil butonu */
-  --danger-2: #dc2626;      /* sil hover */
-  --success: #34d399;       /* pozitif */
-  --radius: 14px;           /* kart köşe */
-  --radius-sm: 10px;        /* küçük köşe */
-  --gap: 14px;              /* boşluk */
-  --shadow: 0 10px 25px rgba(0,0,0,.25);
+  /* Genel (gri + açık mavi) */
+  --bg: #eef2f6;            /* açık gri arka plan */
+  --card: #ffffff;          /* kart zemini (beyaz) */
+  --text: #111827;          /* ana metin (koyu gri) */
+  --muted: #6b7280;         /* ikincil metin (orta gri) */
+  --border: #e5e7eb;        /* kart kenarlığı (açık gri) */
+
+  /* Vurgular (açık mavi tonları) */
+  --primary: #3b82f6;       /* buton/vurgu mavi */
+  --primary-2: #2563eb;     /* hover mavi */
+  --accent: #60a5fa;        /* ikincil vurgu (açık mavi) */
+
+  /* Durum renkleri */
+  --danger: #ef4444;
+  --danger-2: #dc2626;
+  --success: #10b981;
+
+  /* Köşe/gölge/boşluk */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --gap: 14px;
+  --shadow: 0 10px 25px rgba(0,0,0,.08);
 }
 
-/* Sistem koyu/aydınlık desteği (istersen) */
+/* Sistem aydınlık modda çok benzer kalsın (sadece tonlar) */
 @media (prefers-color-scheme: light){
   :root{
-    --bg: #f4f6fb;
+    --bg: #eef2f6;
     --card: #ffffff;
-    --text: #0f172a;
-    --muted: #64748b;
-    --shadow: 0 10px 25px rgba(2,6,23,.08);
+    --text: #111827;
+    --muted: #6b7280;
+    --shadow: 0 10px 25px rgba(2,6,23,.06);
   }
 }
 
@@ -39,54 +46,45 @@ body{
   margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
   color: var(--text);
+  /* Arka plandaki canlı renk halkalarını nötr maviye çektim ve çok hafif yaptım */
   background:
-    radial-gradient(1200px 600px at 100% -50%, rgba(34,211,238,.15), transparent 55%),
-    radial-gradient(1000px 600px at -20% 0%, rgba(167,139,250,.18), transparent 50%),
+    radial-gradient(1200px 600px at 100% -50%, rgba(59,130,246,.10), transparent 55%),
+    radial-gradient(1000px 600px at -20% 0%, rgba(96,165,250,.12), transparent 50%),
     var(--bg);
   letter-spacing: .2px;
 }
 
 /* Başlıklar */
-h1,h2,h3{
-  margin: 0 0 8px 0;
-  line-height: 1.25;
-}
+h1,h2,h3{ margin: 0 0 8px 0; line-height: 1.25; }
 h1{ font-size: clamp(20px, 3.6vw, 28px); }
-h2{ font-size: clamp(18px, 2.6vw, 22px); color: var(--primary); }
-h3{ font-size: clamp(16px, 2.2vw, 20px); }
+h2{ font-size: clamp(18px, 2.6vw, 22px); color: #0f172a; } /* başlıklar koyu gri */
+h3{ font-size: clamp(16px, 2.2vw, 20px); color: #0f172a; }
 
 /* ---- Header ---- */
 .main-header{
-  position: sticky;
-  top: 0;
-  z-index: 20;
+  position: sticky; top: 0; z-index: 20;
   background:
-    linear-gradient(135deg, rgba(34,211,238,.22), rgba(167,139,250,.22)),
+    linear-gradient(135deg, rgba(59,130,246,.12), rgba(96,165,250,.12)),
     var(--card);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid var(--border);
   padding: 14px clamp(12px, 4vw, 22px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
   box-shadow: var(--shadow);
 }
-.main-header h1{
-  display: flex; align-items: center; gap: 8px;
-}
+.main-header h1{ display:flex; align-items:center; gap:8px; }
 
-/* ---- Butonlar ---- */
+/* ---- Butonlar (yapı aynı, renk maviye çekildi) ---- */
 button{
   background: linear-gradient(180deg, var(--primary), var(--primary-2));
-  color:#03272c;
+  color:#ffffff;
   font-weight: 700;
   border: none;
   padding: 10px 14px;
   border-radius: 12px;
   cursor: pointer;
   transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
-  box-shadow: 0 6px 16px rgba(34,211,238,.25);
+  box-shadow: 0 6px 16px rgba(37,99,235,.18);
   white-space: nowrap;
 }
 button:hover{ transform: translateY(-1px); filter: brightness(.98); }
@@ -107,9 +105,9 @@ ul li button{
   margin: 18px auto;
   padding: clamp(12px, 3.2vw, 20px);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--card);
+  background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.4)), var(--card);
   box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,.06);
+  border: 1px solid var(--border);
 }
 
 /* Summary kartlarını grid yap (index’te) */
@@ -118,25 +116,18 @@ ul li button{
   grid-template-columns: 1fr; /* mobile */
   gap: var(--gap);
 }
-@media (min-width: 560px){
-  .summary-container{ grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 900px){
-  .summary-container{ grid-template-columns: repeat(3, 1fr); }
-}
+@media (min-width: 560px){ .summary-container{ grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px){ .summary-container{ grid-template-columns: repeat(3, 1fr); } }
 
 /* Her küçük kart */
 .summary-item{
-  background: rgba(255,255,255,.02);
-  border: 1px solid rgba(255,255,255,.06);
-  border-left: 4px solid var(--accent);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); /* açık mavi vurgu */
   border-radius: 12px;
   padding: 12px 14px;
   min-height: 86px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
 }
 .summary-item p{ margin:0; color: var(--muted); font-size: 13px; }
 .summary-item h2{ margin:0; color: var(--text); font-size: clamp(18px, 4.2vw, 24px); }
@@ -146,11 +137,8 @@ ul li button{
 
 /* ---- Form Alanları ---- */
 label{
-  display:block;
-  margin-top: 6px;
-  margin-bottom: 4px;
-  color: var(--muted);
-  font-size: 13px;
+  display:block; margin-top: 6px; margin-bottom: 4px;
+  color: var(--muted); font-size: 13px;
 }
 
 input[type="text"],
@@ -159,18 +147,18 @@ input[type="date"]{
   width: 100%;
   padding: 12px 12px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid var(--border);
   outline: none;
-  background: rgba(255,255,255,.04);
+  background: #ffffff;
   color: var(--text);
   transition: border-color .15s ease, box-shadow .2s ease, background .2s ease;
   font-size: 14px;
 }
-input::placeholder{ color: rgba(229,231,235,.55); }
+input::placeholder{ color: #9ca3af; }
 input:focus{
-  border-color: rgba(34,211,238,.55);
-  box-shadow: 0 0 0 4px rgba(34,211,238,.15);
-  background: rgba(255,255,255,.06);
+  border-color: rgba(59,130,246,.6);
+  box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+  background: #ffffff;
 }
 
 /* İkili girişleri düzgün hizalamak için (isteğe bağlı) */
@@ -185,8 +173,8 @@ input:focus{
 /* ---- Liste / Satırlar ---- */
 ul{ list-style: none; padding-left: 0; margin: 10px 0 0; }
 ul li{
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.06);
+  background: #ffffff;
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 10px 12px;
   margin: 8px 0;
@@ -198,40 +186,64 @@ ul li{
 ul li > span{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Liste buton grubu */
-ul li div{
-  display: flex;
-  gap: 8px;
-  flex-wrap: nowrap;
-}
+ul li div{ display: flex; gap: 8px; flex-wrap: nowrap; }
 
-/* Sil butonu özel renk */
-ul li button{ background: linear-gradient(180deg, var(--danger), var(--danger-2)); color: #fff; box-shadow: 0 6px 16px rgba(239,68,68,.22); }
+/* Düzenle/Sil renkleri (değiştirmeden koruduk; sadece palete uyumlu) */
+ul li button{ background: linear-gradient(180deg, var(--danger), var(--danger-2)); color: #fff; box-shadow: 0 6px 16px rgba(239,68,68,.16); }
 ul li button:hover{ filter: brightness(.96); }
-
-/* Düzenle butonu (ikincil görünüm) */
 ul li button:first-child{
-  background: linear-gradient(180deg, var(--accent), #7c3aed);
+  background: linear-gradient(180deg, var(--accent), #3b82f6);
   color: #f8fafc;
-  box-shadow: 0 6px 16px rgba(124,58,237,.22);
+  box-shadow: 0 6px 16px rgba(59,130,246,.16);
 }
 
-/* ---- Altın Bölümü ---- */
+/* ---- Altın Bölümü (SİYAH tema) ---- */
+.gold-container{
+  /* Kalan yapı aynı – sadece renkleri koyu yaptık */
+  background: #0b0b0d;                /* siyah/dark zemin */
+  border: 1px solid #1f2937;          /* koyu kenar */
+  color: #e5e7eb;                     /* açık metin */
+}
 .gold-container h3{
-  color: var(--primary);
+  color: #e5e7eb;
+  border-bottom: 1px dashed #334155;
   margin-bottom: 8px;
 }
 .gold-container .summary-item{
-  border-left-color: var(--success);
+  background: rgba(255,255,255,.02);
+  border: 1px solid #1f2937;
+  border-left-color: var(--success);  /* yeşil vurgu */
+  color: #e5e7eb;
+}
+.gold-container input[type="text"],
+.gold-container input[type="number"],
+.gold-container input[type="date"]{
+  background: #0f1115;
+  border: 1px solid #243041;
+  color: #e5e7eb;
+}
+.gold-container input:focus{
+  border-color: rgba(59,130,246,.5);
+  box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+  background: #12151c;
 }
 
-/* Altın satırları (script zaten .gold-item atıyor) */
+/* Altın liste satırları */
 .gold-container ul{ margin-top: 12px; }
-.gold-container ul li.gold-item{ grid-template-columns: 1fr auto; }
-.gold-container .gold-info strong{ font-size: 15px; }
-.gold-container .gold-info .muted{
-  margin-top: 2px; font-size: 12px; color: var(--muted);
+.gold-container ul li.gold-item{
+  grid-template-columns: 1fr auto;
+  background: #0f1115;
+  border-color: #243041;
+  color: #e5e7eb;
 }
+.gold-container .gold-info strong{ font-size: 15px; }
+.gold-container .gold-info .muted{ margin-top: 2px; font-size: 12px; color: #9ca3af; }
 .gold-container .gold-actions{ display: flex; gap: 8px; }
+.gold-container .gold-actions button{
+  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+  color: #ffffff;
+  border: none;
+}
 
 /* ---- Layout genişlikleri ---- */
 .app-container{ max-width: 980px; }
