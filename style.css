@@ -46,13 +46,6 @@ input[type="date"] {
   background: #fff;
 }
 
-/* API fiyat input'u readonly görünümü */
-#goldPrice[readonly] {
-  background: #f5f9ff;
-  color: #2c3e50;
-  cursor: default;
-}
-
 /* Üst Menü */
 .main-header {
   background: linear-gradient(90deg, #4facfe, #00f2fe);
@@ -99,27 +92,8 @@ ul li {
   font-size: 15px;
 }
 
-/* Silme Butonu (genel) */
-ul li button {
-  background-color: #e74c3c;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 5px;
-}
-ul li button:hover { background-color: #c0392b; }
-
 /* Etiketler */
 label { font-weight: 500; margin-top: 10px; display: block; color: #333; }
-
-/* Otomatik fiyat alanı */
-.auto-gold {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  opacity: 0.9;
-}
 
 /* ==== ALTIN LİSTESİ (CRUD) ÖZEL STİLLER ==== */
 .gold-container ul { margin-top: 14px; }
@@ -135,17 +109,17 @@ label { font-weight: 500; margin-top: 10px; display: block; color: #333; }
 .gold-container .gold-info strong { font-size: 15px; }
 .gold-container .gold-info .muted { display: block; font-size: 12px; opacity: .75; margin-top: 2px; }
 .gold-container .gold-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-/* Edit butonu (override) */
+
+/* Eylem butonları */
 .gold-container .gold-actions button[data-act="edit"] {
   background: linear-gradient(135deg, #6dd5ed, #2193b0);
   font-size: 12px; padding: 6px 10px; border-radius: 6px;
 }
-.gold-container .gold-actions button[data-act="edit"]:hover { transform: translateY(-1px); }
-/* Sil butonu */
 .gold-container .gold-actions button[data-act="delete"] {
   background-color: #e74c3c;
   font-size: 12px; padding: 6px 10px; border-radius: 6px;
 }
+.gold-container .gold-actions button[data-act="edit"]:hover { transform: translateY(-1px); }
 .gold-container .gold-actions button[data-act="delete"]:hover { background-color: #c0392b; }
 
 /* Responsive */
