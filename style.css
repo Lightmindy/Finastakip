@@ -1,64 +1,62 @@
-/* Genel sayfa ayarları */
+/* Google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #f3f4f7;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+  color: #222;
+  line-height: 1.5;
 }
 
-/* Başlık */
+/* Üst başlık */
 header {
-  background: linear-gradient(135deg, #c4001d, #e6002f);
+  background: linear-gradient(135deg, #d90429, #ef233c);
   color: #fff;
   text-align: center;
-  padding: 15px;
+  padding: 18px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1000;
 }
 
-/* Ana kapsayıcı */
+/* Genel kapsayıcı */
 .container {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Kart yapısı */
+/* Kart tasarımı */
 .card {
   background: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .card h2 {
-  margin-top: 0;
+  margin: 0 0 12px;
   font-size: 18px;
-  color: #c4001d;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
-  margin-bottom: 12px;
+  font-weight: 600;
+  color: #d90429;
 }
 
 /* Özel kart renkleri */
-.salary-card {
-  border-left: 6px solid #c4001d;
-}
-
-.debt-card {
-  border-left: 6px solid #0066cc;
-}
-
-.gold-card {
-  border-left: 6px solid #f1b800;
-  background: linear-gradient(135deg, #fff8d6, #ffef99);
-}
-
-.future-card {
-  border-left: 6px solid #28a745;
-}
+.salary-card { border-top: 4px solid #d90429; }
+.debt-card   { border-top: 4px solid #0077b6; }
+.gold-card   { border-top: 4px solid #ffb703; background: #fffdf5; }
+.future-card { border-top: 4px solid #06d6a0; }
 
 /* Liste görünümü */
 ul {
@@ -68,9 +66,9 @@ ul {
 }
 
 ul li {
-  background: #fafafa;
-  margin: 6px 0;
   padding: 10px;
+  background: #f7f7f7;
+  margin-bottom: 8px;
   border-radius: 8px;
   font-size: 15px;
   display: flex;
@@ -81,58 +79,52 @@ ul li {
 /* Input ve butonlar */
 input, button {
   width: 100%;
-  padding: 10px;
-  margin: 6px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   font-size: 15px;
+  margin: 6px 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 button {
-  background: linear-gradient(135deg, #c4001d, #e6002f);
+  background: linear-gradient(135deg, #d90429, #ef233c);
   color: #fff;
+  font-weight: 600;
   border: none;
-  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s;
 }
 
 button:hover {
   opacity: 0.9;
 }
 
-/* Alt menü */
+/* Alt navigasyon */
 .footer-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background: #fff;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #eee;
   display: flex;
   justify-content: space-around;
-  padding: 8px 0;
+  padding: 10px 0;
 }
 
 .footer-nav button {
   flex: 1;
   margin: 0 5px;
-  font-size: 14px;
-  padding: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f7f7f7;
+  color: #333;
+  font-weight: 500;
 }
 
-/* Mobil uyum */
-@media (max-width: 600px) {
-  header {
-    font-size: 18px;
-  }
-
-  .card h2 {
-    font-size: 16px;
-  }
-
-  input, button {
-    font-size: 14px;
-  }
+.footer-nav button.active {
+  background: #d90429;
+  color: #fff;
 }
