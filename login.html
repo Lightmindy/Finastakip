@@ -1,145 +1,120 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Giriş | Finans</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giriş</title>
 <style>
-/* ====== GENEL ====== */
-:root{
-  --bg1:#0a0c10; --bg2:#0b0d13; --bgAccent:#1f2937;
-  --card:#ffffff; --text:#111827; --muted:#6b7280; --border:#e5e7eb;
-  --primary:#3b82f6; --primary-2:#2563eb;
-  --btn-bg:#ffffff; --btn-text:#111111;
-  --radius:16px; --radius-sm:12px; --shadow:0 12px 32px rgba(0,0,0,.28);
+/* ===== GENEL ===== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #e0f0ff, #cfd9df);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  color:#f3f4f6; background: radial-gradient(900px 420px at 85% -10%, rgba(59,130,246,.18), transparent 60%),
-                   radial-gradient(700px 320px at 0% 0%, rgba(250,204,21,.06), transparent 60%),
-                   linear-gradient(180deg, var(--bg1), var(--bg2) 60%, #090b10);
-}
-
-/* ORTA HIZA */
-.wrapper{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:24px; }
 
 /* KART */
-.card{
-  width:100%; max-width:420px; background:var(--card); color:var(--text);
-  border-radius:var(--radius); box-shadow:var(--shadow); padding:24px 22px;
-  position:relative; overflow:hidden;
-  transform:translateY(10px); opacity:0; animation:cardIn .6s ease forwards;
+.card {
+  background: #fff;
+  padding: 35px 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  animation: fadeIn 0.7s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
-@keyframes cardIn{to{transform:none; opacity:1}}
-.card::before{
-  content:""; position:absolute; inset:-40% -40% auto auto; width:300px; height:300px;
-  background: radial-gradient(closest-side, rgba(59,130,246,.12), transparent);
-  transform: rotate(25deg);
-}
-.brand{display:flex; align-items:center; gap:10px; margin-bottom:18px;}
-.brand .logo{
-  width:42px; height:42px; border-radius:12px;
-  background:linear-gradient(135deg, var(--primary), var(--primary-2));
-  box-shadow:0 8px 18px rgba(37,99,235,.25);
-}
-.brand h1{font-size:20px; margin:0}
-
-/* FORM */
-.form-group{margin-bottom:14px}
-label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px}
-.input{
-  width:100%; padding:12px 44px 12px 12px; border-radius:var(--radius-sm);
-  border:1px solid var(--border); background:#fff; color:var(--text); font-size:15px;
-}
-.input-wrap{position:relative}
-.icon-left{position:absolute; top:50%; left:12px; transform:translateY(-50%); font-size:16px; color:#64748b}
-.input.has-left{padding-left:38px}
-.icon-right-btn{
-  position:absolute; top:50%; right:10px; transform:translateY(-50%);
-  background:transparent; border:none; cursor:pointer; font-size:16px; color:#6b7280;
+@keyframes fadeIn {
+  to {opacity: 1; transform: translateY(0);}
 }
 
-/* HATIRLA/UNUTTUM */
-.row{display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--muted); margin:6px 0 10px}
-a.link{color:var(--primary-2); text-decoration:none}
-a.link:hover{text-decoration:underline}
+/* LOGO */
+.logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+}
+
+/* BAŞLIK */
+h1 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  color: #374151;
+}
+
+/* INPUTLAR */
+.input-group {
+  margin-bottom: 18px;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  outline: none;
+  transition: all .2s ease;
+}
+.input-group input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 6px rgba(96,165,250,0.4);
+}
 
 /* BUTON */
-.btn{
-  width:100%; background:var(--btn-bg); color:var(--btn-text);
-  border:1px solid #000; border-radius:var(--radius-sm);
-  padding:12px 16px; font-size:16px; font-weight:700; cursor:pointer;
-  position:relative; overflow:hidden;
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .3s ease;
 }
-.btn.loading{color:#00000080; pointer-events:none}
-.spinner{
-  display:none; width:18px; height:18px; border:2px solid #000; border-right-color:transparent;
-  border-radius:50%; position:absolute; right:14px; top:50%; transform:translateY(-50%);
-  animation:spin .7s linear infinite;
+button:hover {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transform: scale(1.02);
 }
-.btn.loading .spinner{display:inline-block}
-@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+button:active {
+  transform: scale(0.98);
+}
 
-/* ALT */
-.small{margin-top:14px; font-size:12px; color:#9ca3af; text-align:center}
+/* LOADING ANİMASYONU */
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+  margin-right: 8px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ALT YAZI */
+small {
+  display: block;
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 13px;
+}
 </style>
-</head>
-<body>
-<div class="wrapper">
-  <div class="card">
-    <div class="brand">
-      <div class="logo"></div>
-      <h1>Finans Giriş</h1>
-    </div>
-    <form id="loginForm">
-      <div class="form-group input-wrap">
-        <label for="username">Kullanıcı adı</label>
-        <span class="icon-left">👤</span>
-        <input id="username" class="input has-left" type="text" placeholder="kullanici123" required />
-      </div>
-      <div class="form-group input-wrap">
-        <label for="password">Şifre</label>
-        <span class="icon-left">🔒</span>
-        <input id="password" class="input has-left" type="password" placeholder="••••••••" required />
-        <button type="button" class="icon-right-btn" id="togglePwd">👁️</button>
-      </div>
-      <div class="row">
-        <label><input type="checkbox" /> Beni hatırla</label>
-        <a href="#" class="link">Şifremi unuttum</a>
-      </div>
-      <button class="btn" id="loginBtn" type="submit">
-        Giriş Yap <span class="spinner"></span>
-      </button>
-      <div class="small">Bu cihaz size aitse “Beni hatırla”yı işaretleyin.</div>
-    </form>
-  </div>
-</div>
-
-<script>
-document.getElementById('togglePwd').addEventListener('click', function(){
-  const pwd = document.getElementById('password');
-  pwd.type = pwd.type === 'password' ? 'text' : 'password';
-  this.textContent = pwd.type === 'password' ? '👁️' : '🙈';
-});
-
-const form = document.getElementById('loginForm');
-const btn  = document.getElementById('loginBtn');
-
-form.addEventListener('submit', function(e){
-  e.preventDefault();
-  const user = document.getElementById('username').value.trim();
-  const pass = document.getElementById('password').value.trim();
-  if(!user || !pass){ alert('Kullanıcı adı ve şifre zorunlu.'); return; }
-  btn.classList.add('loading');
-  setTimeout(()=>{
-    btn.classList.remove('loading');
-    // Burada index.html'e yönlendirme
-    window.location.href = "index.html";
-  }, 900);
-});
-</script>
-</body>
-</html>
