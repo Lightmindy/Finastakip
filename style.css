@@ -1,126 +1,250 @@
-/* Genel yapı */
-body {
-  margin: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background: #f4f6f8;
-  color: #333;
+/* =========================
+   MOBILE-FIRST PROFESYONEL TEMA
+   (Mevcut HTML yapısına uyumlu)
+   ========================= */
+
+/* ---- Değişkenler ---- */
+:root{
+  --bg: #0f172a;            /* arka plan (lacivertimsi koyu) */
+  --card: #111827;          /* kart zemin (koyu gri) */
+  --muted: #94a3b8;         /* ikincil metin */
+  --text: #e5e7eb;          /* ana metin */
+  --primary: #22d3ee;       /* vurgu buton rengi (camgöbeği) */
+  --primary-2: #06b6d4;     /* hover tonu */
+  --accent: #a78bfa;        /* ikincil vurgu (mor) */
+  --danger: #ef4444;        /* sil butonu */
+  --danger-2: #dc2626;      /* sil hover */
+  --success: #34d399;       /* pozitif */
+  --radius: 14px;           /* kart köşe */
+  --radius-sm: 10px;        /* küçük köşe */
+  --gap: 14px;              /* boşluk */
+  --shadow: 0 10px 25px rgba(0,0,0,.25);
 }
 
-/* Header */
-.main-header {
-  background: linear-gradient(135deg, #2196f3, #21cbf3);
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+/* Sistem koyu/aydınlık desteği (istersen) */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #64748b;
+    --shadow: 0 10px 25px rgba(2,6,23,.08);
+  }
+}
+
+/* ---- Reset / Temel ---- */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 100% -50%, rgba(34,211,238,.15), transparent 55%),
+    radial-gradient(1000px 600px at -20% 0%, rgba(167,139,250,.18), transparent 50%),
+    var(--bg);
+  letter-spacing: .2px;
+}
+
+/* Başlıklar */
+h1,h2,h3{
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+h1{ font-size: clamp(20px, 3.6vw, 28px); }
+h2{ font-size: clamp(18px, 2.6vw, 22px); color: var(--primary); }
+h3{ font-size: clamp(16px, 2.2vw, 20px); }
+
+/* ---- Header ---- */
+.main-header{
   position: sticky;
   top: 0;
-  z-index: 10;
-}
-
-/* Uygulama konteyner */
-.app-container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 0 15px;
-}
-
-/* Kart (her bölüm) */
-section {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-section h2 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  color: #1976d2;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 5px;
-}
-
-/* Inputlar */
-input {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  font-size: 0.95rem;
-  transition: 0.3s;
-}
-
-input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 5px rgba(33,150,243,0.3);
-}
-
-/* Butonlar */
-button {
-  display: inline-block;
-  background: #1976d2;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  margin-top: 8px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #1565c0;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-}
-
-/* Listeler */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  background: #f9f9f9;
-  margin: 6px 0;
-  padding: 10px;
-  border-radius: 6px;
+  z-index: 20;
+  background:
+    linear-gradient(135deg, rgba(34,211,238,.22), rgba(167,139,250,.22)),
+    var(--card);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 14px clamp(12px, 4vw, 22px);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-size: 0.95rem;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+.main-header h1{
+  display: flex; align-items: center; gap: 8px;
 }
 
-ul li button {
-  background: #e53935;
+/* ---- Butonlar ---- */
+button{
+  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+  color:#03272c;
+  font-weight: 700;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+  box-shadow: 0 6px 16px rgba(34,211,238,.25);
+  white-space: nowrap;
+}
+button:hover{ transform: translateY(-1px); filter: brightness(.98); }
+button:active{ transform: translateY(0); filter: brightness(.95); }
+
+/* Küçük butonlar (listelerde) */
+ul li button{
   padding: 6px 10px;
-  font-size: 0.8rem;
+  border-radius: 9px;
+  font-size: 12px;
 }
 
-ul li button:hover {
-  background: #c62828;
+/* ---- Kart/Konteyner ---- */
+.summary-container,
+.app-container,
+.gold-container{
+  max-width: 980px;
+  margin: 18px auto;
+  padding: clamp(12px, 3.2vw, 20px);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--card);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,.06);
 }
 
-/* Altın & Özet alanları */
-.summary {
+/* Summary kartlarını grid yap (index’te) */
+.summary-container{
+  display: grid;
+  grid-template-columns: 1fr; /* mobile */
+  gap: var(--gap);
+}
+@media (min-width: 560px){
+  .summary-container{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px){
+  .summary-container{ grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Her küçük kart */
+.summary-item{
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.06);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-height: 86px;
   display: flex;
-  justify-content: space-around;
-  text-align: center;
-  padding: 15px;
-  background: #e3f2fd;
-  border-radius: 10px;
-  margin-top: 10px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.summary-item p{ margin:0; color: var(--muted); font-size: 13px; }
+.summary-item h2{ margin:0; color: var(--text); font-size: clamp(18px, 4.2vw, 24px); }
+
+/* Maaş günü alt yazısı */
+#paydayNextDate{ display:block; margin-top: 4px; color: var(--muted); }
+
+/* ---- Form Alanları ---- */
+label{
+  display:block;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.summary div {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #0d47a1;
+input[type="text"],
+input[type="number"],
+input[type="date"]{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  outline: none;
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  transition: border-color .15s ease, box-shadow .2s ease, background .2s ease;
+  font-size: 14px;
 }
+input::placeholder{ color: rgba(229,231,235,.55); }
+input:focus{
+  border-color: rgba(34,211,238,.55);
+  box-shadow: 0 0 0 4px rgba(34,211,238,.15);
+  background: rgba(255,255,255,.06);
+}
+
+/* İkili girişleri düzgün hizalamak için (isteğe bağlı) */
+.input-row{
+  display: grid; gap: var(--gap);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 560px){
+  .input-row{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- Liste / Satırlar ---- */
+ul{ list-style: none; padding-left: 0; margin: 10px 0 0; }
+ul li{
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+ul li > span{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Liste buton grubu */
+ul li div{
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+/* Sil butonu özel renk */
+ul li button{ background: linear-gradient(180deg, var(--danger), var(--danger-2)); color: #fff; box-shadow: 0 6px 16px rgba(239,68,68,.22); }
+ul li button:hover{ filter: brightness(.96); }
+
+/* Düzenle butonu (ikincil görünüm) */
+ul li button:first-child{
+  background: linear-gradient(180deg, var(--accent), #7c3aed);
+  color: #f8fafc;
+  box-shadow: 0 6px 16px rgba(124,58,237,.22);
+}
+
+/* ---- Altın Bölümü ---- */
+.gold-container h3{
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+.gold-container .summary-item{
+  border-left-color: var(--success);
+}
+
+/* Altın satırları (script zaten .gold-item atıyor) */
+.gold-container ul{ margin-top: 12px; }
+.gold-container ul li.gold-item{ grid-template-columns: 1fr auto; }
+.gold-container .gold-info strong{ font-size: 15px; }
+.gold-container .gold-info .muted{
+  margin-top: 2px; font-size: 12px; color: var(--muted);
+}
+.gold-container .gold-actions{ display: flex; gap: 8px; }
+
+/* ---- Layout genişlikleri ---- */
+.app-container{ max-width: 980px; }
+.gold-container{ max-width: 980px; }
+
+/* ---- Küçük metinler ---- */
+small{ color: var(--muted); }
+
+/* ---- Responsive dokunuşlar ---- */
+@media (max-width: 400px){
+  .main-header{ padding: 12px 10px; }
+  button{ width: 100%; }
+}
+
+/* ---- Kaydırma (iOS için yumuşak) ---- */
+html{ scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
