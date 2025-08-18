@@ -1,68 +1,103 @@
 /* =========================
-   DARK THEME (siyah arka plan + beyaz butonlar)
+   DARK BACKGROUND + WHITE BUTTONS + GOLD CARD
    ========================= */
 
 :root{
-  --bg: #000000;       /* Arka plan siyah */
-  --card: #ffffff;     /* Kartlar beyaz */
-  --text: #111111;     /* Kart içi yazılar siyah */
-  --muted: #6b7280;
-  --border: #e5e7eb;
+  --bg: #000;              /* ana arka plan (siyah taban) */
+  --card: #ffffff;         /* kart zemini */
+  --text: #111827;         /* kart içi metin (koyu) */
+  --muted: #6b7280;        /* ikincil metin */
+  --border: #e5e7eb;       /* kart kenarlığı */
 
-  --accent: #e11d48;   /* Kırmızı ton (buton hover, highlight) */
-  --gold: #FFD700;     /* Altın rengi */
-  --gold-dark: #B8860B;
+  --primary: #3b82f6;      /* ikon vurgusu (mavi) */
+  --accent: #60a5fa;       /* sol şerit için açık mavi */
+
+  --danger: #ef4444;       /* sil için ton */
+  --success: #10b981;      /* pozitif */
+
+  --gold: #FFD700;         /* altın arka plan */
+  --gold-dark: #B8860B;    /* altın yazı rengi */
 
   --radius: 14px;
+  --radius-sm: 10px;
   --gap: 14px;
-  --shadow: 0 6px 16px rgba(0,0,0,.4);
+  --shadow: 0 6px 16px rgba(0,0,0,.40);
 }
 
-/* Genel reset */
-*{ box-sizing: border-box; margin:0; padding:0; }
+/* Reset & temel */
+*{ box-sizing: border-box; }
+html, body{ height:100%; margin:0; padding:0; }
 body{
-  font-family: system-ui, Arial;
-  color: #fff;
-  background: var(--bg);
-  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+  color:#f5f6f7;
+  background:
+    radial-gradient(900px 420px at 85% -10%, rgba(59,130,246,.18), transparent 60%),
+    radial-gradient(700px 320px at 0% 0%, rgba(250,204,21,.06), transparent 60%),
+    linear-gradient(180deg, #0a0c10, #090a0d 60%, #08090c);
 }
-h2{ 
-  font-size: clamp(18px, 2.6vw, 22px); 
+
+/* Başlıklar */
+h1,h2{ margin:0 0 10px 0; line-height:1.25; }
+h1{ font-size: 1.6rem; }
+h2{
+  font-size: 1.2rem;
   color: var(--text);
-  display:flex; 
-  align-items:center; 
-  gap:8px; 
+  display:flex; align-items:center; gap:8px;
 }
-h2 i{ font-size:18px; color: var(--accent); }
+h2 i{ color: var(--primary); }
 
 /* Kartlar */
-.summary-container{ display:grid; gap:var(--gap); }
-.summary-item{
+.card{
   background: var(--card);
   color: var(--text);
   border-radius: var(--radius);
-  padding:14px 16px;
+  padding: 16px;
+  margin: var(--gap) 0;
   box-shadow: var(--shadow);
 }
 
-/* Altın kartı özel */
-.gold-container .summary-item{
-  background: linear-gradient(180deg, #fff8dc, #fffaf0);
-  border:1px solid var(--gold-dark);
-  color:#5c4300;
+/* ALTIN KART */
+.card.gold{
+  background: var(--gold);
+  color: var(--gold-dark);
 }
-.gold-container .summary-item h2 i{ color: var(--gold-dark); }
+.card.gold h2 i{
+  color: var(--gold-dark);
+}
 
-/* Butonlar */
+/* Butonlar (her yerde beyaz) */
 button{
-  background:#fff;
-  color:#000;
-  border:1px solid #000;
-  padding:10px 16px;
-  border-radius: var(--radius);
-  font-weight:600;
+  background: #fff;
+  color: #111;
+  border:none;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor:pointer;
-  transition: background .2s ease;
+  transition: all .2s ease;
+  width: 100%;
+  margin-top: 8px;
 }
-button:hover{ background:#f3f3f3; }
-button:active{ background:#e5e5e5; }
+button:hover{
+  background: #f3f4f6;
+}
+
+/* Listeler */
+ul{ list-style:none; padding:0; margin:0; }
+ul li{
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+}
+ul li:last-child{ border-bottom:none; }
+
+/* Inputlar */
+input, select{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border:1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size:0.95rem;
+}
