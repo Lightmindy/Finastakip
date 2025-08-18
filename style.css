@@ -1,132 +1,234 @@
 /* Genel ayarlar */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: #f5f5f5;
-  color: #333;
-}
-
-/* Üst başlık */
-.main-header {
-  background: linear-gradient(135deg, #b10020, #e6002f);
-  color: #fff;
-  text-align: center;
-  padding: 15px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.main-header h1 {
-  font-size: 20px;
-  margin: 0;
-}
-
-.main-header .logo {
-  width: 40px;
-  height: 40px;
-}
-
-.details-btn {
-  background: #fff;
-  color: #b10020;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Kart yapısı */
-.app-container {
-  padding: 15px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-}
-
-.card h2 {
-  font-size: 18px;
-  color: #b10020;
-  margin-bottom: 10px;
-}
-
-/* Input ve butonlar */
-input, button {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
+* {
   box-sizing: border-box;
 }
 
-button {
-  background: linear-gradient(135deg, #b10020, #e6002f);
-  color: #fff;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f6fa;
+  color: #2c3e50;
+  min-height: 100vh;
 }
 
-button:hover {
-  opacity: 0.9;
+/* Header */
+.main-header {
+  background: #b71c1c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* Liste */
-ul {
-  list-style: none;
-  padding: 0;
+.main-header .logo {
+  height: 28px;
+  position: absolute;
+  left: 15px;
+}
+
+.main-header h1 {
+  font-size: 18px;
   margin: 0;
 }
 
-ul li {
-  background: #fafafa;
+.main-header .details-btn {
+  position: absolute;
+  right: 15px;
+  background: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #b71c1c;
+  transition: 0.3s;
+}
+
+.main-header .details-btn:hover {
+  background: #ffe5e5;
+}
+
+/* Uygulama container */
+.app-container {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Kartlar */
+.card {
+  background: linear-gradient(135deg, #b71c1c 40%, #ffffff 100%);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  animation: fadeSlide 0.6s ease forwards;
+}
+
+/* Kart desen */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 160px; height: 160px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+@keyframes fadeSlide {
+  from { transform: translateY(15px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 6px;
+}
+
+.card p {
+  font-size: 17px;
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+/* Altın kartı özel */
+.gold-card {
+  background: linear-gradient(135deg, #f39c12 40%, #ffffff 100%);
+  color: #2c3e50;
+}
+
+/* Input ve butonlar */
+input {
+  width: 100%;
+  padding: 12px;
   margin: 6px 0;
-  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  border-left: 5px solid #b10020;
+  font-size: 14px;
+}
+
+/* Modern buton */
+button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #b71c1c;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #8e0000;
+}
+
+/* Ripple efekti */
+button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+button:active::after {
+  width: 220%;
+  height: 220%;
+}
+
+/* Listeler */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+ul li {
+  background: rgba(255,255,255,0.2);
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-/* Altın kartı farklı renkte */
-.gold-card {
-  background: linear-gradient(135deg, #ffd700, #ffcc00);
-  color: #333;
+/* Detay Panel */
+.details-panel {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+  animation: fadeIn 0.4s ease;
 }
 
-.gold-card h2 {
-  color: #333;
+.details-content {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 80px auto;
+  width: 90%;
+  max-width: 400px;
+  transform: translateY(-30px);
+  opacity: 0;
+  animation: slideIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Mobil uyum */
 @media (max-width: 600px) {
-  .main-header h1 {
-    font-size: 16px;
+  .card {
+    padding: 15px;
   }
-
   .card h2 {
+    font-size: 15px;
+  }
+  .card p {
     font-size: 16px;
   }
-
   input, button {
     font-size: 14px;
+    padding: 12px;
   }
 }
