@@ -1,6 +1,6 @@
 // ---------- MAAŞ ----------
 function saveSalary() {
-  const salary = parseFloat(document.getElementById("salaryInput").value);
+  const salary = parseFloat(document.getElementById("salaryInput")?.value);
   if (!isNaN(salary)) {
     localStorage.setItem("maas", salary);
     alert("Maaş kaydedildi!");
@@ -13,8 +13,8 @@ function getSalary() {
 
 // ---------- GİDER ----------
 function addExpense() {
-  const note = document.getElementById("expenseNote").value;
-  const amount = parseFloat(document.getElementById("expenseAmount").value);
+  const note = document.getElementById("expenseNote")?.value;
+  const amount = parseFloat(document.getElementById("expenseAmount")?.value);
   if (!note || isNaN(amount)) {
     alert("Lütfen açıklama ve tutar girin.");
     return;
@@ -31,9 +31,9 @@ function getExpenses() {
 
 // ---------- BORÇ ----------
 function addDebt() {
-  const title = document.getElementById("debtTitle").value;
-  const amount = parseFloat(document.getElementById("debtAmount").value);
-  const date = document.getElementById("debtDate").value;
+  const title = document.getElementById("debtTitle")?.value;
+  const amount = parseFloat(document.getElementById("debtAmount")?.value);
+  const date = document.getElementById("debtDate")?.value;
   if (!title || isNaN(amount) || !date) {
     alert("Tüm alanları doldurun.");
     return;
@@ -50,9 +50,9 @@ function getDebts() {
 
 // ---------- VERDİĞİM BORÇ ----------
 function addIncoming() {
-  const name = document.getElementById("lenderName").value;
-  const amount = parseFloat(document.getElementById("lenderAmount").value);
-  const date = document.getElementById("lenderDate").value;
+  const name = document.getElementById("lenderName")?.value;
+  const amount = parseFloat(document.getElementById("lenderAmount")?.value);
+  const date = document.getElementById("lenderDate")?.value;
   if (!name || isNaN(amount) || !date) {
     alert("Tüm alanları doldurun.");
     return;
@@ -67,19 +67,166 @@ function getIncoming() {
   return JSON.parse(localStorage.getItem("gelecekPara")) || [];
 }
 
-// ---------- ALTIN ----------
-function addGold() {
-  const gram = parseFloat(document.getElementById("goldInput").value);
-  const price = parseFloat(document.getElementById("goldPrice").value);
-  if (isNaN(gram) || isNaN(price)) {
-    alert("Geçerli değerler girin.");
-    return;
+/* ================== ALTIN (CRUD + Tekil Gram Fiyatı) ================== */
+(function GoldModule() {
+  const LS_ITEMS = "altinlar";       // mevcut anahtar korunur
+  const LS_PRICE = "goldUnitPrice";  // tekil gram fiyatı
+
+  // DOM
+  const elPrice      = document.getElementById("goldPrice");
+  const elInputGram  = document.getElementById("goldInput");
+  const elList       = document.getElementById("goldList");
+  const elTotalGram  = document.getElementById("totalGoldGram");
+  const elTotalValue = document.getElementById("totalGoldValue");
+
+  // Bu sayfada altın paneli yoksa çık
+  if (!elList || !elTotalGram || !elTotalValue) return;
+
+  // Durum
+  let items = [];     // {id, gram}
+  let unitPrice = 0;  // tekil gram fiyatı
+
+  // Utils
+  const uid = () => Math.random().toString(36).slice(2, 9);
+  const n = (v) => {
+    const x = parseFloat(v);
+    return Number.isFinite(x) ? x : 0;
+  };
+  const fmt = (v) => (Number(v || 0)).toLocaleString("tr-TR", { maximumFractionDigits: 2 });
+
+  // Yükle/Kaydet
+  function load() {
+    // Eski {gram, price} kayıtlarını {id, gram} formatına taşır.
+    const raw = JSON.parse(localStorage.getItem(LS_ITEMS)) || [];
+    items = raw.map((it) => {
+      const g = typeof it.gram === "number" ? it.gram : n(it.gram);
+      return { id: it.id || uid(), gram: g };
+    });
+    unitPrice = n(localStorage.getItem(LS_PRICE));
+
+    if (elPrice) elPrice.value = unitPrice ? String(unitPrice) : "";
   }
-  const golds = JSON.parse(localStorage.getItem("altinlar")) || [];
-  golds.push({ gram, price });
-  localStorage.setItem("altinlar", JSON.stringify(golds));
-  displayGold();
-}
+
+  function save() {
+    localStorage.setItem(LS_ITEMS, JSON.stringify(items));
+    localStorage.setItem(LS_PRICE, String(unitPrice || 0));
+  }
+
+  // Çizim
+  function render() {
+    elList.innerHTML = "";
+
+    let sumG = 0, sumVal = 0;
+
+    items.forEach((it) => {
+      sumG += it.gram;
+      sumVal += it.gram * (unitPrice || 0);
+
+      const li = document.createElement("li");
+      li.className = "gold-item";
+      li.dataset.id = it.id;
+
+      const info = document.createElement("div");
+      info.className = "gold-info";
+      info.innerHTML = `
+        <strong>${fmt(it.gram)} gr</strong>
+        <div class="muted">Değer: ${fmt(it.gram * (unitPrice || 0))} ₺</div>
+      `;
+
+      const actions = document.createElement("div");
+      actions.className = "gold-actions";
+
+      const btnEdit = document.createElement("button");
+      btnEdit.textContent = "Düzenle";
+      btnEdit.setAttribute("data-act", "edit");
+
+      const btnDel = document.createElement("button");
+      btnDel.textContent = "Sil";
+      btnDel.setAttribute("data-act", "delete");
+
+      actions.appendChild(btnEdit);
+      actions.appendChild(btnDel);
+
+      li.appendChild(info);
+      li.appendChild(actions);
+      elList.appendChild(li);
+    });
+
+    elTotalGram.textContent = fmt(sumG);
+    elTotalValue.textContent = fmt(sumVal);
+  }
+
+  // İşlemler
+  function addItem(gram) {
+    const g = n(gram);
+    if (g <= 0) {
+      alert("Lütfen geçerli bir gram değeri girin.");
+      return;
+    }
+    items.push({ id: uid(), gram: g });
+    save(); render();
+  }
+
+  function editItem(id) {
+    const idx = items.findIndex((x) => x.id === id);
+    if (idx === -1) return;
+
+    const nv = prompt("Yeni gram değerini girin:", String(items[idx].gram));
+    if (nv === null) return;
+
+    const g = n(nv);
+    if (g <= 0) {
+      alert("Geçerli bir gram değeri girin.");
+      return;
+    }
+    items[idx].gram = g;
+    save(); render();
+  }
+
+  function deleteItem(id) {
+    items = items.filter((x) => x.id !== id);
+    save(); render();
+  }
+
+  function updateUnitPriceFromInput(val) {
+    unitPrice = n(val);
+    save(); render();
+  }
+
+  // Dışa açık: HTML’de onclick="addGold()" var
+  window.addGold = function () {
+    const g = elInputGram?.value;
+    addItem(g);
+    if (elInputGram) elInputGram.value = "";
+  };
+
+  // Olaylar
+  elList.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const act = btn.getAttribute("data-act");
+    const id = btn.closest("li")?.dataset?.id;
+    if (!id) return;
+
+    if (act === "edit") editItem(id);
+    else if (act === "delete") deleteItem(id);
+  });
+
+  if (elPrice) {
+    // Fiyat değişince anında kaydet + yeniden hesapla
+    elPrice.addEventListener("input", (e) => {
+      updateUnitPriceFromInput(e.target.value);
+    });
+  }
+
+  // Dışarıdan erişim (gerekirse)
+  window.displayGold = function () { render(); };
+  window.getGoldUnitPrice = function () { return unitPrice; };
+
+  // Başlat
+  load();
+  render();
+})();
 
 // ---------- ANASAYFA VERİLERİ ----------
 function updateIndex() {
@@ -111,31 +258,9 @@ function updateIndex() {
       upcomingList.appendChild(li);
     });
 
-    displayGold();
+    // Altın toplamlarını da çiz
+    if (typeof window.displayGold === "function") window.displayGold();
   }
-}
-
-// ---------- ALTIN GÖSTER ----------
-function displayGold() {
-  const golds = JSON.parse(localStorage.getItem("altinlar")) || [];
-  const totalGr = golds.reduce((sum, g) => sum + g.gram, 0);
-  const totalVal = golds.reduce((sum, g) => sum + g.gram * g.price, 0);
-
-  const list = document.getElementById("goldList");
-  const grSpan = document.getElementById("totalGoldGram");
-  const valSpan = document.getElementById("totalGoldValue");
-
-  if (list) {
-    list.innerHTML = "";
-    golds.forEach(g => {
-      const li = document.createElement("li");
-      li.textContent = `${g.gram} gr @ ${g.price}₺`;
-      list.appendChild(li);
-    });
-  }
-
-  if (grSpan) grSpan.textContent = totalGr.toFixed(2);
-  if (valSpan) valSpan.textContent = totalVal.toFixed(2);
 }
 
 // ---------- DETAY SAYFASI GÖSTER ----------
@@ -208,4 +333,5 @@ function loadDetailData() {
 window.onload = function () {
   updateIndex();
   loadDetailData();
+  if (typeof window.displayGold === "function") window.displayGold();
 };
