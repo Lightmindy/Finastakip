@@ -1,72 +1,77 @@
 :root{
-  --bg: #f9fafb;          /* daha açık arka plan */
+  --bg: #f9fafc;          /* biraz daha açık ve ferah arka plan */
   --card: #ffffff;        /* kart zemini */
-  --text: #111827;        /* koyu metin */
+  --text: #111827;        /* daha net koyu metin */
   --muted: #6b7280;       /* ikincil metin */
   --border: #e5e7eb;      /* kenarlık */
-  
-  /* Ana renk paleti değiştirildi */
-  --primary: #e11d48;     /* iOS mavi yerine canlı kırmızı (Ziraat Bankası havası) */
-  --primary-pressed: #be123c;
-  --danger: #dc2626;      /* sil */
+  --primary: #2563eb;     /* canlı mavi */
+  --primary-pressed: #1d4ed8;
+  --danger: #dc2626;      /* kırmızı (sil) */
   --danger-pressed: #b91c1c;
-  --success: #059669;     /* pozitif vurgular (yeşil) */
-
+  --success: #059669;     /* yeşil (pozitif) */
   --radius-lg: 14px;
   --radius: 12px;
   --radius-sm: 10px;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
-  --shadow-md: 0 8px 24px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+  --shadow-md: 0 6px 20px rgba(0,0,0,.08);
 }
 
-/* Genel yazı tipini biraz daha modernleştirelim */
+/* Genel */
 body{
+  margin:0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, "Noto Sans";
   background: var(--bg);
   color: var(--text);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
 }
+h1,h2,h3{ margin:0 0 8px; font-weight:600; text-align:center; }
+h1{ font-size: clamp(20px, 3.8vw, 26px); }
+h2{ font-size: clamp(18px, 3vw, 22px); }
+h3{ font-size: clamp(16px, 2.6vw, 20px); }
 
-/* Başlık kısmına hafif degrade ekledim */
-.main-header{
-  background: linear-gradient(90deg, #e11d48, #f43f5e);
-  color: #fff;
-  border: none;
-}
-.main-header h1{ color:#fff; }
-
-/* Kartlar biraz daha gölgeli */
-.summary-item,
-.app-container > section,
-.gold-container{
+/* Kart */
+.summary-item{
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  transition: transform .15s ease;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  text-align:center;
 }
-.summary-item:hover,
-.app-container > section:hover,
-.gold-container:hover{
-  transform: translateY(-2px);
-}
+.summary-item p{ color: var(--muted); font-size:13px; margin:0; }
+.summary-item h2{ margin:0; font-size: clamp(18px, 4.2vw, 24px); }
 
-/* Butonlar kırmızı tonlu oldu */
+/* Buton */
 button{
   background: var(--primary);
-  border-color: var(--primary);
-  box-shadow: 0 2px 6px rgba(225,29,72,.2);
+  color:#fff;
+  border:none;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow: 0 2px 6px rgba(37,99,235,.2);
+  transition: background .15s ease, transform .1s ease;
 }
-button:hover{ background:#f43f5e; }
-button:active{ background: var(--primary-pressed); }
+button:hover{ background:#1d4ed8; }
+button:active{ transform:scale(.97); background: var(--primary-pressed); }
 
-/* Liste satırları biraz daha yumuşak arka plan */
+/* Liste */
 ul li{
-  background: #fefefe;
-  border: 1px solid var(--border);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin:8px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Altın alanında yeşil vurguyu biraz daha belirgin yaptım */
+/* Altın kutusu */
 .gold-container .summary-item{
-  border-left: 3px solid var(--success);
-  background: #f0fdf4;
+  border-left:4px solid var(--success);
 }
