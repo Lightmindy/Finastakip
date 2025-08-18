@@ -1,257 +1,136 @@
-/* =========================================================================
-   MOBILE BANKING UI – referans: mavi degrade üst bar, büyük rakamlar,
-   beyaz ve koyu kartlar, outline (ghost) butonlar, sade tipografi
-   HTML aynen korunur: .main-header, .summary-container, .summary-item,
-   .app-container, .gold-container, ul, li, label, input, button...
-   ========================================================================= */
-
-/* ====== Değişkenler (tema) ====== */
-:root{
-  --brand-1: #0b5fff;         /* ana mavi (header/aksan) */
-  --brand-2: #1b83ff;         /* mavi degrade ikinci ton */
-  --bg: #0f244e;              /* üst kısım için mavi ton arka plan */
-  --page: #f6f8fc;            /* sayfa zemin (aşağı kısım) */
-
-  --card: #ffffff;            /* beyaz kart */
-  --card-dark: #12161f;       /* koyu kart (referanslardaki alt blok) */
-  --text: #0b1220;            /* ana metin (açık kart) */
-  --text-inv: #ffffff;        /* ters metin (header/koyu kart) */
-  --muted: #6b7280;           /* ikincil metin */
-  --border: #e6e9ef;          /* kart kenarı */
-  --border-dark: #222836;     /* koyu kart kenarı */
-
-  --accent-ok: #00b894;       /* pozitif */
-  --accent-warn: #ffb020;     /* uyarı */
-  --accent-bad: #ff4d4f;      /* kırmızı */
-
-  --radius-xl: 20px;
-  --radius-lg: 16px;
-  --radius: 12px;
-
-  --shadow-sm: 0 1px 2px rgba(13, 25, 51, .06);
-  --shadow-md: 0 10px 24px rgba(13, 25, 51, .10);
+/* Genel yapı */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f6fa;
+  color: #2c3e50;
 }
 
-/* Hareketi azalt ayarı */
-@media (prefers-reduced-motion: reduce){
-  *{ transition: none !important; animation: none !important; }
+header.main-header {
+  background: #007bff;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* ====== Genel ====== */
-*{ box-sizing: border-box; }
-html, body{ height: 100%; }
-body{
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, "Noto Sans";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--text);
-  background:
-    linear-gradient(180deg, rgba(11,95,255,.95), rgba(27,131,255,.92)) top/100% 260px no-repeat,
-    var(--page);
-}
-
-/* ====== Üst Bar / Header ====== */
-.main-header{
-  position: sticky; top: 0; z-index: 20;
-  background: transparent;
-  color: var(--text-inv);
-  padding: 14px 16px 12px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.main-header h1{
-  margin:0; font-size: clamp(20px, 4.2vw, 26px); font-weight: 800;
-  letter-spacing: .2px; display:flex; align-items:center; gap:8px;
-}
-.main-header button{
-  background: rgba(255,255,255,.14);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,.22);
-  padding: 8px 14px;
-  border-radius: 12px;
+header.main-header button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #007bff;
   font-weight: 600;
-  font-size: 14px;
-  backdrop-filter: blur(6px);
-}
-.main-header button:hover{ background: rgba(255,255,255,.18); }
-.main-header button:active{ background: rgba(255,255,255,.22); }
-
-/* ====== Ana bloklar / Konteynerler ====== */
-.summary-container,
-.app-container,
-.gold-container{
-  max-width: 960px;
-  margin: 12px auto;
-  padding: 0 14px;
 }
 
-/* Özet grid (mobil -> 2 -> 3 sütun) */
-.summary-container{
-  margin-top: 6px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-@media (min-width: 560px){ .summary-container{ grid-template-columns: repeat(2,1fr); } }
-@media (min-width: 920px){ .summary-container{ grid-template-columns: repeat(3,1fr); } }
-
-/* ====== Özet Kartları ====== */
-.summary-item{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 14px 14px;
-  box-shadow: var(--shadow-sm);
-  min-height: 86px;
-  display: flex; flex-direction: column; justify-content: center; gap: 6px;
-}
-.summary-item p{ margin:0; color: var(--muted); font-size: 13px; }
-.summary-item h2{
-  margin:0;
-  font-variant-numeric: tabular-nums;
-  font-size: clamp(18px, 4.4vw, 26px);
+.app-container {
+  padding: 15px;
 }
 
-/* “Maaş Günü” alt yazısı */
-#paydayNextDate{ display:block; margin-top:2px; color: var(--muted); }
-
-/* ====== Bölüm Kartları (detay/altın) ====== */
-.app-container > section,
-.gold-container{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 16px;
-  box-shadow: var(--shadow-sm);
-  margin: 14px 14px 0;
-}
-.app-container > section h2,
-.gold-container h3{
-  margin: 0 0 8px 0;
-  font-size: clamp(18px, 3.6vw, 22px);
-  color: #0f172a;
-  border-bottom: 1px dashed var(--border);
-  padding-bottom: 6px;
+/* Kart tasarımı */
+section {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
 }
 
-/* “Koyu kart” görünümü (referanslardaki alt blok havası) */
-.gold-container{
-  background: var(--card-dark);
-  border-color: var(--border-dark);
-  color: var(--text-inv);
-}
-.gold-container h3{ color: #eaf1ff; border-bottom-color: rgba(255,255,255,.08); }
-.gold-container .summary-item{
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.12);
-  color: var(--text-inv);
+section h2 {
+  margin-top: 0;
+  font-size: 16px;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  color: #34495e;
 }
 
-/* ====== Form Elemanları ====== */
-label{
-  display:block; margin-top:8px; margin-bottom:6px;
-  font-size: 13px; color: var(--muted);
-}
-input[type="text"],
-input[type="number"],
-input[type="date"]{
+/* Inputlar */
+input, select {
   width: 100%;
-  padding: 12px 12px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  outline: none;
-  background: #fff;
-  color: var(--text);
+  padding: 10px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #dcdde1;
   font-size: 14px;
-  transition: border-color .15s ease, box-shadow .15s ease;
-}
-.gold-container input[type="text"],
-.gold-container input[type="number"],
-.gold-container input[type="date"]{
-  background: #0f1320; color:#f5f8ff; border-color: #1e2432;
-}
-input::placeholder{ color: #98a0af; }
-input:focus{
-  border-color: #b9cffd;
-  box-shadow: 0 0 0 3px rgba(27,131,255,.15);
+  box-sizing: border-box;
 }
 
-/* ====== Butonlar ====== */
-button{
-  appearance: none; cursor: pointer;
-  background: linear-gradient(180deg, var(--brand-2), var(--brand-1));
-  color: #fff; border: 0;
-  padding: 10px 16px; border-radius: 14px;
-  font-weight: 700; font-size: 14px;
-  box-shadow: 0 6px 18px rgba(11,95,255,.25);
-  transition: filter .12s ease, transform .06s ease;
-}
-button:hover{ filter: brightness(.98); }
-button:active{ transform: translateY(1px); }
-
-/* Header’daki buton için ayrı stil yukarıda var */
-
-/* ====== Listeler ====== */
-ul{ list-style: none; padding: 0; margin: 10px 0 0; }
-ul li{
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px 12px;
-  margin: 8px 0;
-  display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
-  box-shadow: var(--shadow-sm);
-}
-ul li > span{
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #0b1220;
-  font-variant-numeric: tabular-nums;
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 6px;
+  transition: background 0.2s ease-in-out;
+  width: 100%;
 }
 
-/* Detay sayfasındaki “Düzenle/Sil” buton grubu */
-ul li > div{ display: flex; gap: 8px; }
-ul li > div button{
-  background: transparent; color: var(--brand-2);
-  border: 1px solid var(--border);
-  padding: 8px 10px; border-radius: 10px; font-size: 13px;
-  box-shadow: none;
-}
-ul li > div button:hover{
-  background: rgba(27,131,255,.06); border-color: var(--brand-2);
-}
-ul li > div button:last-child{
-  color: var(--accent-bad); border-color: #ffd6d6;
-}
-ul li > div button:last-child:hover{
-  background: rgba(255,77,79,.06); border-color: var(--accent-bad);
+button:hover {
+  background: #0056b3;
 }
 
-/* ====== Altın Listesi Özel ====== */
-.gold-container ul{ margin-top: 12px; }
-.gold-container ul li{
-  background: #0f1320;
-  border-color: #1e2432;
-  color: #eaf1ff;
-}
-.gold-container .gold-info strong{ font-size: 15px; }
-.gold-container .gold-info .muted{ margin-top: 2px; font-size: 12px; color: #9fb1d9; }
-.gold-container .gold-actions button{
-  color: #a7c8ff; border-color: #26314a;
-}
-.gold-container .gold-actions button:hover{
-  background: rgba(183,202,255,.08); border-color: #3b4b6d; color:#d8e6ff;
-}
-.gold-container .gold-actions button[data-act="delete"]{
-  color: #ff9b9b; border-color: #3b2a31;
-}
-.gold-container .gold-actions button[data-act="delete"]:hover{
-  background: rgba(255,155,155,.08); border-color: #6b3a40; color:#ffd1d1;
+/* Altın kısmı özel renkte */
+section.gold-section {
+  border-left: 5px solid #f39c12;
 }
 
-/* ====== Küçük yazılar ====== */
-small{ color: var(--muted); }
+/* Liste */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-/* ====== Responsive dokunuş ====== */
-@media (max-width: 420px){
-  button{ width: 100%; }          /* form butonları tam genişlik */
-  .main-header button{ width:auto; } /* header butonu sabit kalsın */
+ul li {
+  background: #f8f9fa;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Liste içi butonlar */
+ul li button {
+  width: auto;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin-left: 5px;
+  background: #e74c3c;
+}
+
+ul li button.edit-btn {
+  background: #27ae60;
+}
+
+ul li button:hover {
+  opacity: 0.85;
+}
+
+/* Mobil uyum */
+@media (max-width: 600px) {
+  header.main-header {
+    font-size: 18px;
+    padding: 12px;
+  }
+  section {
+    padding: 12px;
+  }
+  input, button {
+    font-size: 13px;
+  }
 }
