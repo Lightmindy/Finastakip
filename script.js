@@ -1,3 +1,4 @@
+/* =================== MAAŞ / GİDER / BORÇ / GELECEK PARA =================== */
 // ---------- MAAŞ ----------
 function saveSalary() {
   const salary = parseFloat(document.getElementById("salaryInput")?.value);
@@ -46,283 +47,184 @@ function addIncoming() {
 }
 function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) || []; }
 
-/* ================== ALTIN (CRUD + Fiyat API - sadece gram girişi) ================== */
-(function GoldModule() {
-  const LS_ITEMS = "altinlar";        // altın listesi
-  const LS_PRICE = "goldUnitPrice";   // tekil gram fiyatı (API'den)
+/* ============================= ALTIN MODÜLÜ ============================== */
+/*
+  - Kayıt yapısı: { id, gram, price }
+  - Ekle: goldInput (gram) + goldPrice (fiyat) kullanır
+  - Düzenle: hem gram hem fiyatı prompt ile günceller
+  - Sil: listedeki öğeyi kaldırır
+  - Kalıcılık: localStorage('altinlar')
+*/
+(function GoldModule(){
+  const LS_KEY = "altinlar";       // [{id, gram, price}]
+  const LS_PRICE = "goldUnitPrice"; // son kullanılan gram fiyatı (input varsayılanı)
 
   // DOM
-  const elPrice      = document.getElementById("goldPrice");
-  const elInputGram  = document.getElementById("goldInput");
-  const elList       = document.getElementById("goldList");
-  const elTotalGram  = document.getElementById("totalGoldGram");
-  const elTotalValue = document.getElementById("totalGoldValue");
-  const elFetchBtn   = document.getElementById("fetchGoldBtn");
-  const elInfo       = document.getElementById("goldApiInfo");
+  const elPrice = document.getElementById("goldPrice");
+  const elGram  = document.getElementById("goldInput");
+  const elList  = document.getElementById("goldList");
+  const elTotG  = document.getElementById("totalGoldGram");
+  const elTotV  = document.getElementById("totalGoldValue");
 
-  if (!elList || !elTotalGram || !elTotalValue) return;
+  if (!elList || !elTotG || !elTotV) return;
 
-  // Durum
-  let items = [];     // {id, gram}
-  let unitPrice = 0;  // API'den gelecek
+  // State
+  let items = []; // {id, gram, price}
 
-  // Utils
+  // Helpers
   const uid = () => Math.random().toString(36).slice(2, 9);
-  const n = (v) => { const x = parseFloat(v); return Number.isFinite(x) ? x : 0; };
+  const num = (v) => {
+    const n = parseFloat(v);
+    return Number.isFinite(n) ? n : 0;
+  };
   const fmt = (v) => (Number(v || 0)).toLocaleString("tr-TR", { maximumFractionDigits: 2 });
 
-  // ---- API yardımcıları ----
-  // "2.496,50 ₺" -> 2496.50
-  function normalizePrice(val) {
-    if (val == null) return NaN;
-    const s = String(val).replace(/[^\d.,]/g, "");
-    const t = s.replace(/\./g, "").replace(",", ".");
-    const num = parseFloat(t);
-    return Number.isFinite(num) ? num : NaN;
-  }
-  // JSON içinden gram altın fiyatını esnek bul
-  function extractGramGoldPrice(data) {
-    if (!data || typeof data !== "object") return NaN;
-
-    const direct = data["Gram Altın"] || data["gram altın"] || data["gram-altin"] || data["gram_altin"] || data["GA"];
-    if (direct && typeof direct === "object") {
-      const cand = direct.Alış ?? direct.Alis ?? direct.alis ?? direct.Satış ?? direct.Satis ?? direct.satis ?? direct.price ?? direct.fiyat;
-      const p = normalizePrice(cand);
-      if (p > 0) return p;
-    }
-    for (const [key, val] of Object.entries(data)) {
-      const k = key.toLowerCase();
-      if (k.includes("gram") && k.includes("alt")) {
-        if (val && typeof val === "object") {
-          const cand = val.Alış ?? val.Alis ?? val.alis ?? val.Satış ?? val.Satis ?? val.satis ?? val.price ?? val.fiyat;
-          const p = normalizePrice(cand);
-          if (p > 0) return p;
-        } else {
-          const p = normalizePrice(val);
-          if (p > 0) return p;
-        }
+  // Load/Save
+  function load(){
+    // Eski format (sadece gram) kullandıysan dönüştür
+    const raw = JSON.parse(localStorage.getItem(LS_KEY)) || [];
+    items = raw.map(it => {
+      if (typeof it === "object" && ("gram" in it)) {
+        return { id: it.id || uid(), gram: num(it.gram), price: num(it.price) };
       }
-    }
-    const flat = normalizePrice(data.price ?? data.fiyat ?? data.gram ?? data.ga);
-    if (flat > 0) return flat;
-    return NaN;
+      return { id: uid(), gram: 0, price: 0 };
+    });
+
+    const lastPrice = num(localStorage.getItem(LS_PRICE));
+    if (elPrice) elPrice.value = lastPrice ? String(lastPrice) : "";
   }
-  function withTimeout(promise, ms = 8000) {
-    return Promise.race([
-      promise,
-      new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))
-    ]);
+  function save(){
+    localStorage.setItem(LS_KEY, JSON.stringify(items));
+    // Son kullanılan fiyatı da saklayalım (yeni eklemelerde varsayılan olsun)
+    const p = num(elPrice?.value);
+    localStorage.setItem(LS_PRICE, String(p || 0));
   }
 
-  // Kaydet/Yükle
-  function load() {
-    const raw = JSON.parse(localStorage.getItem(LS_ITEMS)) || [];
-    items = raw.map((it) => ({ id: it.id || uid(), gram: typeof it.gram === "number" ? it.gram : n(it.gram) }));
-    unitPrice = n(localStorage.getItem(LS_PRICE));
-    if (elPrice) elPrice.value = unitPrice ? String(unitPrice) : "";
-  }
-  function save() {
-    localStorage.setItem(LS_ITEMS, JSON.stringify(items));
-    localStorage.setItem(LS_PRICE, String(unitPrice || 0));
-  }
-
-  // Çizim
-  function render() {
+  // Render
+  function render(){
     elList.innerHTML = "";
-    let sumG = 0, sumVal = 0;
-    items.forEach((it) => {
+    let sumG = 0, sumV = 0;
+
+    items.forEach((it, index) => {
       sumG += it.gram;
-      sumVal += it.gram * (unitPrice || 0);
+      sumV += it.gram * it.price;
+
       const li = document.createElement("li");
-      li.className = "gold-item"; li.dataset.id = it.id;
+      li.className = "gold-item";
+      li.dataset.id = it.id;
+
       const info = document.createElement("div");
       info.className = "gold-info";
-      info.innerHTML = `<strong>${fmt(it.gram)} gr</strong>
-                        <div class="muted">Değer: ${fmt(it.gram * (unitPrice || 0))} ₺</div>`;
+      info.innerHTML = `
+        <strong>${fmt(it.gram)} gr</strong>
+        <div class="muted">@ ${fmt(it.price)} ₺ • Değer: ${fmt(it.gram * it.price)} ₺</div>
+      `;
+
       const actions = document.createElement("div");
       actions.className = "gold-actions";
-      const btnEdit = document.createElement("button"); btnEdit.textContent = "Düzenle"; btnEdit.setAttribute("data-act","edit");
-      const btnDel  = document.createElement("button"); btnDel.textContent  = "Sil";     btnDel.setAttribute("data-act","delete");
-      actions.appendChild(btnEdit); actions.appendChild(btnDel);
-      li.appendChild(info); li.appendChild(actions); elList.appendChild(li);
+
+      const btnEdit = document.createElement("button");
+      btnEdit.textContent = "Düzenle";
+      btnEdit.setAttribute("data-act","edit");
+      btnEdit.onclick = () => editItem(index);
+
+      const btnDel = document.createElement("button");
+      btnDel.textContent = "Sil";
+      btnDel.setAttribute("data-act","delete");
+      btnDel.onclick = () => deleteItem(index);
+
+      actions.appendChild(btnEdit);
+      actions.appendChild(btnDel);
+
+      li.appendChild(info);
+      li.appendChild(actions);
+      elList.appendChild(li);
     });
-    elTotalGram.textContent = fmt(sumG);
-    elTotalValue.textContent = fmt(sumVal);
-    if (elPrice) elPrice.value = unitPrice ? String(unitPrice) : "";
+
+    elTotG.textContent = fmt(sumG);
+    elTotV.textContent = fmt(sumV);
   }
 
-  // İşlemler
-  function addItem(gram) {
-    const g = n(gram);
-    if (g <= 0) { alert("Lütfen geçerli bir gram değeri girin."); return; }
-    if (!unitPrice) { alert("Güncel gram fiyatı alınamadı. Lütfen 'Güncel Fiyatı Getir' tuşuna bas."); return; }
-    items.push({ id: uid(), gram: g });
+  // CRUD
+  function addItem(){
+    const g = num(elGram?.value);
+    const p = num(elPrice?.value);
+    if (g <= 0 || p <= 0) { alert("Lütfen geçerli gram ve fiyat girin."); return; }
+    items.push({ id: uid(), gram: g, price: p });
+    elGram.value = "";
     save(); render();
   }
-  function editItem(id) {
-    const idx = items.findIndex((x) => x.id === id); if (idx === -1) return;
-    const nv = prompt("Yeni gram değerini girin:", String(items[idx].gram)); if (nv === null) return;
-    const g = n(nv); if (g <= 0) { alert("Geçerli bir gram değeri girin."); return; }
-    items[idx].gram = g; save(); render();
-  }
-  function deleteItem(id) { items = items.filter((x) => x.id !== id); save(); render(); }
 
-  // API: Güncel Gram Altın fiyatı
-  async function fetchGoldPrice() {
-    if (elInfo) elInfo.textContent = "Güncel fiyat alınıyor...";
-    try {
-      let price = NaN;
+  function editItem(index){
+    const it = items[index];
+    if (!it) return;
 
-      // Kaynak 1: Truncgil
-      try {
-        const res1 = await withTimeout(fetch("https://finans.truncgil.com/v4/today.json"), 7000);
-        const data1 = await res1.json();
-        price = extractGramGoldPrice(data1);
-      } catch (_) { /* yedek kaynağa geçilebilir */ }
+    const newGram  = prompt("Yeni gram değeri:", String(it.gram));
+    if (newGram === null) return;
+    const g = num(newGram);
+    if (g <= 0) { alert("Geçerli bir gram değeri girin."); return; }
 
-      // (İstersen burada ikinci bir kaynak daha deneyebilirsin.)
+    const newPrice = prompt("Yeni gram fiyatı (₺):", String(it.price));
+    if (newPrice === null) return;
+    const p = num(newPrice);
+    if (p <= 0) { alert("Geçerli bir fiyat girin."); return; }
 
-      if (Number.isFinite(price) && price > 0) {
-        unitPrice = price; save(); render();
-        if (elInfo) elInfo.textContent = `Son güncelleme: ${new Date().toLocaleTimeString()} (${fmt(price)} ₺)`;
-      } else {
-        if (elInfo) elInfo.textContent = "Fiyat alınamadı.";
-      }
-    } catch (e) {
-      console.error(e);
-      if (elInfo) elInfo.textContent = "API hatası!";
-    }
+    items[index] = { ...it, gram: g, price: p };
+    save(); render();
   }
 
-  // Dışa açık: sadece gram girilir
-  window.addGold = function () {
-    const g = elInputGram?.value;
-    addItem(g);
-    if (elInputGram) elInputGram.value = "";
-  };
-  // Dışarıdan gerekirse yeniden çizim için
-  window.displayGold = function () { render(); };
+  function deleteItem(index){
+    items.splice(index, 1);
+    save(); render();
+  }
 
-  // Olaylar
-  elList.addEventListener("click", (e) => {
-    const btn = e.target.closest("button"); if (!btn) return;
-    const act = btn.getAttribute("data-act");
-    const id  = btn.closest("li")?.dataset?.id; if (!id) return;
-    if (act === "edit") editItem(id); else if (act === "delete") deleteItem(id);
+  // Public (HTML onclick)
+  window.addGold = addItem;
+
+  // Fiyat inputunu değiştikçe saklayalım (yeni kayıtlar için varsayılan)
+  elPrice?.addEventListener("input", () => {
+    localStorage.setItem(LS_PRICE, String(num(elPrice.value) || 0));
   });
-  elFetchBtn?.addEventListener("click", fetchGoldPrice);
 
-  // Başlat
+  // Init
   load();
   render();
-  // Sayfa açıldığında otomatik çek
-  fetchGoldPrice();
-  // Periyodik yenileme istersen aç:
-  // setInterval(fetchGoldPrice, 30 * 60 * 1000);
 })();
 
-// ---------- ANASAYFA VERİLERİ ----------
+/* ================== ANA SAYFA ÖZETLERİNİ GÜNCELLE ================== */
 function updateIndex() {
-  if (document.getElementById("totalSalary")) {
-    const salary = getSalary();
-    const expenses = getExpenses();
-    const debts = getDebts();
-    const incoming = getIncoming();
+  if (!document.getElementById("totalSalary")) return;
 
-    const totalExpense = expenses.reduce((sum, e) => sum + e.amount, 0);
-    const remaining = salary - totalExpense;
-    const totalIncoming = incoming.reduce((sum, e) => sum + e.amount, 0);
+  const salary = getSalary();
+  const expenses = getExpenses();
+  const debts = getDebts();
+  const incoming = getIncoming();
 
-    document.getElementById("totalSalary").textContent = salary.toFixed(2);
-    document.getElementById("totalExpense").textContent = totalExpense.toFixed(2);
-    document.getElementById("remaining").textContent = remaining.toFixed(2);
-    document.getElementById("totalIncomingHome").textContent = totalIncoming.toFixed(2);
+  const totalExpense = expenses.reduce((sum, e) => sum + e.amount, 0);
+  const remaining = salary - totalExpense;
+  const totalIncoming = incoming.reduce((sum, e) => sum + e.amount, 0);
 
-    const today = new Date();
-    const upcomingDebts = debts
-      .filter(d => new Date(d.date) >= today)
-      .sort((a, b) => new Date(a.date) - new Date(b.date));
+  document.getElementById("totalSalary").textContent = salary.toFixed(2);
+  document.getElementById("totalExpense").textContent = totalExpense.toFixed(2);
+  document.getElementById("remaining").textContent = remaining.toFixed(2);
+  document.getElementById("totalIncomingHome").textContent = totalIncoming.toFixed(2);
 
-    const upcomingList = document.getElementById("upcomingDebts");
-    upcomingList.innerHTML = "";
-    upcomingDebts.slice(0, 3).forEach(d => {
-      const li = document.createElement("li");
-      li.textContent = `${d.title}: ${d.amount}₺ (${d.date})`;
-      upcomingList.appendChild(li);
-    });
+  const today = new Date();
+  const upcomingDebts = debts
+    .filter(d => new Date(d.date) >= today)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
-    if (typeof window.displayGold === "function") window.displayGold();
-  }
+  const upcomingList = document.getElementById("upcomingDebts");
+  upcomingList.innerHTML = "";
+  upcomingDebts.slice(0, 3).forEach(d => {
+    const li = document.createElement("li");
+    li.textContent = `${d.title}: ${d.amount}₺ (${d.date})`;
+    upcomingList.appendChild(li);
+  });
 }
 
-// ---------- DETAY SAYFASI GÖSTER ----------
-function loadDetailData() {
-  const expenseList = document.getElementById("expenseList");
-  const debtList = document.getElementById("debtList");
-  const incomingList = document.getElementById("incomingList");
-  const totalIncoming = document.getElementById("totalIncoming");
-
-  if (expenseList) {
-    expenseList.innerHTML = "";
-    getExpenses().forEach((e, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${e.note}: ${e.amount}₺`;
-      const del = document.createElement("button");
-      del.textContent = "X";
-      del.onclick = () => {
-        const arr = getExpenses();
-        arr.splice(index, 1);
-        localStorage.setItem("giderler", JSON.stringify(arr));
-        loadDetailData();
-      };
-      li.appendChild(del);
-      expenseList.appendChild(li);
-    });
-  }
-
-  if (debtList) {
-    debtList.innerHTML = "";
-    getDebts().forEach((d, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${d.title}: ${d.amount}₺ (${d.date})`;
-      const del = document.createElement("button");
-      del.textContent = "X";
-      del.onclick = () => {
-        const arr = getDebts();
-        arr.splice(index, 1);
-        localStorage.setItem("borclar", JSON.stringify(arr));
-        loadDetailData();
-      };
-      li.appendChild(del);
-      debtList.appendChild(li);
-    });
-  }
-
-  if (incomingList && totalIncoming) {
-    const incoming = getIncoming();
-    incomingList.innerHTML = "";
-    const total = incoming.reduce((sum, e) => sum + e.amount, 0);
-    totalIncoming.textContent = total.toFixed(2);
-
-    incoming.forEach((e, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${e.name}: ${e.amount}₺ (${e.date})`;
-      const del = document.createElement("button");
-      del.textContent = "X";
-      del.onclick = () => {
-        const arr = getIncoming();
-        arr.splice(index, 1);
-        localStorage.setItem("gelecekPara", JSON.stringify(arr));
-        loadDetailData();
-      };
-      li.appendChild(del);
-      incomingList.appendChild(li);
-    });
-  }
-}
-
-// ---------- SAYFA YÜKLENİNCE ----------
+/* =========================== SAYFA YÜKLENİNCE =========================== */
 window.onload = function () {
   updateIndex();
-  loadDetailData();
+  // (Detay sayfası varsa onun yükleyicisini burada çağırabilirsin)
 };
