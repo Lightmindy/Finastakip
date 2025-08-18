@@ -1,3 +1,10 @@
+<script>
+  // Kullanıcı daha önce giriş yapmamışsa login.html'e yönlendir
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "login.html";
+  }
+</script>
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
