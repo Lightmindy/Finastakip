@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Giriş</title>
 <style>
-/* ===== GENEL ===== */
+/* GENEL */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #e0f0ff, #cfd9df);
+  background: linear-gradient(135deg, #dbeafe, #93c5fd); /* Açık mavi gradient */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-/* KART */
+/* LOGIN KARTI */
 .card {
-  background: #fff;
-  padding: 35px 30px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 360px;
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  width: 90%;
+  max-width: 350px;
   text-align: center;
   animation: fadeIn 0.7s ease-out forwards;
   opacity: 0;
@@ -35,35 +35,36 @@ body {
 
 /* LOGO */
 .logo {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin: 0 auto 15px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
-  box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+  box-shadow: 0 4px 12px rgba(59,130,246,0.4);
 }
 
 /* BAŞLIK */
 h1 {
-  margin: 0 0 20px;
-  font-size: 22px;
+  margin: 0 0 18px;
+  font-size: 20px;
   color: #374151;
 }
 
 /* INPUTLAR */
 .input-group {
-  margin-bottom: 18px;
+  margin-bottom: 15px;
+  text-align: left;
 }
 .input-group input {
   width: 100%;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #cbd5e1;
   font-size: 15px;
   outline: none;
@@ -78,17 +79,17 @@ h1 {
 button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(90deg, #60a5fa, #3b82f6);
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
   color: white;
   font-weight: bold;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   transition: all .3s ease;
 }
 button:hover {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  background: linear-gradient(90deg, #2563eb, #1e40af);
   transform: scale(1.02);
 }
 button:active {
@@ -104,7 +105,7 @@ button:active {
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 0.6s linear infinite;
-  margin-right: 8px;
+  margin-right: 6px;
 }
 @keyframes spin {
   to { transform: rotate(360deg); }
@@ -118,3 +119,11 @@ small {
   font-size: 13px;
 }
 </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">F</div>
+    <h1>Finans Giriş</h1>
+    <form id="loginForm">
+      <div class="input-group">
+        <input type="text" id="username" placeholder="Kullanıcı Adı" required>
