@@ -23,6 +23,61 @@ body{
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
   display:flex; align-items:center; justify-content:center; padding:20px;
 }
+
+/* ================= Avatar Menü (sol üst) ================= */
+.avatar-trigger{
+  position: fixed; top: 14px; left: 14px; z-index: 50;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.8);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-weight:700; cursor:pointer; box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  user-select:none;
+}
+.avatar-trigger:active{ transform: scale(0.98); }
+
+/* Sheet menü */
+.menu-sheet{
+  position: fixed; top: 0; left: 0; height: 100vh; width: 280px;
+  background: #ffffff; color: var(--text);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  transform: translateX(-100%); transition: transform .25s ease;
+  z-index: 60; padding: 16px;
+  border-right: 1px solid var(--border);
+}
+.menu-sheet.open{ transform: translateX(0); }
+.menu-header{
+  display:flex; align-items:center; gap:10px; margin-bottom: 12px;
+}
+.menu-avatar{
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800;
+}
+.menu-title{ margin:0; font-size:16px; font-weight:700; }
+
+/* Menü listesi */
+.menu-list{ list-style:none; padding:8px 0 0; margin:0; }
+.menu-list li a{
+  display:flex; align-items:center; gap:10px;
+  padding: 10px 8px; border-radius: 10px;
+  color: var(--text); text-decoration:none; font-weight:600;
+  border: 1px solid transparent;
+}
+.menu-list li a:hover{
+  background: #f8fafc; border-color: var(--border);
+}
+.menu-list .icon{ width:22px; text-align:center; }
+
+/* Dış alan karartma */
+.scrim{
+  position: fixed; inset:0; background: rgba(0,0,0,.25);
+  opacity:0; visibility:hidden; transition: opacity .2s ease, visibility .2s;
+  z-index:55;
+}
+.scrim.show{ opacity:1; visibility:visible; }
+
+/* ================= Login Kart ================= */
 .card{
   width:100%; max-width:420px; background:var(--card);
   border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.12);
@@ -68,9 +123,37 @@ label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
   font-weight:600;
   display:none;
 }
+
+/* Küçük ekran düzeni */
+@media (max-width:380px){
+  .menu-sheet{ width: 92vw; }
+}
 </style>
 </head>
 <body>
+
+  <!-- Sol üst avatar butonu -->
+  <button class="avatar-trigger" id="avatarBtn" aria-label="Menüyü aç">A</button>
+
+  <!-- Sheet menü -->
+  <aside class="menu-sheet" id="menuSheet" aria-hidden="true">
+    <div class="menu-header">
+      <div class="menu-avatar">A</div>
+      <h3 class="menu-title">Hızlı Menüler</h3>
+    </div>
+    <ul class="menu-list">
+      <li><a href="index.html#profil"><span class="icon">👤</span> Kişi</a></li>
+      <li><a href="index.html#ayarlar"><span class="icon">⚙️</span> Ayarlar</a></li>
+      <li><a href="index.html#altin"><span class="icon">🥇</span> Altın</a></li>
+      <li><a href="index.html#borclar"><span class="icon">💳</span> Borçlar</a></li>
+      <li><a href="index.html#taksitler"><span class="icon">📅</span> Taksitler</a></li>
+    </ul>
+  </aside>
+
+  <!-- Karartma -->
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Login kartı -->
   <div class="card">
     <div class="logo">F</div>
     <h1 class="title">Finans Giriş İşlemleri</h1>
@@ -95,6 +178,35 @@ label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
   </div>
 
 <script>
+/* ====== Avatar Sheet Menü ====== */
+const avatarBtn = document.getElementById('avatarBtn');
+const menuSheet = document.getElementById('menuSheet');
+const scrim = document.getElementById('scrim');
+
+function openMenu(){
+  menuSheet.classList.add('open');
+  menuSheet.setAttribute('aria-hidden','false');
+  scrim.classList.add('show');
+}
+function closeMenu(){
+  menuSheet.classList.remove('open');
+  menuSheet.setAttribute('aria-hidden','true');
+  scrim.classList.remove('show');
+}
+avatarBtn.addEventListener('click', openMenu);
+scrim.addEventListener('click', closeMenu);
+window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+
+/* İstersen avatar harfini kullanıcı adına göre set edelim */
+const usernameEl = document.getElementById('username');
+usernameEl.addEventListener('input', ()=>{
+  const ch = (usernameEl.value.trim()[0] || 'A').toUpperCase();
+  avatarBtn.textContent = ch;
+  const avatarSheet = document.querySelector('.menu-avatar');
+  if (avatarSheet) avatarSheet.textContent = ch;
+});
+
+/* ====== Login akışı (mevcut) ====== */
 const form=document.getElementById('loginForm');
 const pwd=document.getElementById('password');
 const toggle=document.getElementById('togglePwd');
@@ -116,7 +228,7 @@ forgot.addEventListener('click',()=>alert("Şifre sıfırlama maili gönderilece
 form.addEventListener('submit',(e)=>{
   e.preventDefault();
   const pass=pwd.value.trim();
-  const user=document.getElementById('username').value.trim();
+  const user=usernameEl.value.trim();
 
   if(!user||!pass){alert("Kullanıcı adı ve şifre giriniz.");return;}
   if(!/^\d+$/.test(pass)){alert("Şifre sadece rakamlardan oluşmalıdır.");return;}
