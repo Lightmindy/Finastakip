@@ -1,129 +1,226 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Giriş</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Finans Giriş İşlemleri</title>
 <style>
-/* GENEL */
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #dbeafe, #93c5fd); /* Açık mavi gradient */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* ====== PALET (index ile uyumlu) ====== */
+:root{
+  --bg1:#dbeafe;   /* #dbeafe */
+  --bg2:#93c5fd;   /* #93c5fd */
+  --card:#ffffff;
+  --text:#111827;  /* koyu gri */
+  --muted:#6b7280; /* orta gri */
+  --border:#e5e7eb;
+
+  --primary:#3b82f6;  /* mavi */
+  --primary-2:#2563eb;/* koyu mavi */
+  --accent:#60a5fa;   /* açık mavi vurgular */
 }
 
-/* LOGIN KARTI */
-.card {
-  background: #ffffff;
-  padding: 30px 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  width: 90%;
-  max-width: 350px;
-  text-align: center;
-  animation: fadeIn 0.7s ease-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-@keyframes fadeIn {
-  to {opacity: 1; transform: translateY(0);}
+/* ====== GENEL ====== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Segoe UI', system-ui, -apple-system, Roboto, Arial;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  display:flex; align-items:center; justify-content:center; padding:20px;
 }
 
-/* LOGO */
-.logo {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 15px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+/* ====== KART ====== */
+.card{
+  width:100%; max-width:420px; background:var(--card); color:var(--text);
+  border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.12);
+  padding:28px 24px; text-align:center; position:relative; overflow:hidden;
+  opacity:0; transform: translateY(18px); animation:fadeIn .6s ease forwards;
+}
+@keyframes fadeIn{to{opacity:1; transform:none}}
+
+/* Dekoratif highlight */
+.card::before{
+  content:""; position:absolute; inset:-40% -40% auto auto; width:320px; height:320px;
+  background: radial-gradient(closest-side, rgba(96,165,250,.18), transparent 60%);
+  transform: rotate(18deg);
 }
 
-/* BAŞLIK */
-h1 {
-  margin: 0 0 18px;
-  font-size: 20px;
-  color: #374151;
+/* Logo + Başlık */
+.logo{
+  width:86px; height:86px; margin:0 auto 14px; border-radius:22px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display:flex; align-items:center; justify-content:center; color:#fff;
+  font-size:36px; font-weight:800; letter-spacing:.5px;
+  box-shadow:0 10px 24px rgba(59,130,246,.35);
+}
+.title{
+  margin:0 0 18px; font-size:22px; font-weight:700; color:#1f2937;
 }
 
-/* INPUTLAR */
-.input-group {
-  margin-bottom: 15px;
-  text-align: left;
+/* ====== FORM ====== */
+.form-group{ margin-bottom:14px; text-align:left }
+label{ display:block; margin:0 0 6px; color:var(--muted); font-size:13px }
+.input{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border);
+  background:#fff; color:var(--text); font-size:15px; outline:none;
+  transition:border-color .15s, box-shadow .15s, transform .08s;
 }
-.input-group input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  font-size: 15px;
-  outline: none;
-  transition: all .2s ease;
+.input:focus{
+  border-color: rgba(96,165,250,.9);
+  box-shadow: 0 0 0 4px rgba(96,165,250,.18);
 }
-.input-group input:focus {
-  border-color: #60a5fa;
-  box-shadow: 0 0 6px rgba(96,165,250,0.4);
+.input.error{ border-color:#ef4444; box-shadow:0 0 0 4px rgba(239,68,68,.15) }
+.helper{
+  margin-top:6px; font-size:12px; color:var(--muted);
 }
+.helper.error{ color:#ef4444 }
 
-/* BUTON */
-button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all .3s ease;
+/* Input satırında yan butonlar */
+.inline-actions{
+  display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;
 }
-button:hover {
-  background: linear-gradient(90deg, #2563eb, #1e40af);
-  transform: scale(1.02);
+.link-btn{
+  appearance:none; background:#f8fafc; color:#111827; border:1px solid var(--border);
+  border-radius:10px; padding:8px 12px; font-size:13px; cursor:pointer;
+  transition: background .15s;
 }
-button:active {
-  transform: scale(0.98);
-}
+.link-btn:hover{ background:#eef2f7 }
 
-/* LOADING ANİMASYONU */
-.loading {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid white;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 0.6s linear infinite;
-  margin-right: 6px;
+/* ====== GİRİŞ BUTONU (renkli + animasyon) ====== */
+.btn{
+  width:100%; margin-top:14px;
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  color:#fff; border:none; border-radius:12px; padding:12px 16px;
+  font-size:16px; font-weight:800; letter-spacing:.3px;
+  cursor:pointer; position:relative; overflow:hidden;
+  box-shadow:0 10px 22px rgba(59,130,246,.28);
+  transition: transform .12s, filter .2s;
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+.btn:hover{ transform: translateY(-1px); filter:brightness(1.02) }
+.btn:active{ transform: translateY(0); filter:brightness(.98) }
 
-/* ALT YAZI */
-small {
-  display: block;
-  margin-top: 12px;
-  color: #6b7280;
-  font-size: 13px;
+/* Ripple efekti */
+.btn::after{
+  content:""; position:absolute; left:50%; top:50%;
+  width:0; height:0; border-radius:50%; background:rgba(255,255,255,.25);
+  transform: translate(-50%,-50%); transition: width .5s ease, height .5s ease;
+}
+.btn:active::after{ width:280px; height:280px }
+
+/* Loading animasyonu */
+.btn.loading{ color:#ffffffd0; pointer-events:none }
+.spinner{
+  display:none; width:18px; height:18px; border:2px solid #fff; border-right-color:transparent;
+  border-radius:50%; position:absolute; right:14px; top:50%; transform:translateY(-50%);
+  animation: spin .7s linear infinite;
+}
+.btn.loading .spinner{ display:inline-block }
+@keyframes spin{to{ transform: translateY(-50%) rotate(360deg) }}
+
+/* Alt metin */
+.note{ margin-top:12px; font-size:12px; color:#6b7280 }
+
+/* Mobil küçük */
+@media (max-width:360px){
+  .card{ padding:24px 18px; border-radius:16px }
+  .logo{ width:78px; height:78px; font-size:32px }
 }
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">F</div>
-    <h1>Finans Giriş</h1>
-    <form id="loginForm">
-      <div class="input-group">
-        <input type="text" id="username" placeholder="Kullanıcı Adı" required>
+
+  <div class="card" aria-label="Giriş kartı">
+    <div class="logo" aria-hidden="true">F</div>
+    <h1 class="title">Finans Giriş İşlemleri</h1>
+
+    <form id="loginForm" novalidate>
+      <!-- Kullanıcı adı -->
+      <div class="form-group">
+        <label for="username">Kullanıcı Adı</label>
+        <input id="username" class="input" type="text" placeholder="kullanici123" autocomplete="username" required />
+      </div>
+
+      <!-- Şifre (sadece rakam) -->
+      <div class="form-group">
+        <label for="password">Şifre (sadece rakam)</label>
+        <input id="password" class="input" type="password" inputmode="numeric" pattern="\\d*" placeholder="••••••" autocomplete="current-password" required />
+        <div id="pwdHelp" class="helper">Lütfen sadece rakam girin.</div>
+
+        <div class="inline-actions">
+          <button type="button" id="togglePwd" class="link-btn">Şifreyi Göster</button>
+          <button type="button" id="forgotPwd" class="link-btn">Şifremi Unuttum</button>
+        </div>
+      </div>
+
+      <!-- Giriş butonu -->
+      <button type="submit" id="loginBtn" class="btn">
+        Giriş Yap
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+
+      <div class="note">Bu cihaz size aitse “Şifreyi kaydet” özelliğini tarayıcınızdan kullanabilirsiniz.</div>
+    </form>
+  </div>
+
+<script>
+(function(){
+  const username = document.getElementById('username');
+  const pwd = document.getElementById('password');
+  const help = document.getElementById('pwdHelp');
+  const toggle = document.getElementById('togglePwd');
+  const forgot = document.getElementById('forgotPwd');
+  const form = document.getElementById('loginForm');
+  const btn = document.getElementById('loginBtn');
+
+  // Şifre sadece rakam: girilen metinden rakam dışını ayıkla
+  pwd.addEventListener('input', () => {
+    const digitsOnly = pwd.value.replace(/\D+/g, '');
+    if (pwd.value !== digitsOnly) {
+      pwd.value = digitsOnly;
+    }
+    // Yardım metni / hata rengi
+    if (pwd.value.length && !/^\d+$/.test(pwd.value)) {
+      help.textContent = 'Sadece rakam girebilirsiniz.';
+      help.classList.add('error');
+      pwd.classList.add('error');
+    } else {
+      help.textContent = pwd.value.length ? 'Şifre uygun görünüyor.' : 'Lütfen sadece rakam girin.';
+      help.classList.toggle('error', false);
+      pwd.classList.remove('error');
+    }
+  });
+
+  // Şifreyi göster/gizle
+  toggle.addEventListener('click', () => {
+    pwd.type = (pwd.type === 'password') ? 'text' : 'password';
+    toggle.textContent = (pwd.type === 'password') ? 'Şifreyi Göster' : 'Şifreyi Gizle';
+    pwd.focus();
+  });
+
+  // Şifremi unuttum (örnek işlem)
+  forgot.addEventListener('click', () => {
+    alert('Şifre sıfırlama talimatı e-postanıza gönderilecek (demo).');
+  });
+
+  // Giriş işlemi (loading animasyonu + yönlendirme)
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const u = username.value.trim();
+    const p = pwd.value.trim();
+
+    if (!u || !p) { alert('Kullanıcı adı ve şifre zorunlu.'); return; }
+    if (!/^\d+$/.test(p)) { alert('Şifre sadece rakamlardan oluşmalıdır.'); return; }
+
+    btn.classList.add('loading');
+    btn.innerHTML = 'Giriş Yap<span class="spinner" aria-hidden="true"></span>';
+
+    // Demo: 1 sn sonra yönlendirme
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      window.location.href = 'index.html';
+    }, 1000);
+  });
+})();
+</script>
+
+</body>
+</html>
