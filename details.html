@@ -17,6 +17,7 @@
       <h2>Maaş Bilgisi</h2>
       <input type="number" id="salaryInput" placeholder="Maaş (₺)" />
       <button onclick="saveSalary()">Kaydet</button>
+      <p style="margin-top:8px"><strong>Mevcut Maaş:</strong> <span id="salaryCurrent">0</span> ₺</p>
     </section>
 
     <section>
@@ -24,6 +25,7 @@
       <input type="text" id="expenseNote" placeholder="Açıklama" />
       <input type="number" id="expenseAmount" placeholder="Tutar (₺)" />
       <button onclick="addExpense()">Ekle</button>
+      <p style="margin-top:8px"><strong>Toplam Gider:</strong> <span id="totalExpenseDetail">0</span> ₺</p>
       <ul id="expenseList"></ul>
     </section>
 
@@ -33,6 +35,7 @@
       <input type="number" id="debtAmount" placeholder="Tutar (₺)" />
       <input type="date" id="debtDate" />
       <button onclick="addDebt()">Ekle</button>
+      <p style="margin-top:8px"><strong>Toplam Borç:</strong> <span id="totalDebtDetail">0</span> ₺</p>
       <ul id="debtList"></ul>
     </section>
 
@@ -42,8 +45,8 @@
       <input type="number" id="lenderAmount" placeholder="Tutar (₺)" />
       <input type="date" id="lenderDate" />
       <button onclick="addIncoming()">Ekle</button>
+      <p style="margin-top:8px"><strong>Toplam Gelecek:</strong> <span id="totalIncoming">0</span> ₺</p>
       <ul id="incomingList"></ul>
-      <p><strong>Toplam Gelecek:</strong> <span id="totalIncoming">0</span> ₺</p>
     </section>
   </div>
 
