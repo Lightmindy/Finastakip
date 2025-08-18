@@ -1,77 +1,87 @@
-:root{
-  --bg: #f9fafc;          /* biraz daha açık ve ferah arka plan */
-  --card: #ffffff;        /* kart zemini */
-  --text: #111827;        /* daha net koyu metin */
-  --muted: #6b7280;       /* ikincil metin */
-  --border: #e5e7eb;      /* kenarlık */
-  --primary: #2563eb;     /* canlı mavi */
-  --primary-pressed: #1d4ed8;
-  --danger: #dc2626;      /* kırmızı (sil) */
-  --danger-pressed: #b91c1c;
-  --success: #059669;     /* yeşil (pozitif) */
-  --radius-lg: 14px;
-  --radius: 12px;
-  --radius-sm: 10px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
-  --shadow-md: 0 6px 20px rgba(0,0,0,.08);
-}
-
-/* Genel */
-body{
-  margin:0;
+/* GENEL */
+body {
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, "Noto Sans";
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
+  background: #f5f6fa;
+  color: #222;
 }
-h1,h2,h3{ margin:0 0 8px; font-weight:600; text-align:center; }
-h1{ font-size: clamp(20px, 3.8vw, 26px); }
-h2{ font-size: clamp(18px, 3vw, 22px); }
-h3{ font-size: clamp(16px, 2.6vw, 20px); }
 
-/* Kart */
-.summary-item{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow-sm);
-  text-align:center;
+h1, h2 {
+  text-align: center;
+  margin: 12px 0;
+  font-weight: 600;
 }
-.summary-item p{ color: var(--muted); font-size:13px; margin:0; }
-.summary-item h2{ margin:0; font-size: clamp(18px, 4.2vw, 24px); }
 
-/* Buton */
-button{
-  background: var(--primary);
-  color:#fff;
-  border:none;
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  font-size: 14px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow: 0 2px 6px rgba(37,99,235,.2);
-  transition: background .15s ease, transform .1s ease;
-}
-button:hover{ background:#1d4ed8; }
-button:active{ transform:scale(.97); background: var(--primary-pressed); }
-
-/* Liste */
-ul li{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius: var(--radius-sm);
+.app-container {
+  max-width: 420px;
+  margin: 0 auto;
   padding: 12px;
-  margin:8px 0;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow: var(--shadow-sm);
 }
 
-/* Altın kutusu */
-.gold-container .summary-item{
-  border-left:4px solid var(--success);
+/* KARTLAR */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+/* INPUT & BUTTON */
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 8px;
+  background: #d62828;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #b81f1f;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+ul li {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ALTIN KISMI FARKLI RENK */
+.gold-card {
+  border-left: 4px solid #ffb703;
 }
