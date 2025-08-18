@@ -27,7 +27,6 @@ button {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.3s;
 }
-
 button:hover {
   transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
@@ -45,6 +44,13 @@ input[type="date"] {
   font-size: 14px;
   box-sizing: border-box;
   background: #fff;
+}
+
+/* API fiyat input'u readonly görünümü */
+#goldPrice[readonly] {
+  background: #f5f9ff;
+  color: #2c3e50;
+  cursor: default;
 }
 
 /* Üst Menü */
@@ -77,26 +83,11 @@ input[type="date"] {
   background-color: #f3f9ff;
   border-radius: 8px;
 }
-
-.summary-item h2 {
-  margin: 0;
-  font-size: 24px;
-  color: #2c3e50;
-}
-
-.summary-item p {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-}
+.summary-item h2 { margin: 0; font-size: 24px; color: #2c3e50; }
+.summary-item p  { margin: 0; font-size: 14px; color: #666; }
 
 /* Listeler */
-ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
+ul { list-style: none; padding-left: 0; margin-top: 10px; }
 ul li {
   background: #eef6fc;
   margin: 8px 0;
@@ -115,31 +106,19 @@ ul li button {
   padding: 6px 10px;
   border-radius: 5px;
 }
-
-ul li button:hover {
-  background-color: #c0392b;
-}
+ul li button:hover { background-color: #c0392b; }
 
 /* Etiketler */
-label {
-  font-weight: 500;
+label { font-weight: 500; margin-top: 10px; display: block; color: #333; }
+
+/* Otomatik fiyat alanı */
+.auto-gold {
   margin-top: 10px;
-  display: block;
-  color: #333;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .summary-container,
-  .app-container,
-  .gold-container {
-    margin: 10px;
-    padding: 12px;
-  }
-
-  button {
-    width: 100%;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.9;
 }
 
 /* ==== ALTIN LİSTESİ (CRUD) ÖZEL STİLLER ==== */
@@ -153,41 +132,26 @@ label {
   background: #eef6fc;
   border-radius: 10px;
 }
-
 .gold-container .gold-info strong { font-size: 15px; }
-.gold-container .gold-info .muted {
-  display: block;
-  font-size: 12px;
-  opacity: .75;
-  margin-top: 2px;
-}
-
+.gold-container .gold-info .muted { display: block; font-size: 12px; opacity: .75; margin-top: 2px; }
 .gold-container .gold-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
 /* Edit butonu (override) */
 .gold-container .gold-actions button[data-act="edit"] {
   background: linear-gradient(135deg, #6dd5ed, #2193b0);
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 6px;
+  font-size: 12px; padding: 6px 10px; border-radius: 6px;
 }
-.gold-container .gold-actions button[data-act="edit"]:hover {
-  transform: translateY(-1px);
-}
-
+.gold-container .gold-actions button[data-act="edit"]:hover { transform: translateY(-1px); }
 /* Sil butonu */
 .gold-container .gold-actions button[data-act="delete"] {
   background-color: #e74c3c;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 6px;
+  font-size: 12px; padding: 6px 10px; border-radius: 6px;
 }
-.gold-container .gold-actions button[data-act="delete"]:hover {
-  background-color: #c0392b;
-}
+.gold-container .gold-actions button[data-act="delete"]:hover { background-color: #c0392b; }
 
-/* Mobil */
+/* Responsive */
 @media (max-width: 600px) {
+  .summary-container, .app-container, .gold-container { margin: 10px; padding: 12px; }
+  button { width: 100%; }
   .gold-container ul li.gold-item { align-items: flex-start; }
   .gold-container .gold-actions { width: 100%; justify-content: flex-end; }
 }
