@@ -1,87 +1,179 @@
-/* GENEL */
-body {
-  margin: 0;
+/* =========================================================================
+   MOBILE BANKING STYLE – light, sade, okunaklı
+   (HTML sınıf adların aynı kaldı: .main-header, .summary-container, .summary-item,
+    .app-container, .gold-container, ul/li, label, input, button, vs.)
+   ========================================================================== */
+
+/* ---- Tasarım Değişkenleri ---- */
+:root{
+  --bg: #f6f7fb;          /* arka plan */
+  --card: #ffffff;        /* kart zemini */
+  --text: #111827;        /* ana metin */
+  --muted: #6b7280;       /* ikincil metin */
+  --border: #e5e7eb;      /* kart/alan kenarlığı */
+  --primary: #0A84FF;     /* iOS mavi */
+  --primary-pressed: #0666cc;
+  --success: #10B981;     /* yeşil küçük vurgular */
+  --danger: #FF3B30;      /* kırmızı (sil) */
+  --danger-pressed: #E82B20;
+  --radius-lg: 14px;
+  --radius: 12px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.06);
+}
+
+/* Hareketi azalt tercihine saygı */
+@media (prefers-reduced-motion: reduce){
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ---- Genel ---- */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+body{
+  margin:0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Arial, "Noto Sans";
-  background: #f5f6fa;
-  color: #222;
+  background: var(--bg);
+  color: var(--text);
+  letter-spacing: .2px;
 }
 
-h1, h2 {
-  text-align: center;
-  margin: 12px 0;
-  font-weight: 600;
+/* Başlıklar */
+h1,h2,h3{ margin: 0 0 8px 0; line-height: 1.25; }
+h1{ font-size: clamp(20px, 3.8vw, 28px); }
+h2{ font-size: clamp(18px, 3vw, 22px); color: #0f172a; }
+h3{ font-size: clamp(16px, 2.6vw, 20px); color: #0f172a; }
+
+/* ---- Üst Bar ---- */
+.main-header{
+  position: sticky; top: 0; z-index: 10;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.main-header h1{ font-weight: 700; }
+
+/* ---- Konteynerler ---- */
+.summary-container,
+.app-container,
+.gold-container{
+  max-width: 960px;
+  margin: 16px auto;
+  padding: 0 14px;
 }
 
-.app-container {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 12px;
+/* Özet kart grid (mobil önce) */
+.summary-container{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
 }
+@media (min-width: 520px){ .summary-container{ grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 880px){ .summary-container{ grid-template-columns: repeat(3,1fr); } }
 
-/* KARTLAR */
-.card {
-  background: #fff;
-  border-radius: 12px;
+/* Kart */
+.summary-item{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+.summary-item p{ margin:0; color: var(--muted); font-size: 13px; }
+.summary-item h2{ margin:0; font-size: clamp(18px, 4.2vw, 24px); }
+
+/* “Maaş Günü” alt metni */
+#paydayNextDate{ display:block; margin-top: 2px; color: var(--muted); }
+
+/* Bölüm (details & gold) */
+.app-container > section,
+.gold-container{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 14px;
 }
-
-.card h2 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid #eee;
+.app-container > section h2,
+.gold-container h3{
+  margin-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
   padding-bottom: 6px;
 }
 
-/* INPUT & BUTTON */
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: none;
-  border-radius: 8px;
-  background: #d62828;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-button:hover {
-  background: #b81f1f;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
-}
-
-ul li {
-  background: #fafafa;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  padding: 10px;
+/* ---- Form Elemanları ---- */
+label{
+  display:block;
+  margin-top: 8px;
   margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"]{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  outline: none;
+  background: #fff;
+  color: var(--text);
   font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input::placeholder{ color: #9ca3af; }
+input:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(10,132,255,.15);
 }
 
-/* ALTIN KISMI FARKLI RENK */
-.gold-card {
-  border-left: 4px solid #ffb703;
+/* İkili alanlar için yardımcı (opsiyonel) */
+.input-row{ display: grid; gap: 10px; grid-template-columns: 1fr; }
+@media (min-width: 560px){ .input-row{ grid-template-columns: repeat(2,1fr); } }
+
+/* ---- Butonlar ---- */
+button{
+  appearance: none;
+  background: var(--primary);
+  color: #fff;
+  border: 1px solid var(--primary);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .12s ease, transform .06s ease, box-shadow .12s ease;
+  box-shadow: 0 2px 6px rgba(10,132,255,.18);
 }
+button:hover{ background: #0b78f0; }
+button:active{ transform: translateY(1px); background: var(--primary-pressed); }
+
+/* Header’daki buton dar ekranda taşmasın */
+@media (max-width: 420px){ .main-header button{ padding: 8px 12px; } }
+
+/* ---- Listeler / Satırlar ---- */
+ul{ list-style: none; padding: 0; margin: 10px 0 0; }
+ul li{
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 12px;
+  margin: 8px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+ul li > span{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #111827; }
+
+/* Liste içi aksiyon buton gr
