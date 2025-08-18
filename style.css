@@ -1,76 +1,68 @@
 /* =========================
-   STYLE (ikon + beyaz butonlar)
+   DARK THEME (siyah arka plan + beyaz butonlar)
    ========================= */
 
 :root{
-  --bg: #eef2f6;
-  --card: #ffffff;
-  --text: #111827;
+  --bg: #000000;       /* Arka plan siyah */
+  --card: #ffffff;     /* Kartlar beyaz */
+  --text: #111111;     /* Kart içi yazılar siyah */
   --muted: #6b7280;
   --border: #e5e7eb;
 
-  --primary: #3b82f6;
-  --primary-2: #2563eb;
-  --accent: #60a5fa;
-
-  --danger: #ef4444;
-  --success: #10b981;
-
-  --gold: #FFD700;
+  --accent: #e11d48;   /* Kırmızı ton (buton hover, highlight) */
+  --gold: #FFD700;     /* Altın rengi */
   --gold-dark: #B8860B;
 
   --radius: 14px;
   --gap: 14px;
-  --shadow: 0 10px 25px rgba(0,0,0,.08);
+  --shadow: 0 6px 16px rgba(0,0,0,.4);
 }
 
-/* Reset */
-*{ box-sizing: border-box; }
+/* Genel reset */
+*{ box-sizing: border-box; margin:0; padding:0; }
 body{
-  margin:0; font-family: system-ui, Arial;
-  color: var(--text);
+  font-family: system-ui, Arial;
+  color: #fff;
   background: var(--bg);
+  padding: 16px;
 }
 h2{ 
   font-size: clamp(18px, 2.6vw, 22px); 
-  color: #0f172a; 
+  color: var(--text);
   display:flex; 
   align-items:center; 
-  gap:6px; 
+  gap:8px; 
 }
-h2 i{ font-size:18px; color: var(--primary); }
+h2 i{ font-size:18px; color: var(--accent); }
 
 /* Kartlar */
 .summary-container{ display:grid; gap:var(--gap); }
 .summary-item{
-  background:#fff; border:1px solid var(--border);
-  border-left:4px solid var(--accent);
-  border-radius:12px; padding:12px 14px;
+  background: var(--card);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding:14px 16px;
+  box-shadow: var(--shadow);
 }
 
-/* ---- Butonlar (yeni) ---- */
-button{
-  background: #fff;
-  color:#000;
-  font-weight:700;
-  border:1px solid #000;
-  padding:10px 14px;
-  border-radius:12px;
-  cursor:pointer;
-  transition: transform .12s ease, filter .2s ease;
-}
-button:hover{ transform: translateY(-1px); background:#f3f3f3; }
-button:active{ transform: translateY(0); filter: brightness(.95); }
-
-/* Altın container */
-.gold-container{
+/* Altın kartı özel */
+.gold-container .summary-item{
   background: linear-gradient(180deg, #fff8dc, #fffaf0);
   border:1px solid var(--gold-dark);
   color:#5c4300;
 }
-.gold-container .summary-item{
-  background: rgba(255,215,0,.12);
-  border:1px solid var(--gold-dark);
-  border-left:4px solid var(--gold);
-}
 .gold-container .summary-item h2 i{ color: var(--gold-dark); }
+
+/* Butonlar */
+button{
+  background:#fff;
+  color:#000;
+  border:1px solid #000;
+  padding:10px 16px;
+  border-radius: var(--radius);
+  font-weight:600;
+  cursor:pointer;
+  transition: background .2s ease;
+}
+button:hover{ background:#f3f3f3; }
+button:active{ background:#e5e5e5; }
