@@ -46,9 +46,9 @@ function addIncoming() {
 }
 function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) || []; }
 
-/* ================== ALTIN (CRUD + Fiyat API) ================== */
+/* ================== ALTIN (CRUD + Fiyat API - sadece gram girişi) ================== */
 (function GoldModule() {
-  const LS_ITEMS = "altinlar";        // altın liste
+  const LS_ITEMS = "altinlar";        // altın listesi
   const LS_PRICE = "goldUnitPrice";   // tekil gram fiyatı (API'den)
 
   // DOM
@@ -70,6 +70,49 @@ function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) 
   const uid = () => Math.random().toString(36).slice(2, 9);
   const n = (v) => { const x = parseFloat(v); return Number.isFinite(x) ? x : 0; };
   const fmt = (v) => (Number(v || 0)).toLocaleString("tr-TR", { maximumFractionDigits: 2 });
+
+  // ---- API yardımcıları ----
+  // "2.496,50 ₺" -> 2496.50
+  function normalizePrice(val) {
+    if (val == null) return NaN;
+    const s = String(val).replace(/[^\d.,]/g, "");
+    const t = s.replace(/\./g, "").replace(",", ".");
+    const num = parseFloat(t);
+    return Number.isFinite(num) ? num : NaN;
+  }
+  // JSON içinden gram altın fiyatını esnek bul
+  function extractGramGoldPrice(data) {
+    if (!data || typeof data !== "object") return NaN;
+
+    const direct = data["Gram Altın"] || data["gram altın"] || data["gram-altin"] || data["gram_altin"] || data["GA"];
+    if (direct && typeof direct === "object") {
+      const cand = direct.Alış ?? direct.Alis ?? direct.alis ?? direct.Satış ?? direct.Satis ?? direct.satis ?? direct.price ?? direct.fiyat;
+      const p = normalizePrice(cand);
+      if (p > 0) return p;
+    }
+    for (const [key, val] of Object.entries(data)) {
+      const k = key.toLowerCase();
+      if (k.includes("gram") && k.includes("alt")) {
+        if (val && typeof val === "object") {
+          const cand = val.Alış ?? val.Alis ?? val.alis ?? val.Satış ?? val.Satis ?? val.satis ?? val.price ?? val.fiyat;
+          const p = normalizePrice(cand);
+          if (p > 0) return p;
+        } else {
+          const p = normalizePrice(val);
+          if (p > 0) return p;
+        }
+      }
+    }
+    const flat = normalizePrice(data.price ?? data.fiyat ?? data.gram ?? data.ga);
+    if (flat > 0) return flat;
+    return NaN;
+  }
+  function withTimeout(promise, ms = 8000) {
+    return Promise.race([
+      promise,
+      new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))
+    ]);
+  }
 
   // Kaydet/Yükle
   function load() {
@@ -128,11 +171,18 @@ function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) 
   async function fetchGoldPrice() {
     if (elInfo) elInfo.textContent = "Güncel fiyat alınıyor...";
     try {
-      const res = await fetch("https://finans.truncgil.com/v4/today.json");
-      const data = await res.json();
-      const raw = data["Gram Altın"]?.Alış ?? data["gram-altin"]?.alis ?? "";
-      const price = n(String(raw).replace(",", "."));
-      if (price > 0) {
+      let price = NaN;
+
+      // Kaynak 1: Truncgil
+      try {
+        const res1 = await withTimeout(fetch("https://finans.truncgil.com/v4/today.json"), 7000);
+        const data1 = await res1.json();
+        price = extractGramGoldPrice(data1);
+      } catch (_) { /* yedek kaynağa geçilebilir */ }
+
+      // (İstersen burada ikinci bir kaynak daha deneyebilirsin.)
+
+      if (Number.isFinite(price) && price > 0) {
         unitPrice = price; save(); render();
         if (elInfo) elInfo.textContent = `Son güncelleme: ${new Date().toLocaleTimeString()} (${fmt(price)} ₺)`;
       } else {
@@ -144,12 +194,14 @@ function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) 
     }
   }
 
-  // Dışa açık: sadece gram girişi
+  // Dışa açık: sadece gram girilir
   window.addGold = function () {
     const g = elInputGram?.value;
     addItem(g);
     if (elInputGram) elInputGram.value = "";
   };
+  // Dışarıdan gerekirse yeniden çizim için
+  window.displayGold = function () { render(); };
 
   // Olaylar
   elList.addEventListener("click", (e) => {
@@ -165,7 +217,7 @@ function getIncoming() { return JSON.parse(localStorage.getItem("gelecekPara")) 
   render();
   // Sayfa açıldığında otomatik çek
   fetchGoldPrice();
-  // İstersen periyodik güncelle (ör. her 30 dakikada bir):
+  // Periyodik yenileme istersen aç:
   // setInterval(fetchGoldPrice, 30 * 60 * 1000);
 })();
 
