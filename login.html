@@ -5,68 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Finans Giriş İşlemleri</title>
 <style>
-:root {
-  --bg1: #f0f4f8;
-  --bg2: #dbeafe;
-  --card: #ffffff;
-  --text: #111827;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --primary: #2563eb;
-  --accent: #60a5fa;
+:root{
+  --bg1:#dbeafe;
+  --bg2:#93c5fd;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --primary:#3b82f6;
+  --primary-2:#2563eb;
+  --accent:#60a5fa;
 }
-*{box-sizing:border-box;}
-html,body{height:100%;}
-body {
-  margin:0; font-family:'Segoe UI',system-ui,Roboto;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Segoe UI', system-ui, Roboto;
   background:linear-gradient(135deg,var(--bg1),var(--bg2));
   display:flex; align-items:center; justify-content:center; padding:20px;
 }
-.card {
+.card{
   width:100%; max-width:420px; background:var(--card);
-  border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,.15);
-  padding:30px 26px; text-align:center; position:relative;
+  border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.12);
+  padding:28px 24px; text-align:center; position:relative;
 }
-.logo {
-  width:90px; height:90px; margin:0 auto 16px;
-  border-radius:25px; background:linear-gradient(135deg,var(--primary),var(--accent));
+.logo{
+  width:86px; height:86px; margin:0 auto 14px; border-radius:22px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
   display:flex; align-items:center; justify-content:center;
-  color:#fff; font-size:38px; font-weight:800;
+  color:#fff; font-size:36px; font-weight:800;
 }
-.title {margin:0 0 20px; font-size:22px; font-weight:700; color:var(--text);}
-.form-group {margin-bottom:16px; text-align:left;}
-label {display:block;margin-bottom:6px;color:var(--muted);font-size:14px;}
-.input {
+.title{margin:0 0 18px; font-size:22px; font-weight:700}
+.form-group{margin-bottom:14px;text-align:left}
+label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
+.input{
   width:100%; padding:12px 14px; border-radius:12px;
   border:1px solid var(--border); font-size:15px;
 }
-.link-row {
-  display:flex; justify-content:space-between; margin-top:6px;
-}
-.link-btn {
-  border:none; background:none; color:var(--primary);
+.link-btn{
+  margin-top:6px; border:none; background:none; color:var(--primary);
   cursor:pointer; font-size:13px;
 }
-.btn {
-  width:100%; margin-top:18px; padding:14px 18px;
-  background:linear-gradient(90deg,var(--primary),var(--accent));
-  color:#fff; border:none; border-radius:14px;
+.btn{
+  width:100%; margin-top:14px; padding:12px 16px;
+  background:linear-gradient(90deg,var(--primary-2),var(--primary));
+  color:#fff; border:none; border-radius:12px;
   font-size:16px; font-weight:700; cursor:pointer;
-  transition:all .2s;
+  transition:transform .2s;
 }
-.btn:hover {transform:scale(1.03);}
-.progress-container {
-  margin-top:18px; width:100%; background:#f3f4f6; border-radius:8px;
-  height:14px; display:none; overflow:hidden;
+.btn:hover{transform:scale(1.03)}
+.progress-container{
+  margin-top:16px; width:100%; background:#f3f4f6; border-radius:8px;
+  height:14px; display:none; overflow:hidden; position:relative;
 }
-.progress-bar {
+.progress-bar{
   width:0; height:100%;
-  background:linear-gradient(90deg,var(--accent),var(--primary));
+  background:linear-gradient(90deg,#60a5fa,#3b82f6);
   transition:width .2s;
 }
-.progress-text {
-  margin-top:10px; color:var(--primary);
-  font-weight:600; display:none;
+.progress-text{
+  margin-top:10px;
+  color:var(--primary-2);
+  font-weight:600;
+  display:none;
 }
 </style>
 </head>
@@ -83,10 +83,8 @@ label {display:block;margin-bottom:6px;color:var(--muted);font-size:14px;}
       <div class="form-group">
         <label for="password">Şifre (sadece rakam)</label>
         <input id="password" class="input" type="password" inputmode="numeric" required />
-        <div class="link-row">
-          <button type="button" id="togglePwd" class="link-btn">Şifreyi Göster</button>
-          <button type="button" id="forgotPwd" class="link-btn">Şifremi Unuttum</button>
-        </div>
+        <button type="button" id="togglePwd" class="link-btn">Şifreyi Göster</button>
+        <button type="button" id="forgotPwd" class="link-btn">Şifremi Unuttum</button>
       </div>
       <button type="submit" class="btn">Giriş Yap</button>
       <div class="progress-container" id="progressContainer">
@@ -105,32 +103,25 @@ const progressContainer=document.getElementById('progressContainer');
 const progressBar=document.getElementById('progressBar');
 const progressText=document.getElementById('progressText');
 
-// Giriş kontrolü için basit demo kullanıcı
-const demoUser="aykut";
-const demoPass="1234";
-
-// Çıkış kontrolü (localStorage)
-if(!localStorage.getItem("loggedIn")){
-  // kullanıcı giriş yapmamış → login açık
-}else{
-  window.location.href="index.html";
-}
-
+// Şifreyi göster/gizle
 toggle.addEventListener('click',()=>{
   pwd.type=(pwd.type==='password')?'text':'password';
   toggle.textContent=(pwd.type==='password')?'Şifreyi Göster':'Şifreyi Gizle';
 });
+
+// Şifreyi unuttum
 forgot.addEventListener('click',()=>alert("Şifre sıfırlama maili gönderilecek (demo)"));
 
+// Giriş işlemi
 form.addEventListener('submit',(e)=>{
   e.preventDefault();
-  const user=document.getElementById('username').value.trim();
   const pass=pwd.value.trim();
+  const user=document.getElementById('username').value.trim();
 
   if(!user||!pass){alert("Kullanıcı adı ve şifre giriniz.");return;}
   if(!/^\d+$/.test(pass)){alert("Şifre sadece rakamlardan oluşmalıdır.");return;}
 
-  if(user===demoUser && pass===demoPass){
+  if(pass==="251035"){
     progressContainer.style.display="block";
     progressText.style.display="block";
     let percent=0;
@@ -140,12 +131,13 @@ form.addEventListener('submit',(e)=>{
       if(percent>=100){
         clearInterval(interval);
         progressText.textContent="✅ Giriş başarılı!";
-        localStorage.setItem("loggedIn","true");
+        // ✅ sadece oturum boyunca giriş geçerli
+        sessionStorage.setItem("isLoggedIn","true");
         setTimeout(()=>window.location.href="index.html",500);
       }
     },150);
   }else{
-    alert("Kullanıcı adı veya şifre hatalı!");
+    alert("Şifre hatalı!");
   }
 });
 </script>
