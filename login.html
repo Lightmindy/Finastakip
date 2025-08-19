@@ -44,12 +44,11 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 }
 .a-logo{
   font-weight:900; font-size:48px; line-height:1; color:#e9f2ff;
-  letter-spacing:2px;
-  text-shadow:0 4px 10px rgba(0,0,0,.25);
+  letter-spacing:2px; text-shadow:0 4px 10px rgba(0,0,0,.25);
 }
 .app-title{ font-size:28px; font-weight:800; letter-spacing:.6px; color:#e9f2ff }
 
-/* Ana panel (yarı saydam mavi kutu) */
+/* Ana panel */
 .panel{
   background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.08)), linear-gradient(160deg,var(--panel1),var(--panel2));
   border:1px solid rgba(255,255,255,.16);
@@ -58,7 +57,7 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
   padding:16px;
 }
 
-/* Şifre (PIN) kartı */
+/* PIN kartı */
 .pin-card{ background:#fff; border-radius:var(--r-lg); box-shadow:var(--soft); padding:14px; border:1px solid var(--border) }
 .pin-top{ display:flex; align-items:center; gap:8px; margin-bottom:12px }
 .user-field{
@@ -90,7 +89,7 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 }
 .key:active{ transform:scale(.98) }
 
-/* Yardım satırı + büyük buton */
+/* Yardım + buton */
 .help-row{ display:flex; justify-content:space-between; align-items:center; color:#d0dbef; margin:12px 2px }
 .help-row a{ color:#d0dbef; text-decoration:none; font-weight:600 }
 .help-row a:hover{ text-decoration:underline }
@@ -114,8 +113,10 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 .chip{
   flex:1 1 31%; min-width:90px;
   background: rgba(255,255,255,.14); color:#e6eef7; border:1px solid rgba(255,255,255,.22);
-  border-radius:14px; padding:10px 8px; text-align:center; font-weight:700
+  border-radius:14px; padding:10px 8px; text-align:center; font-weight:700;
+  display:flex; align-items:center; justify-content:center; gap:6px;
 }
+.chip svg{ flex-shrink:0; color:#dbeafe }
 
 /* Küçük ekran */
 @media (max-width:360px){ .chip{ flex:1 1 48% } }
@@ -131,7 +132,7 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
       <div class="app-title">AykutCep</div>
     </div>
 
-    <!-- SADECE ŞİFRE (PIN) PANELİ -->
+    <!-- ŞİFRE (PIN) PANELİ -->
     <section class="panel">
 
       <div class="pin-card">
@@ -142,7 +143,7 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
             <span class="user-icon" aria-hidden="true"></span>
             <input id="username" class="input" type="text" placeholder="Kullanıcı Adı" autocomplete="username">
           </div>
-          <!-- 6 dot gösteriyoruz; 4 veya 6 hane destekli -->
+          <!-- 6 dot: 4 veya 6 hane destekli -->
           <div class="pin-dots" aria-label="PIN">
             <span id="d1" class="dot"></span><span id="d2" class="dot"></span><span id="d3" class="dot"></span>
             <span id="d4" class="dot"></span><span id="d5" class="dot"></span><span id="d6" class="dot"></span>
@@ -170,11 +171,30 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
         <div id="pText" class="progress-text">Giriş yapılıyor...</div>
       </div>
 
-      <!-- Alt kısayollar -->
+      <!-- Alt kısayollar (ikonlu) -->
       <div class="quick" aria-hidden="true">
-        <div class="chip">Yüz Okuma</div>
-        <div class="chip">Parmak İzi</div>
-        <div class="chip">Mobil Onay</div>
+        <div class="chip">
+          <!-- Yüz Okuma -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2a5 5 0 0 1 5 5v1a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5Zm0 11c4.418 0 8 2.239 8 5v2H4v-2c0-2.761 3.582-5 8-5Z"/>
+          </svg>
+          Yüz Okuma
+        </div>
+        <div class="chip">
+          <!-- Parmak İzi -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 1a9 9 0 0 0-9 9v5a9 9 0 1 0 18 0v-5a9 9 0 0 0-9-9Zm0 2a7 7 0 0 1 7 7v5a7 7 0 1 1-14 0v-5a7 7 0 0 1 7-7Z"/>
+            <path d="M11 14h2v5h-2z"/>
+          </svg>
+          Parmak İzi
+        </div>
+        <div class="chip">
+          <!-- Mobil Onay -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h10V4H7zm3 14h4v-2h-4v2z"/>
+          </svg>
+          Mobil Onay
+        </div>
       </div>
 
     </section>
@@ -188,14 +208,12 @@ if (sessionStorage.getItem('isLoggedIn') === 'true') {
 }
 
 /* PIN yönetimi */
-const VALID_PIN = '251035';        // ⬅️ Uygulama giriş şifresi
-const ALLOWED_LENGTHS = new Set([4,6]); // 4 veya 6 hane destekli
+const VALID_PIN = '251035';                 // ✅ Uygulama giriş şifresi
+const ALLOWED_LENGTHS = new Set([4,6]);    // ✅ 4 veya 6 hane destekli
 let pin = '';
 
 const dotEls = ['d1','d2','d3','d4','d5','d6'].map(id => document.getElementById(id));
-function renderDots(){
-  dotEls.forEach((d,i)=>d.classList.toggle('fill', i < pin.length));
-}
+function renderDots(){ dotEls.forEach((d,i)=>d.classList.toggle('fill', i < pin.length)); }
 
 document.querySelectorAll('.keypad .key').forEach(k=>{
   k.addEventListener('click', ()=>{
@@ -204,7 +222,7 @@ document.querySelectorAll('.keypad .key').forEach(k=>{
     if (act === 'ok')  { tryLogin(); return; }
     if (/^\d$/.test(k.textContent) && pin.length < 6) {
       pin += k.textContent; renderDots();
-      // Otomatik giriş YOK – kullanıcı "GİRİŞ YAP"a basacak.
+      // Otomatik giriş yok—kullanıcı "GİRİŞ YAP"a basacak
     }
   });
 });
@@ -220,9 +238,9 @@ document.getElementById('btnLogin').addEventListener('click', tryLogin);
 function tryLogin(){
   const uname = (document.getElementById('username').value || '').trim();
   if (!uname){ alert('Kullanıcı adını giriniz.'); return; }
-  if (!ALLOWED_LENGTHS.has(pin.length)){ 
-    alert('Şifre 4 veya 6 haneli olmalıdır.'); 
-    return; 
+  if (!ALLOWED_LENGTHS.has(pin.length)){
+    alert('Şifre 4 veya 6 haneli olmalıdır.');
+    return;
   }
   if (pin === VALID_PIN){
     runProgress('pWrap','pBar','pText', ()=> {
