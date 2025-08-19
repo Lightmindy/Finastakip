@@ -3,19 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>aykutcep – Giriş</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<title>AykutCep – Giriş</title>
 <style>
 :root{
-  /* Arka plan ve panel gradyanları (bankacılık görünümü) */
-  --bg1:#0d2c5b; --bg2:#184c7e;
-  --panel1:#1d426b; --panel2:#2c5b88;
-  --white:#ffffff; --ink:#0f172a; --muted:#6b7280; --border:#e5e7eb;
+  --bg1:#0d2c5b; --bg2:#184c7e;           /* sayfa gradyanı */
+  --panel1:#1d426b; --panel2:#2c5b88;     /* panel gradyanı */
+  --border:#e5e7eb; --white:#fff; --ink:#0f172a;
 
-  /* Mavi vurgu – buton ve progress */
-  --primary:#2c60a8; --primary-2:#3473c8; --accent:#62a2ff;
-
+  --primary:#2c60a8; --primary-2:#3473c8; /* buton/progress mavisi */
   --r-xl:22px; --r-lg:18px; --r-md:14px;
   --shadow:0 18px 40px rgba(3,10,24,.35);
   --soft:0 10px 24px rgba(3,10,24,.18);
@@ -39,15 +34,19 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 
 /* Üst avatar + başlık */
 .logo-wrap{
-  display:flex; flex-direction:column; align-items:center; color:#e6eef7; gap:10px; margin-bottom:14px;
+  display:flex; flex-direction:column; align-items:center; color:#e6eef7; gap:12px; margin-bottom:16px;
 }
 .avatar{
-  width:86px; height:86px; border-radius:50%;
-  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.12));
+  width:92px; height:92px; border-radius:50%;
+  background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,.10));
   display:flex; align-items:center; justify-content:center;
-  box-shadow: inset 0 8px 18px rgba(0,0,0,.18), inset 0 -8px 14px rgba(255,255,255,.08);
+  box-shadow: inset 0 10px 18px rgba(0,0,0,.18), inset 0 -8px 14px rgba(255,255,255,.08);
 }
-.avatar i{ font-size:44px; color:#cdd8ea }
+.a-logo{
+  font-weight:900; font-size:48px; line-height:1; color:#e9f2ff;
+  letter-spacing:2px;
+  text-shadow:0 4px 10px rgba(0,0,0,.25);
+}
 .app-title{ font-size:28px; font-weight:800; letter-spacing:.6px; color:#e9f2ff }
 
 /* Ana panel (yarı saydam mavi kutu) */
@@ -59,38 +58,43 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
   padding:16px;
 }
 
-/* Sekmeli başlık */
-.tabs{
-  display:flex; gap:0; background: rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius: var(--r-md); overflow:hidden; margin-bottom:14px;
-}
-.tab{
-  flex:1; padding:12px 10px; text-align:center; color:#d6e6ff;
-  background: transparent; border:none; font-weight:800; letter-spacing:.2px; cursor:pointer;
-}
-.tab.active{ background:#fff; color:var(--ink) }
-
-/* Beyaz kart */
-.card{ background:#fff; border-radius:var(--r-lg); box-shadow:var(--soft); padding:14px; border:1px solid var(--border) }
-
-/* İkonlu input grubu */
-.field{
+/* Şifre (PIN) kartı */
+.pin-card{ background:#fff; border-radius:var(--r-lg); box-shadow:var(--soft); padding:14px; border:1px solid var(--border) }
+.pin-top{ display:flex; align-items:center; gap:8px; margin-bottom:12px }
+.user-field{
   display:flex; align-items:center; gap:10px; border:1px solid var(--border);
-  background:#fff; border-radius:var(--r-md); padding:10px 12px; margin-bottom:10px;
+  background:#fff; border-radius:var(--r-md); padding:10px 12px; flex:1;
 }
-.field i{ color:#64748b; font-size:18px }
+.user-icon{
+  width:18px; height:18px; border-radius:50%;
+  background:#94a3b8; position:relative;
+}
+.user-icon::before{
+  content:""; position:absolute; inset:3px 3px auto 3px; height:6px; border-radius:50%; background:#fff; opacity:.85;
+}
+.user-icon::after{
+  content:""; position:absolute; bottom:3px; left:3px; right:3px; height:7px; border-radius:7px 7px 2px 2px; background:#fff; opacity:.85;
+}
 .input{ border:none; outline:none; width:100%; font-size:15px; background:transparent }
-.eye{ margin-left:auto; color:#64748b; cursor:pointer }
 
-/* Yardım linkleri */
-.help-row{
-  display:flex; justify-content:space-between; align-items:center; color:#d0dbef; margin:8px 2px 12px;
+.pin-dots{ display:flex; gap:8px; margin-left:auto }
+.dot{ width:10px; height:10px; border-radius:50%; border:2px solid #cbd5e1 }
+.dot.fill{ background:#2563eb; border-color:#2563eb }
+
+/* Tuş takımı */
+.keypad{ margin-top:6px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px }
+.key{
+  background:#f7f9fc; border:1px solid var(--border); border-radius:14px; padding:14px 0;
+  text-align:center; font-weight:800; font-size:18px; color:#0f172a; user-select:none; cursor:pointer;
+  box-shadow:0 4px 10px rgba(15,23,42,.06); transition:transform .06s;
 }
+.key:active{ transform:scale(.98) }
+
+/* Yardım satırı + büyük buton */
+.help-row{ display:flex; justify-content:space-between; align-items:center; color:#d0dbef; margin:12px 2px }
 .help-row a{ color:#d0dbef; text-decoration:none; font-weight:600 }
 .help-row a:hover{ text-decoration:underline }
 
-/* Büyük mavi buton */
 .btn{
   width:100%; padding:14px 16px; border:none; border-radius:28px; cursor:pointer;
   background: linear-gradient(90deg,var(--primary),var(--primary-2));
@@ -105,30 +109,13 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 .progress{ height:8px; width:100%; background: rgba(255,255,255,.25); border-radius:8px; overflow:hidden }
 .bar{ width:0; height:100%; background: linear-gradient(90deg,#73b0ff,#2e67b5); transition: width .22s }
 
-/* PIN görünümü */
-.pin-card{ background:#fff; border-radius:var(--r-lg); box-shadow:var(--soft); padding:14px; border:1px solid var(--border) }
-.pin-top{ display:flex; align-items:center; gap:8px; margin-bottom:10px }
-.pin-dots{ display:flex; gap:8px; margin-left:auto }
-.dot{ width:10px; height:10px; border-radius:50%; border:2px solid #cbd5e1 }
-.dot.fill{ background:#2563eb; border-color:#2563eb }
-.keypad{ margin-top:8px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px }
-.key{
-  background:#f7f9fc; border:1px solid var(--border); border-radius:14px; padding:14px 0;
-  text-align:center; font-weight:800; font-size:18px; color:#0f172a; user-select:none; cursor:pointer;
-  box-shadow:0 4px 10px rgba(15,23,42,.06); transition:transform .06s;
-}
-.key:active{ transform:scale(.98) }
-
-/* Alt yüz kısayolları (Face/Touch/OR) */
-.quick{
-  display:flex; gap:12px; justify-content:space-between; margin-top:14px;
-}
+/* Alt kısayollar */
+.quick{ display:flex; gap:12px; justify-content:space-between; margin-top:14px }
 .chip{
   flex:1 1 31%; min-width:90px;
   background: rgba(255,255,255,.14); color:#e6eef7; border:1px solid rgba(255,255,255,.22);
   border-radius:14px; padding:10px 8px; text-align:center; font-weight:700
 }
-.chip i{ margin-right:6px }
 
 /* Küçük ekran */
 @media (max-width:360px){ .chip{ flex:1 1 48% } }
@@ -138,87 +125,56 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 <div class="page">
   <div class="frame">
 
-    <!-- ÜST: Avatar + Başlık -->
+    <!-- ÜST: Avatar + AykutCep -->
     <div class="logo-wrap">
-      <div class="avatar"><i class="fa-solid fa-user"></i></div>
-      <div class="app-title">aykutcep</div>
+      <div class="avatar"><span class="a-logo">A</span></div>
+      <div class="app-title">AykutCep</div>
     </div>
 
-    <!-- ANA PANEL -->
+    <!-- SADECE ŞİFRE (PIN) PANELİ -->
     <section class="panel">
 
-      <!-- Sekmeler -->
-      <div class="tabs">
-        <button id="tabParola" class="tab active" type="button">Parola</button>
-        <button id="tabSifre"  class="tab" type="button">Şifre</button>
-      </div>
+      <div class="pin-card">
 
-      <!-- PAROLA (kullanıcı + parola) -->
-      <div id="viewParola">
-        <div class="card">
-          <div class="field">
-            <i class="fa-solid fa-user"></i>
+        <!-- Kullanıcı adı + dotlar -->
+        <div class="pin-top">
+          <div class="user-field">
+            <span class="user-icon" aria-hidden="true"></span>
             <input id="username" class="input" type="text" placeholder="Kullanıcı Adı" autocomplete="username">
           </div>
-          <div class="field">
-            <i class="fa-solid fa-lock"></i>
-            <input id="password" class="input" type="password" placeholder="Parola" autocomplete="current-password">
-            <i id="togglePwd" class="fa-regular fa-eye eye" title="Göster/Gizle"></i>
+          <!-- 6 dot gösteriyoruz; 4 veya 6 hane destekli -->
+          <div class="pin-dots" aria-label="PIN">
+            <span id="d1" class="dot"></span><span id="d2" class="dot"></span><span id="d3" class="dot"></span>
+            <span id="d4" class="dot"></span><span id="d5" class="dot"></span><span id="d6" class="dot"></span>
           </div>
         </div>
 
-        <div class="help-row">
-          <a href="#" id="forgotPwd">Parolamı Unuttum</a>
-          <span aria-hidden="true"></span>
-        </div>
-
-        <button id="btnParola" class="btn" type="button">GİRİŞ YAP</button>
-
-        <div id="pwWrap" class="progress-wrap">
-          <div class="progress"><div id="pwBar" class="bar"></div></div>
-          <div id="pwText" class="progress-text">Giriş yapılıyor...</div>
+        <!-- Tuş takımı -->
+        <div class="keypad">
+          <div class="key">1</div><div class="key">2</div><div class="key">3</div>
+          <div class="key">4</div><div class="key">5</div><div class="key">6</div>
+          <div class="key">7</div><div class="key">8</div><div class="key">9</div>
+          <div class="key" data-act="del">←</div><div class="key">0</div><div class="key" data-act="ok">✔</div>
         </div>
       </div>
 
-      <!-- ŞİFRE (PIN) -->
-      <div id="viewSifre" style="display:none">
-        <div class="pin-card">
-          <div class="pin-top">
-            <div class="field" style="flex:1; margin:0">
-              <i class="fa-solid fa-user"></i>
-              <input id="username2" class="input" type="text" placeholder="Kullanıcı Adı">
-            </div>
-            <div class="pin-dots" aria-label="PIN">
-              <span id="d1" class="dot"></span><span id="d2" class="dot"></span><span id="d3" class="dot"></span><span id="d4" class="dot"></span>
-            </div>
-          </div>
-
-          <div class="keypad">
-            <div class="key">1</div><div class="key">2</div><div class="key">3</div>
-            <div class="key">4</div><div class="key">5</div><div class="key">6</div>
-            <div class="key">7</div><div class="key">8</div><div class="key">9</div>
-            <div class="key" data-act="del">←</div><div class="key">0</div><div class="key" data-act="ok">✔</div>
-          </div>
-        </div>
-
-        <div class="help-row" style="margin-top:10px">
-          <a href="#" id="forgotPin">Şifremi Unuttum</a>
-          <a href="#" id="btnDevam" style="font-weight:800">DEVAM</a>
-        </div>
-
-        <button id="btnPinLogin" class="btn" type="button">GİRİŞ YAP</button>
-
-        <div id="pinWrap" class="progress-wrap">
-          <div class="progress"><div id="pinBar" class="bar"></div></div>
-          <div id="pinText" class="progress-text">Giriş yapılıyor...</div>
-        </div>
+      <div class="help-row">
+        <a href="#" id="forgotPin">Şifremi Unuttum</a>
+        <span></span>
       </div>
 
-      <!-- Alt kısayollar (ikonlu) -->
+      <button id="btnLogin" class="btn" type="button">GİRİŞ YAP</button>
+
+      <div id="pWrap" class="progress-wrap">
+        <div class="progress"><div id="pBar" class="bar"></div></div>
+        <div id="pText" class="progress-text">Giriş yapılıyor...</div>
+      </div>
+
+      <!-- Alt kısayollar -->
       <div class="quick" aria-hidden="true">
-        <div class="chip"><i class="fa-regular fa-id-badge"></i>Şifremi</div>
-        <div class="chip"><i class="fa-regular fa-face-smile"></i>Face</div>
-        <div class="chip"><i class="fa-regular fa-fingerprint"></i>OR</div>
+        <div class="chip">Yüz Okuma</div>
+        <div class="chip">Parmak İzi</div>
+        <div class="chip">Mobil Onay</div>
       </div>
 
     </section>
@@ -226,82 +182,71 @@ body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial}
 </div>
 
 <script>
-/* Oturum açıksa anasayfaya geç */
+/* Oturum açıksa direkt index'e geç */
 if (sessionStorage.getItem('isLoggedIn') === 'true') {
   location.href = 'index.html';
 }
 
-/* Sekmeler */
-const tabParola = document.getElementById('tabParola');
-const tabSifre  = document.getElementById('tabSifre');
-const viewParola= document.getElementById('viewParola');
-const viewSifre = document.getElementById('viewSifre');
+/* PIN yönetimi */
+const VALID_PIN = '251035';        // ⬅️ Uygulama giriş şifresi
+const ALLOWED_LENGTHS = new Set([4,6]); // 4 veya 6 hane destekli
+let pin = '';
 
-tabParola.onclick = () => {
-  tabParola.classList.add('active'); tabSifre.classList.remove('active');
-  viewParola.style.display='block';  viewSifre.style.display='none';
-};
-tabSifre.onclick = () => {
-  tabSifre.classList.add('active'); tabParola.classList.remove('active');
-  viewSifre.style.display='block';   viewParola.style.display='none';
-};
+const dotEls = ['d1','d2','d3','d4','d5','d6'].map(id => document.getElementById(id));
+function renderDots(){
+  dotEls.forEach((d,i)=>d.classList.toggle('fill', i < pin.length));
+}
 
-/* Parola alanı – göster/gizle */
-const pwdEl = document.getElementById('password');
-const togglePwd = document.getElementById('togglePwd');
-togglePwd.addEventListener('click', ()=>{
-  const show = pwdEl.type === 'password';
-  pwdEl.type = show ? 'text' : 'password';
-  togglePwd.classList.toggle('fa-eye');
-  togglePwd.classList.toggle('fa-eye-slash');
-});
-
-/* Yardım linkleri (demo) */
-document.getElementById('forgotPwd').onclick = (e)=>{ e.preventDefault(); alert('Parola sıfırlama talimatı gönderilecek (demo).'); };
-document.getElementById('forgotPin').onclick = (e)=>{ e.preventDefault(); alert('PIN sıfırlama talimatı gönderilecek (demo).'); };
-
-/* PAROLA ile giriş (kullanıcı/parola doluysa kabul) */
-document.getElementById('btnParola').onclick = ()=>{
-  const user = document.getElementById('username').value.trim();
-  const pass = pwdEl.value.trim();
-  if(!user || !pass){ alert('Kullanıcı adı ve parola gerekli.'); return; }
-  runProgress('pwWrap','pwBar','pwText', ()=> {
-    sessionStorage.setItem('isLoggedIn','true');
-    location.href='index.html';
-  });
-};
-
-/* PIN akışı */
-let pin=''; const dots=['d1','d2','d3','d4'].map(id=>document.getElementById(id));
-function renderDots(){ dots.forEach((el,i)=>el.classList.toggle('fill', i<pin.length)); }
 document.querySelectorAll('.keypad .key').forEach(k=>{
-  k.onclick=()=>{
-    const act=k.getAttribute('data-act');
-    if(act==='del'){ pin=pin.slice(0,-1); renderDots(); return; }
-    if(act==='ok'){ tryPin(); return; }
-    if(pin.length<4 && /^\d$/.test(k.textContent)){ pin+=k.textContent; renderDots(); if(pin.length===4) tryPin(); }
-  };
+  k.addEventListener('click', ()=>{
+    const act = k.getAttribute('data-act');
+    if (act === 'del') { pin = pin.slice(0,-1); renderDots(); return; }
+    if (act === 'ok')  { tryLogin(); return; }
+    if (/^\d$/.test(k.textContent) && pin.length < 6) {
+      pin += k.textContent; renderDots();
+      // Otomatik giriş YOK – kullanıcı "GİRİŞ YAP"a basacak.
+    }
+  });
 });
-document.getElementById('btnDevam').onclick=(e)=>{e.preventDefault(); tryPin();}
-document.getElementById('btnPinLogin').onclick=tryPin;
-function tryPin(){
-  // Demo PIN: 1234
-  if(pin==='1234'){
-    runProgress('pinWrap','pinBar','pinText', ()=> {
+
+/* Şifremi Unuttum (demo) */
+document.getElementById('forgotPin').addEventListener('click',(e)=>{
+  e.preventDefault(); alert('PIN sıfırlama talimatı gönderilecek (demo).');
+});
+
+/* GİRİŞ YAP butonu */
+document.getElementById('btnLogin').addEventListener('click', tryLogin);
+
+function tryLogin(){
+  const uname = (document.getElementById('username').value || '').trim();
+  if (!uname){ alert('Kullanıcı adını giriniz.'); return; }
+  if (!ALLOWED_LENGTHS.has(pin.length)){ 
+    alert('Şifre 4 veya 6 haneli olmalıdır.'); 
+    return; 
+  }
+  if (pin === VALID_PIN){
+    runProgress('pWrap','pBar','pText', ()=> {
       sessionStorage.setItem('isLoggedIn','true');
       location.href='index.html';
     });
-  }else{
-    alert('PIN hatalı!');
+  } else {
+    alert('Şifre hatalı!');
     pin=''; renderDots();
   }
 }
 
 /* Progress yardımcı */
 function runProgress(wrapId, barId, textId, done){
-  const wrap=document.getElementById(wrapId), bar=document.getElementById(barId), text=document.getElementById(textId);
-  wrap.style.display='block'; text.textContent='Giriş yapılıyor...';
-  let p=0; const iv=setInterval(()=>{ p+=10; bar.style.width=p+'%'; if(p>=100){ clearInterval(iv); text.textContent='✅ Giriş başarılı!'; setTimeout(done,450);} },120);
+  const wrap=document.getElementById(wrapId);
+  const bar=document.getElementById(barId);
+  const text=document.getElementById(textId);
+  wrap.style.display='block';
+  text.textContent='Giriş yapılıyor...';
+  let p=0;
+  const iv=setInterval(()=>{
+    p+=10; bar.style.width=p+'%';
+    if(p>=100){ clearInterval(iv); text.textContent='✅ Giriş başarılı!'; setTimeout(done,450); }
+  },120);
 }
 </script>
 </body>
