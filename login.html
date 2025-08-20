@@ -1,182 +1,226 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AykutCep Giriş</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Finans Giriş İşlemleri</title>
 <style>
-  :root{
-    --bg1:#1e3a8a;
-    --bg2:#2563eb;
-    --bg3:#60a5fa;
-    --card:#ffffff;
-    --text:#111827;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --primary:#3b82f6;
-    --primary-2:#2563eb;
-    --accent:#60a5fa;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:'Segoe UI',sans-serif;}
+:root{
+  --bg1:#dbeafe;
+  --bg2:#93c5fd;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --primary:#3b82f6;
+  --primary-2:#2563eb;
+  --accent:#60a5fa;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Segoe UI', system-ui, Roboto;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
 
-  /* Splash ekranı */
-  #splash {
-    position:fixed;
-    top:0; left:0; right:0; bottom:0;
-    background: radial-gradient(circle at 20% 30%, var(--bg3), var(--bg2), var(--bg1));
-    display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    color:#fff; text-align:center;
-    z-index:1000;
-    overflow:hidden;
-    animation: splashAnim 4s ease-in-out infinite alternate;
-  }
-  #countdown{
-    font-size:26px;
-    font-weight:700;
-    text-shadow:0 0 12px rgba(255,255,255,0.7);
-    animation: textPulse 2s ease-in-out infinite;
-    margin-top:20px;
-    position:relative;
-    z-index:2;
-  }
-  #splash::after {
-    content:"";
-    position:absolute;
-    top:0; left:-150%; width:50%; height:100%;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.3),transparent);
-    animation: shimmer 6s infinite;
-    z-index:1;
-  }
-  @keyframes shimmer { 0%{left:-150%} 100%{left:150%} }
-  @keyframes splashAnim {
-    0% { background: radial-gradient(circle at 20% 30%, var(--bg3), var(--bg2), var(--bg1)); }
-    100% { background: radial-gradient(circle at 80% 70%, var(--bg1), var(--bg2), var(--bg3)); }
-  }
-  @keyframes textPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.1);opacity:.8} }
+/* --- Splash (profesyonel, dokulu mavi + animasyon) --- */
+#splash{
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  color:#fff; text-align:center;
+  background:
+    radial-gradient(80% 60% at 20% 20%, rgba(255,255,255,.20), transparent 60%),
+    radial-gradient(70% 55% at 80% 80%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6 60%, #1e40af 100%);
+  overflow:hidden;
+  animation: splashBg 6s ease-in-out infinite alternate;
+  opacity:1; transition: opacity .6s ease;
+}
+#splash.hide{ opacity:0; pointer-events:none; }
 
-  /* Splash LOGO */
-  #splash-logo {
-    width:100px; height:100px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    border-radius:25px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:42px; font-weight:900; color:#fff;
-    box-shadow:0 0 20px rgba(255,255,255,0.6);
-    animation: spinLogo 4s linear infinite, glow 2s ease-in-out infinite alternate;
-    z-index:2;
-  }
-  @keyframes spinLogo {0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-  @keyframes glow {0%{box-shadow:0 0 12px rgba(255,255,255,.4)}100%{box-shadow:0 0 28px rgba(255,255,255,.9)}}
+#splash::after{
+  content:""; position:absolute; top:0; left:-150%; width:50%; height:100%;
+  background:linear-gradient(120deg,transparent, rgba(255,255,255,.25), transparent);
+  animation: shimmer 6s infinite;
+}
+@keyframes shimmer{ 0%{left:-150%} 100%{left:150%} }
+@keyframes splashBg{
+  0%{ background:
+    radial-gradient(80% 60% at 20% 20%, rgba(255,255,255,.20), transparent 60%),
+    radial-gradient(70% 55% at 80% 80%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6 60%, #1e40af 100%); }
+  100%{ background:
+    radial-gradient(80% 60% at 70% 30%, rgba(255,255,255,.20), transparent 60%),
+    radial-gradient(70% 55% at 30% 75%, rgba(255,255,255,.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, #60a5fa, #2563eb 60%, #1e3a8a 100%); }
+}
+#splash-logo{
+  width:96px; height:96px; border-radius:24px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, var(--primary-2), var(--accent));
+  font-weight:900; font-size:44px; letter-spacing:1px; color:#fff;
+  box-shadow:0 0 18px rgba(255,255,255,.7);
+  animation: spin 4s linear infinite, glow 2s ease-in-out infinite alternate;
+}
+@keyframes spin{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes glow{ 0%{box-shadow:0 0 12px rgba(255,255,255,.4)} 100%{box-shadow:0 0 26px rgba(255,255,255,.9)} }
 
-  /* Login ekranı */
-  #login {
-    display:none; /* BAŞLANGIÇTA GİZLİ */
-    height:100%;
-    align-items:center; justify-content:center;
-    background:linear-gradient(135deg,var(--bg1),var(--bg2));
-    padding:20px;
-  }
-  .card{
-    width:100%; max-width:420px; background:var(--card);
-    border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.12);
-    padding:28px 24px; text-align:center;
-  }
-  .logo{
-    width:86px; height:86px; margin:0 auto 14px; border-radius:22px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:36px; font-weight:800;
-  }
-  .title{margin:0 0 18px; font-size:22px; font-weight:700}
-  .form-group{margin-bottom:14px;text-align:left}
-  label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
-  .input{
-    width:100%; padding:12px 14px; border-radius:12px;
-    border:1px solid var(--border); font-size:15px;
-  }
-  .btn{
-    width:100%; margin-top:14px; padding:12px 16px;
-    background:linear-gradient(90deg,var(--primary-2),var(--primary));
-    color:#fff; border:none; border-radius:12px;
-    font-size:16px; font-weight:700; cursor:pointer;
-    transition:transform .2s;
-  }
-  .btn:hover{transform:scale(1.03)}
-  .progress-container{margin-top:16px;width:100%;background:#f3f4f6;border-radius:8px;height:14px;display:none;overflow:hidden}
-  .progress-bar{width:0;height:100%;background:linear-gradient(90deg,#60a5fa,#3b82f6);transition:width .2s}
-  .progress-text{margin-top:10px;color:var(--primary-2);font-weight:600;display:none}
+#countdown{
+  margin-top:16px; font-size:24px; font-weight:800;
+  text-shadow:0 0 10px rgba(255,255,255,.6);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.06);opacity:.9} }
+
+/* --- Login kartı (mevcut temanın aynısı) --- */
+.card{
+  width:100%; max-width:420px; background:var(--card);
+  border-radius:18px; box-shadow:0 12px 30px rgba(0,0,0,.12);
+  padding:28px 24px; text-align:center; position:relative;
+}
+.logo{
+  width:86px; height:86px; margin:0 auto 14px; border-radius:22px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:36px; font-weight:800;
+}
+.title{margin:0 0 18px; font-size:22px; font-weight:700}
+.form-group{margin-bottom:14px;text-align:left}
+label{display:block;margin-bottom:6px;color:var(--muted);font-size:13px}
+.input{
+  width:100%; padding:12px 14px; border-radius:12px;
+  border:1px solid var(--border); font-size:15px;
+}
+.link-btn{
+  margin-top:6px; border:none; background:none; color:var(--primary);
+  cursor:pointer; font-size:13px;
+}
+.btn{
+  width:100%; margin-top:14px; padding:12px 16px;
+  background:linear-gradient(90deg,var(--primary-2),var(--primary));
+  color:#fff; border:none; border-radius:12px;
+  font-size:16px; font-weight:700; cursor:pointer;
+  transition:transform .2s;
+}
+.btn:hover{transform:scale(1.03)}
+.progress-container{
+  margin-top:16px; width:100%; background:#f3f4f6; border-radius:8px;
+  height:14px; display:none; overflow:hidden; position:relative;
+}
+.progress-bar{
+  width:0; height:100%;
+  background:linear-gradient(90deg,#60a5fa,#3b82f6);
+  transition:width .2s;
+}
+.progress-text{
+  margin-top:10px;
+  color:var(--primary-2);
+  font-weight:600;
+  display:none;
+}
 </style>
 </head>
 <body>
 
-<!-- Splash -->
-<div id="splash">
-  <div id="splash-logo">A</div>
-  <div id="countdown"></div>
+<!-- SPLASH OVERLAY (4 sn) -->
+<div id="splash" aria-hidden="true">
+  <div id="splash-logo">F</div>
+  <div id="countdown">3 Ekim'e hesaplanıyor…</div>
 </div>
 
-<!-- Login -->
-<div id="login">
-  <div class="card">
-    <div class="logo">A</div>
-    <h1 class="title">AykutCep</h1>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="username">Kullanıcı Adı</label>
-        <input id="username" class="input" type="text" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Şifre (sadece rakam)</label>
-        <input id="password" class="input" type="password" inputmode="numeric" required />
-      </div>
-      <button type="submit" class="btn">Giriş Yap</button>
-      <div class="progress-container" id="progressContainer">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <div class="progress-text" id="progressText">Giriş yapılıyor...</div>
-    </form>
-  </div>
+<!-- LOGIN -->
+<div class="card">
+  <div class="logo">F</div>
+  <h1 class="title">Finans Giriş İşlemleri</h1>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="username">Kullanıcı Adı</label>
+      <input id="username" class="input" type="text" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Şifre (sadece rakam)</label>
+      <input id="password" class="input" type="password" inputmode="numeric" required />
+      <button type="button" id="togglePwd" class="link-btn">Şifreyi Göster</button>
+      <button type="button" id="forgotPwd" class="link-btn">Şifremi Unuttum</button>
+    </div>
+    <button type="submit" class="btn">Giriş Yap</button>
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">Giriş yapılıyor...</div>
+  </form>
 </div>
 
 <script>
-// SPLASH sayaç
-const target=new Date("2025-10-03T00:00:00").getTime();
-function updateCountdown(){
-  const now=new Date().getTime();
-  const diff=target-now;
-  const days=Math.floor(diff/(1000*60*60*24));
-  document.getElementById("countdown").textContent=`3 Ekim'e ${days} gün kaldı`;
-}
-updateCountdown();
+/* --------- SPLASH Sayaç --------- */
+/* Hedef tarihi otomatik belirle: bugünden sonra gelen en yakın 3 Ekim */
+(function(){
+  const now = new Date();
+  const year = now.getMonth() > 9 || (now.getMonth()===9 && now.getDate()>3) ? now.getFullYear()+1 : now.getFullYear();
+  const target = new Date(year, 9, 3, 0, 0, 0).getTime(); // 9 = Ekim
 
-// 4sn sonra login aç
-setTimeout(()=>{
-  document.getElementById("splash").style.display="none";
-  document.getElementById("login").style.display="flex";
-},4000);
+  function renderCountdown(){
+    const diff = target - Date.now();
+    const days = Math.max(0, Math.floor(diff/(1000*60*60*24)));
+    document.getElementById('countdown').textContent = `3 Ekim'e ${days} gün kaldı`;
+  }
+  renderCountdown();
 
-// LOGIN kontrol
+  // 4sn sonra splash'ı şıkça kapat
+  setTimeout(()=>{
+    const s = document.getElementById('splash');
+    s.classList.add('hide');
+    setTimeout(()=> s.remove(), 650); // fade-out bitince DOM'dan kaldır
+  }, 4000);
+})();
+
+/* --------- LOGIN Davranışı (mevcut kodun aynısı) --------- */
 const form=document.getElementById('loginForm');
 const pwd=document.getElementById('password');
+const toggle=document.getElementById('togglePwd');
+const forgot=document.getElementById('forgotPwd');
 const progressContainer=document.getElementById('progressContainer');
 const progressBar=document.getElementById('progressBar');
 const progressText=document.getElementById('progressText');
 
+// Şifreyi göster/gizle
+toggle.addEventListener('click',()=>{
+  pwd.type=(pwd.type==='password')?'text':'password';
+  toggle.textContent=(pwd.type==='password')?'Şifreyi Göster':'Şifreyi Gizle';
+});
+
+// Şifreyi unuttum
+forgot.addEventListener('click',()=>alert("Şifre sıfırlama maili gönderilecek (demo)"));
+
+// Giriş işlemi
 form.addEventListener('submit',(e)=>{
   e.preventDefault();
   const pass=pwd.value.trim();
   const user=document.getElementById('username').value.trim();
+
   if(!user||!pass){alert("Kullanıcı adı ve şifre giriniz.");return;}
-  if(!/^\d+$/.test(pass)){alert("Şifre sadece rakam olmalı.");return;}
+  if(!/^\d+$/.test(pass)){alert("Şifre sadece rakamlardan oluşmalıdır.");return;}
+
   if(pass==="251035"){
-    progressContainer.style.display="block"; progressText.style.display="block";
-    let percent=0; const interval=setInterval(()=>{
-      percent+=10; progressBar.style.width=percent+"%";
-      if(percent>=100){clearInterval(interval);progressText.textContent="✅ Giriş başarılı!";setTimeout(()=>window.location.href="index.html",500);}
+    progressContainer.style.display="block";
+    progressText.style.display="block";
+    let percent=0;
+    const interval=setInterval(()=>{
+      percent+=10;
+      progressBar.style.width=percent+"%";
+      if(percent>=100){
+        clearInterval(interval);
+        progressText.textContent="✅ Giriş başarılı!";
+        // ✅ sadece oturum boyunca giriş geçerli
+        sessionStorage.setItem("isLoggedIn","true");
+        setTimeout(()=>window.location.href="index.html",500);
+      }
     },150);
-  }else{alert("Şifre hatalı!");}
+  }else{
+    alert("Şifre hatalı!");
+  }
 });
 </script>
 </body>
