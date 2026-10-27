@@ -1,1 +1,0 @@
-# Finastakip sistemi
