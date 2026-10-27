@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aslan PvP · Türkçe Ultima Online PvP Sunucusu</title>
+<meta name="description" content="Aslan PvP: ücretsiz, Türkçe Ultima Online PvP sunucusu. Felucca’da açık PvP, lonca kale fetihleri, haftalık turnuvalar, oyuncu rehberi ve otomatik hesap açan launcher.">
+<meta name="theme-color" content="#07040a">
+<meta property="og:title" content="Aslan PvP · Türkçe Ultima Online PvP Sunucusu"><meta property="og:description" content="Açık PvP, kale fetihleri, turnuvalar. Hesap ücretsiz."><meta property="og:type" content="website"><meta property="og:locale" content="tr_TR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#08060b;--tx:#e6dccf;--mut:#ab9c8d;--gold:#e2b45f;--gold2:#f7deaa;--fire:#ff7a2e;--ember:#b8281c;--ok:#58e38a;--moon:#9db8ff;--glass:rgba(22,14,22,.7);--bd:rgba(255,196,120,.16);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*{box-sizing:border-box;cursor:var(--cur,auto)}
+a,button,summary,.btn{cursor:var(--cur2,pointer)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+::selection{background:var(--fire);color:#000}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 Inter,system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+h1,h2,h3,.btn{font-family:Cinzel,Georgia,serif}
+h1,h2,h3{margin:0;font-weight:700}
+a{color:inherit;text-decoration:none}
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 45% at 50% -5%,#5a1a3a77,transparent 70%),radial-gradient(ellipse 60% 40% at 50% 108%,#ff5a1a55,transparent 70%),radial-gradient(ellipse 35% 50% at 0 60%,#2a0f2e88,transparent),radial-gradient(ellipse 35% 50% at 100% 60%,#3a1210aa,transparent)}
+.beam{position:fixed;top:-25vh;width:26vw;height:150vh;background:linear-gradient(rgba(255,170,100,.2),rgba(255,120,60,.05) 60%,transparent);filter:blur(34px);transform-origin:top;animation:sway 14s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+.beam.a{left:6%;transform:rotate(16deg)}.beam.b{right:8%;transform:rotate(-18deg);animation-delay:-6s;opacity:.7}
+@keyframes sway{to{opacity:.35;margin-left:40px}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.08;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 180px #000}
+.embers{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.embers i{position:absolute;bottom:-10px;border-radius:50%;background:#ffb060;opacity:0;animation:rise linear infinite}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}12%{opacity:.85}100%{transform:translate(var(--dx),-105vh);opacity:0}}
+@media(prefers-reduced-motion:reduce){.embers,.beam{display:none}h1{animation:none!important}html{scroll-behavior:auto}}
+.wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto;padding:0 20px}
+.bar{position:relative;z-index:41;text-align:center;font-size:13px;padding:7px 16px;background:linear-gradient(90deg,#4a120a,#7a2410,#4a120a);color:#ffe6b0;border-bottom:1px solid #ffb86a44}
+.bar a{text-decoration:underline}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(10,5,12,.7);backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid var(--bd);box-shadow:0 10px 30px #0008}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:14px}
+.brand{font:900 22px Cinzel,serif;letter-spacing:.12em;background:linear-gradient(#fff0c4,#e8a850);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px #ff7a2e66)}
+nav{display:flex;gap:2px}
+nav a{padding:6px 13px;font:500 14px Inter,sans-serif;color:#cdbcae;border-radius:20px;transition:.2s}
+nav a:hover{color:var(--gold2);background:#ffb86a14}
+.btn{position:relative;display:inline-block;overflow:hidden;padding:12px 28px;font-size:15px;font-weight:700;letter-spacing:.07em;color:#2a1204;background:linear-gradient(#ffe29a,#f0a63c 55%,#c46a18);border:0;border-radius:8px;box-shadow:inset 0 1px 0 #fff9,0 0 0 1px #ffcf85aa,0 6px 26px #ff7a2e66;transition:.25s;text-align:center}
+.btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(90deg,transparent,#fff8,transparent);transform:skewX(-20deg);transition:.6s}
+.btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 #fff9,0 0 0 1px #ffe0a0,0 10px 36px #ff7a2e99}
+.btn:hover::after{left:130%}
+.btn.g{color:var(--gold2);background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px #ffcf8566,0 0 20px #ff7a2e22;backdrop-filter:blur(6px)}
+.btn.s{padding:9px 20px;font-size:13px}
+.hero{position:relative;text-align:center;padding:70px 0 90px}
+.halo{position:absolute;left:50%;top:10px;width:min(760px,95vw);height:380px;transform:translateX(-50%);background:radial-gradient(ellipse,#ff7a2e55,#c8321c22 45%,transparent 70%);filter:blur(24px);z-index:-1}
+.tag{font:500 12px Inter,sans-serif;letter-spacing:.5em;color:#ffb878;text-transform:uppercase;text-shadow:0 0 14px #ff7a2e}
+h1{font:900 clamp(52px,11vw,128px)/1 Cinzel,serif;letter-spacing:.05em;margin:14px 0 8px;background:linear-gradient(100deg,#b8741f 0%,#fff0c4 25%,#f0a63c 45%,#ffe6b0 55%,#b8741f 75%,#fff0c4 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite;filter:drop-shadow(0 0 28px #ff7a2e88) drop-shadow(0 4px 2px #000)}
+@keyframes shine{to{background-position:-220% 0}}
+.lead{max-width:660px;margin:0 auto 30px;font-size:19px;color:#e2d4c6;text-shadow:0 2px 12px #000}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+.chip{min-width:130px;padding:14px 20px;background:var(--glass);border:1px solid var(--bd);border-radius:12px;backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 #ffffff12,0 8px 30px #0008}
+.chip b{display:block;font:700 22px Cinzel,serif;color:var(--gold2);text-shadow:0 0 14px #ff7a2e88}
+.chip small{color:var(--mut);font-size:12px;letter-spacing:.08em}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#52ff7a;box-shadow:0 0 10px #52ff7a;margin-right:6px}
+.ip{display:inline-flex;gap:10px;align-items:center;margin-top:26px;padding:7px 7px 7px 18px;background:rgba(0,0,0,.45);border:1px solid var(--bd);border-radius:10px;font:13px ui-monospace,Consolas,monospace;color:var(--gold2)}
+.ip button{background:#ffffff14;color:var(--tx);border:0;border-radius:6px;padding:6px 14px;font:500 12px Inter,sans-serif}
+.cols{display:grid;grid-template-columns:1fr 330px;gap:28px;align-items:start}
+.glass{position:relative;background:var(--glass);border:1px solid var(--bd);border-radius:16px;backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 #ffffff14,0 14px 44px #000a}
+.glass::before{content:"";position:absolute;left:12%;right:12%;top:-1px;height:1px;background:linear-gradient(90deg,transparent,#ffcf85,transparent)}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:50px 0 18px}
+.sh:first-child{margin-top:0}
+.sh h2{font-size:26px;letter-spacing:.06em;color:var(--gold2);text-shadow:0 0 18px #ff7a2e66}
+.sh small{color:var(--mut);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{padding:22px;transition:.3s;display:flex;flex-direction:column;gap:6px}
+.card:hover{transform:translateY(-4px);border-color:#ffcf8588;box-shadow:inset 0 1px 0 #ffffff14,0 18px 50px #000a,0 0 40px #ff7a2e33}
+.no{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:700 14px Cinzel,serif;color:var(--gold2);background:radial-gradient(circle at 35% 30%,#ff9a4a55,#3a0f0a);box-shadow:0 0 0 1px #ffcf8566,0 0 20px #ff7a2e66}
+.card h3{font-size:18px;color:var(--gold2)}
+.card p{margin:0;font-size:14.5px;color:var(--mut);flex:1}
+.d{font-size:11px;letter-spacing:.22em;color:var(--fire)}
+.more{margin-top:8px;align-self:flex-start;background:none;border:0;color:#ffb878;font:600 13px Inter,sans-serif;padding:0}
+.more:hover{color:var(--gold2);text-shadow:0 0 10px var(--fire)}
+.more::after{content:" →"}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kv div{padding:16px;text-align:center}
+.kv b{display:block;font:700 17px Cinzel,serif;color:var(--gold2)}
+.kv small{color:var(--mut);font-size:12px;letter-spacing:.08em}
+.rm{list-style:none;margin:0;padding:6px 22px}
+.rm li{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #ffffff10;font-size:15px}
+.rm li:last-child{border:0}
+.rm i{font-style:normal;flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:#ffffff10;color:var(--mut)}
+.rm .ok i{background:#1f6a33;color:#9dffb4;box-shadow:0 0 12px #3fff6a66}
+.rm .wip i{background:#7a4a10;color:var(--gold2);box-shadow:0 0 12px #ff9a2e66}
+.rm span{margin-left:auto;font-size:12px;color:var(--mut)}
+details{margin-bottom:10px}
+summary{list-style:none;padding:16px 22px;font:600 15px Cinzel,serif;color:var(--gold2);display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--fire);font-size:20px;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin:0;padding:0 22px 18px;color:var(--mut);font-size:14.5px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td,th{padding:11px 16px;text-align:left;border-bottom:1px solid #ffffff10;vertical-align:top}
+th{font:600 12px Inter,sans-serif;letter-spacing:.14em;color:var(--fire);text-transform:uppercase}
+td:first-child{color:var(--gold2)}
+tr:last-child td{border:0}
+.scroll{overflow-x:auto}
+.com{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.com a{padding:16px;text-align:center;font:600 14px Cinzel,serif;color:var(--gold2);transition:.25s}
+.com a:hover{box-shadow:0 0 30px #ff7a2e55;transform:translateY(-3px)}
+.com small{display:block;font:400 12px Inter,sans-serif;color:var(--mut);margin-top:2px}
+aside{position:sticky;top:88px;display:flex;flex-direction:column;gap:18px}
+.side{padding:20px}
+.side h3{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);text-align:center;margin-bottom:14px;text-shadow:0 0 12px #ff7a2e}
+input{width:100%;margin-bottom:10px;background:rgba(0,0,0,.45);border:1px solid var(--bd);color:var(--tx);padding:10px 12px;border-radius:8px;font:inherit;font-size:14px}
+input:focus{outline:0;border-color:#ffcf85;box-shadow:0 0 14px #ff7a2e55}
+.list{list-style:none;margin:0;padding:0;font-size:14px}
+.list li{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #ffffff10}
+.list li:last-child{border:0}
+.list em{font-style:normal;color:var(--gold)}
+.list small{color:var(--mut)}
+.tabs{display:flex;justify-content:center;gap:16px;margin-bottom:8px}
+.tab{background:none;border:0;color:var(--mut);font:600 12px Inter,sans-serif;padding:4px 2px;border-bottom:2px solid transparent}
+.tab.on{color:#7dff9a;border-color:#7dff9a;text-shadow:0 0 10px #3fff6a}
+.note{font-size:11px;color:var(--mut);text-align:center;margin-top:8px}
+.ov{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:calc(20px + env(safe-area-inset-top,0px)) 16px calc(20px + env(safe-area-inset-bottom,0px));background:rgba(5,2,8,.78);backdrop-filter:blur(8px)}
+.ov.on{display:flex;animation:fi .25s}
+@keyframes fi{from{opacity:0}}
+.md{width:min(740px,100%);max-height:100%;overflow:auto;padding:34px 34px 28px;background:linear-gradient(#1d0f17f2,#10080cf5)}
+.md h2{font-size:28px;color:var(--gold2);text-shadow:0 0 18px #ff7a2e77;margin-bottom:4px}
+.md .d{margin-bottom:14px}
+.md h4{font:700 15px Cinzel,serif;color:var(--gold);margin:20px 0 6px;letter-spacing:.06em}
+.md p,.md li{color:#cfc1b4;font-size:15.5px;margin:0 0 10px}
+.md ul,.md ol{padding-left:22px;margin:0 0 10px}
+.md code{background:#ffffff14;border-radius:5px;padding:1px 7px;font-size:13px;color:var(--gold2)}
+.md .tip{border-left:3px solid var(--fire);background:#ff7a2e14;padding:10px 14px;border-radius:0 8px 8px 0;font-size:14px}
+.x{position:sticky;float:right;top:-18px;background:#ffffff14;border:0;color:var(--tx);width:34px;height:34px;border-radius:50%;font-size:18px}
+.x:hover{background:var(--ember)}
+footer{position:relative;z-index:3;margin-top:80px;padding:44px 0 calc(24px + env(safe-area-inset-bottom,0px));color:var(--mut);font-size:13px;border-top:1px solid var(--bd);background:linear-gradient(transparent,#000b)}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px;margin-bottom:28px}
+.fg h4{font:700 13px Cinzel,serif;letter-spacing:.14em;color:var(--gold2);margin:0 0 10px;text-transform:uppercase}
+.fg a{display:block;padding:2px 0}.fg a:hover{color:var(--gold2)}
+.fine{border-top:1px solid #ffffff10;padding-top:16px;font-size:12px}
+@media(max-width:960px){.cols{grid-template-columns:1fr}aside{position:static}nav{display:none}.hero{padding:64px 0 44px}.md{padding:26px 20px}.fg{grid-template-columns:1fr 1fr}}
+
+.hero-w{position:relative;overflow:hidden}
+.lg{width:34px;height:34px;flex:none;filter:drop-shadow(0 0 8px #ff7a2e88)}
+.brand{display:flex;align-items:center;gap:10px}
+.emb{width:128px;height:128px;margin:0 auto 6px;display:block;filter:drop-shadow(0 0 26px #ff7a2eaa) drop-shadow(0 6px 4px #000)}
+.wm{position:absolute;left:50%;top:-10px;width:min(620px,92vw);transform:translateX(-50%);opacity:.07;z-index:-1;filter:blur(1px)}
+.hills{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:130px;z-index:0;pointer-events:none}
+.hero-w .wrap{z-index:3}
+.mb{display:none;background:#ffffff10;color:var(--gold2);border:1px solid var(--bd);border-radius:10px;width:46px;height:46px;font-size:22px}
+.mm{display:none;position:absolute;left:0;right:0;top:100%;padding:12px 20px 18px;background:rgba(10,6,12,.97);border-bottom:1px solid var(--bd);flex-direction:column;gap:2px;box-shadow:0 20px 40px #000c}
+.mm.on{display:flex}
+.mm a{padding:14px 8px;border-bottom:1px solid #ffffff0d;font-size:16px}
+.mm .btn{margin-top:12px;border:0}
+.mcta{display:none}
+.sh h2{text-shadow:0 0 22px #e2b45f33}
+.d{color:#e08a4a}
+#gs{margin-bottom:16px;font-size:15px}
+.vid{position:relative;aspect-ratio:16/7;display:grid;place-items:center;overflow:hidden;margin-bottom:16px;transition:.3s}
+.vid:hover{box-shadow:0 0 50px #ff7a2e44;border-color:#ffcf8588}
+.vp{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,#ff7a2e66,transparent 60%),radial-gradient(circle at 20% 30%,#5a1a3a88,transparent 50%),linear-gradient(#130a18,#08060b)}
+.play{position:relative;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:26px;padding-left:5px;color:#2a1204;background:linear-gradient(#ffe29a,#f0a63c);box-shadow:0 0 0 8px #ffcf8533,0 0 40px #ff7a2e99}
+.vt{position:absolute;left:20px;bottom:14px;font:700 17px Cinzel,serif;color:var(--gold2)}
+.vt small{display:block;font:400 12px Inter,sans-serif;color:var(--mut)}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gal button{position:relative;padding:0;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9;transition:.3s}
+.gal button:hover{transform:translateY(-3px);border-color:#ffcf8588;box-shadow:0 14px 40px #000a,0 0 30px #ff7a2e44}
+.gal svg,.gal img{width:100%;height:100%;display:block;object-fit:cover}
+.gal span{position:absolute;left:0;right:0;bottom:0;padding:18px 12px 8px;font:600 13px Cinzel,serif;text-align:left;color:var(--gold2);background:linear-gradient(transparent,#000d)}
+.next{padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.next h3{font-size:22px;color:var(--gold2)}
+.cd{font:700 26px Cinzel,serif;color:var(--ok);text-shadow:0 0 16px #58e38a66}
+.st3 .card{align-items:flex-start}
+.fm label{display:block;font-size:13px;color:var(--mut);margin:4px 0 4px}
+.fm input[type=checkbox]{width:auto;margin:0 8px 0 0}
+.fm .ck{display:flex;align-items:center;font-size:13px;color:var(--mut);margin:6px 0 14px}
+.str{height:6px;border-radius:3px;background:#ffffff14;overflow:hidden;margin:-4px 0 10px}
+.str i{display:block;height:100%;width:0;transition:.3s}
+.msg{font-size:14px;margin-top:12px;padding:10px 14px;border-radius:8px;background:#ffffff0d}
+.mk{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.mk button{padding:0;overflow:hidden;text-align:left;color:inherit;font:inherit;transition:.3s}
+.mk button:hover{transform:translateY(-4px);border-color:#ffcf8588;box-shadow:inset 0 1px 0 #ffffff14,0 18px 50px #000a,0 0 40px #ff7a2e33}
+.mi{aspect-ratio:4/3;background:#0e0910;overflow:hidden}
+.mi img{width:100%;height:100%;display:block;object-fit:cover}
+.mk .in{display:block;padding:12px 16px 16px}
+.mk .t{display:block;font:700 17px Cinzel,serif;color:var(--gold2)}
+.pr{display:inline-flex;align-items:center;gap:7px;font:600 14px Inter,sans-serif;color:var(--tx)}
+.pr::before{content:"";width:12px;height:12px;border-radius:50%;background:linear-gradient(#ffe29a,#c46a18);box-shadow:0 0 8px #ff7a2e88}
+.md .mi{border-radius:10px;margin-bottom:14px}
+@media(max-width:960px){.mb{display:block}.dn{display:none}.hero{padding:50px 0 100px}}
+@media(max-width:720px){
+body{font-size:15.5px;padding-bottom:78px}
+.wrap{padding:0 16px}
+.nav{height:62px}
+.brand{font-size:18px}
+.lg{width:30px;height:30px}
+.emb{width:96px;height:96px}
+.lead{font-size:16.5px;margin-bottom:22px}
+.chips{gap:10px;margin-top:26px}.chip{min-width:calc(50% - 5px);padding:12px}.chip b{font-size:19px}
+.cta .btn{flex:1 1 100%}
+.btn{min-height:46px;padding:13px 22px}
+.sh{margin:38px 0 14px}.sh h2{font-size:22px}
+.card{padding:18px}
+.kv{grid-template-columns:repeat(2,1fr)}
+.gal{grid-template-columns:repeat(2,1fr);gap:8px}
+.mk{grid-template-columns:repeat(2,1fr);gap:8px}.mk .in{padding:10px 12px 12px}.mk .t{font-size:15px}
+.vid{aspect-ratio:16/10}
+.play{width:62px;height:62px}
+.ip{flex-wrap:wrap;justify-content:center;width:100%;padding:10px}
+input,.fm input{font-size:16px;padding:12px}
+.next{padding:18px}.cd{font-size:22px}
+td,th{padding:10px 12px;font-size:13.5px}
+.beam{display:none}.embers i:nth-child(n+14){display:none}
+.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(22,14,22,.92)}
+.ov{padding:0;align-items:flex-end}
+.md{width:100%;max-height:92vh;border-radius:18px 18px 0 0;padding:24px 18px calc(24px + env(safe-area-inset-bottom,0px))}
+.md h2{font-size:23px}
+.fg{grid-template-columns:1fr 1fr;gap:20px}
+.mcta{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:45;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(8,6,11,.94);border-top:1px solid var(--bd);backdrop-filter:blur(12px)}
+.mcta .btn{flex:1;padding:12px 8px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lion" viewBox="0 0 200 200"><defs>
+<linearGradient id="lm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6b445"/><stop offset="1" stop-color="#6e220a"/></linearGradient>
+<linearGradient id="lm2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd988"/><stop offset="1" stop-color="#c0661a"/></linearGradient>
+<linearGradient id="lionGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset="1" stop-color="#dc9a42"/></linearGradient>
+<linearGradient id="lr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6b0"/><stop offset="1" stop-color="#a8681c"/></linearGradient>
+<radialGradient id="le"><stop offset="0" stop-color="#fff2b0"/><stop offset="1" stop-color="#ff7a2e"/></radialGradient>
+</defs>
+<circle cx="100" cy="100" r="96" fill="#12080e" stroke="url(#lr)" stroke-width="3"/>
+<circle cx="100" cy="100" r="90" fill="none" stroke="#e2b45f" stroke-opacity=".35" stroke-width="1"/>
+<polygon points="100.0,16.0 109.1,38.7 124.2,19.5 126.6,43.8 146.5,29.7 141.9,53.6 165.0,45.7 153.8,67.4 178.2,66.3 161.4,84.0 185.1,89.8 164.0,102.0 185.1,114.2 161.4,120.0 178.2,137.7 153.8,136.6 165.0,158.3 141.9,150.4 146.5,174.3 126.6,160.2 124.2,184.5 109.1,165.3 100.0,188.0 90.9,165.3 75.8,184.5 73.4,160.2 53.5,174.3 58.1,150.4 35.0,158.3 46.2,136.6 21.8,137.7 38.6,120.0 14.9,114.2 36.0,102.0 14.9,89.8 38.6,84.0 21.8,66.3 46.2,67.4 35.0,45.7 58.1,53.6 53.5,29.7 73.4,43.8 75.8,19.5 90.9,38.7" fill="url(#lm1)" stroke="#ffcf85" stroke-opacity=".5" stroke-width="1" stroke-linejoin="round"/>
+<polygon points="110.5,28.8 115.8,48.3 130.7,34.7 130.3,54.9 148.5,46.1 142.3,65.3 162.3,62.0 150.9,78.7 171.0,81.2 155.4,94.0 174.0,102.0 155.4,110.0 171.0,122.8 150.9,125.3 162.3,142.0 142.3,138.7 148.5,157.9 130.3,149.1 130.7,169.3 115.8,155.7 110.5,175.2 100.0,158.0 89.5,175.2 84.2,155.7 69.3,169.3 69.7,149.1 51.5,157.9 57.7,138.7 37.7,142.0 49.1,125.3 29.0,122.8 44.6,110.0 26.0,102.0 44.6,94.0 29.0,81.2 49.1,78.7 37.7,62.0 57.7,65.3 51.5,46.1 69.7,54.9 69.3,34.7 84.2,48.3 89.5,28.8 100.0,46.0" fill="url(#lm2)" stroke="#7a3a0a" stroke-opacity=".5" stroke-width="1" stroke-linejoin="round"/>
+<circle cx="64" cy="60" r="13" fill="url(#lionGrad)"/><circle cx="64" cy="60" r="6" fill="#5a1a0a"/>
+<circle cx="136" cy="60" r="13" fill="url(#lionGrad)"/><circle cx="136" cy="60" r="6" fill="#5a1a0a"/>
+<path d="M62 88Q62 56 100 52Q138 56 138 88L133 120Q127 148 100 158Q73 148 67 120Z" fill="url(#lionGrad)" stroke="#8a4a10" stroke-width="1.5"/>
+<path d="M100 56L100 84M82 66Q100 74 118 66" stroke="#c98a38" stroke-width="2" fill="none" stroke-linecap="round"/>
+<path d="M70 93L94 100L91 108L73 102Z" fill="#2a0e08"/><path d="M130 93L106 100L109 108L127 102Z" fill="#2a0e08"/>
+<ellipse cx="86" cy="102" rx="4.5" ry="3" fill="url(#le)"/><ellipse cx="114" cy="102" rx="4.5" ry="3" fill="url(#le)"/>
+<path d="M100 84L100 122" stroke="#d9a04a" stroke-width="3" stroke-linecap="round"/>
+<path d="M88 118L112 118L100 132Z" fill="#3a1208"/>
+<path d="M100 132L100 142M100 142Q90 152 80 144M100 142Q110 152 120 144" stroke="#3a1208" stroke-width="3" fill="none" stroke-linecap="round"/>
+<g fill="#b87a30"><circle cx="82" cy="126" r="1.6"/><circle cx="76" cy="130" r="1.6"/><circle cx="118" cy="126" r="1.6"/><circle cx="124" cy="130" r="1.6"/></g></symbol></svg>
+<div class="bgfx"></div><div class="beam a"></div><div class="beam b"></div><div class="grain"></div><div class="vig"></div><div class="embers" id="embers"></div>
+
+<div class="bar">Açılış hazırlıkları sürüyor · Gelişmeler için <a href="#" data-discord>Discord’a katıl</a></div>
+<header><div class="wrap nav">
+<a href="#top" class="brand" aria-label="Aslan PvP ana sayfa"><svg class="lg" viewBox="0 0 200 200"><use href="#lion"/></svg>ASLAN PVP</a>
+<nav aria-label="Ana menü"><a href="#sunucu">Sunucu</a><a href="#haber">Duyurular</a><a href="#rehber">Rehber</a><a href="#dunya">Dünya</a><a href="#galeri">Galeri</a><a href="#etkinlik">Etkinlikler</a><a href="#market">Market</a><a href="#topluluk">Topluluk</a></nav>
+<a href="#indir" class="btn s dn">Oyunu İndir</a>
+<button class="mb" id="mb" aria-label="Menüyü aç" aria-expanded="false">☰</button>
+</div>
+<div class="mm" id="mm"><a href="#sunucu">Sunucu</a><a href="#haber">Duyurular</a><a href="#rehber">Rehber</a><a href="#dunya">Dünya</a><a href="#galeri">Galeri</a><a href="#etkinlik">Etkinlikler</a><a href="#market">Market</a><a href="#topluluk">Topluluk</a><a href="#sss">SSS</a><a href="#indir" class="btn s">Oyunu İndir</a></div></header>
+
+<main id="top">
+<div class="hero-w"><div class="wrap hero">
+<div class="halo"></div><svg class="wm" viewBox="0 0 200 200" aria-hidden="true"><use href="#lion"/></svg>
+<svg class="emb" viewBox="0 0 200 200" role="img" aria-label="Aslan PvP amblemi"><use href="#lion"/></svg>
+<div class="tag">Ultima Online · PvP Shard</div>
+<h1>ASLAN PVP</h1>
+<p class="lead">Britannia’nın en sert arenası. Felucca’da açık PvP, lonca kale fetihleri, haftalık turnuvalar ve ödüllü etkinlikler. Hesap ücretsiz, rekabet sınırsız.</p>
+<div class="cta"><a href="#indir" class="btn">Hemen Başla</a><a href="#rehber" class="btn g">Oyuncu Rehberi</a><a href="#" class="btn g" data-discord>Discord</a></div>
+<div class="chips">
+<div class="chip"><b><span class="dot"></span><span id="st">Online</span></b><small>DURUM</small></div>
+<div class="chip"><b id="pl">0</b><small>ONLİNE OYUNCU</small></div>
+<div class="chip"><b id="ac">0</b><small>KAYITLI HESAP</small></div>
+<div class="chip"><b>7.0.x</b><small>CLIENT</small></div>
+</div>
+<div class="ip"><span id="ipText">login.aslanpvp.com,2593</span><button id="copy">Kopyala</button></div>
+</div>
+<svg class="hills" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="hg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1020"/><stop offset="1" stop-color="#08060b"/></linearGradient></defs><path d="M0 160V90l80-30 70 24 120-62 90 54 110-40 100 46 120-70 110 60 90-30 130 44 80-20v104z" fill="url(#hg1)" opacity=".85"/><path d="M0 160V122l120-26 140 22 150-32 160 30 140-20 170 28 160-18 160 20v34z" fill="#08060b"/><g fill="#08060b"><path d="M560 128v-34h12v-10h8v10h10v-14h8v14h10v-10h8v10h12v34z"/><path d="M582 94v-20l8-8 8 8v20z"/></g><g fill="#ffb060"><rect x="584" y="104" width="4" height="8"/><rect x="594" y="104" width="4" height="8"/></g></svg>
+</div>
+
+<div class="wrap cols">
+<div>
+<div class="sh" id="sunucu"><h2>Sunucu Bilgileri</h2><small>Tek bakışta kurallar ve ayarlar</small></div>
+<div class="kv" id="kv"></div>
+
+<div class="sh" id="haber"><h2>Duyurular</h2><small>Detay için tıkla</small></div>
+<div class="grid" id="news"></div>
+
+<div class="sh"><h2>Yol Haritası</h2><small>Açılışa kadar planlanan işler</small></div>
+<ul class="rm glass" id="rm"></ul>
+
+<div class="sh" id="rehber"><h2>Oyuncu Rehberi</h2><small>Kurallar ve sayılar taslaktır, açılıştan önce kesinleşir</small></div>
+<input id="gs" type="search" placeholder="Rehberde ara (örn. bandaj, kale, komut)…" aria-label="Rehberde ara"><div class="grid" id="guide"></div><p id="gn" class="note" hidden>Sonuç bulunamadı.</p>
+
+<div class="sh" id="dunya"><h2>Britannia Dünyası</h2><small>Oyun içi bilgiler</small></div>
+<div class="grid" id="world"></div>
+
+<div class="sh" id="galeri"><h2>Galeri ve Tanıtım</h2><small>Yer tutucu görseller · gerçek ekran görüntüleri eklenecek</small></div>
+<div class="glass vid" id="vid" role="button" tabindex="0" aria-label="Tanıtım videosunu oynat"><div class="vp"></div><div class="play">▶</div><div class="vt">Aslan PvP Tanıtım Videosu<small>Yakında</small></div></div>
+<div class="gal" id="gal"></div>
+
+<div class="sh" id="etkinlik"><h2>Etkinlik Takvimi</h2><small>Saatler senin yerel saatinde gösterilir</small></div>
+<div class="glass next" id="next"><div class="d">SIRADAKİ ETKİNLİK</div><h3 id="nxt">Hesaplanıyor…</h3><div class="cd" id="ncd"></div></div>
+<div class="glass scroll" style="margin-top:14px"><table><thead><tr><th>Etkinlik</th><th>Yerel zaman</th><th>Ödül</th></tr></thead><tbody id="ev"></tbody></table></div>
+
+<div class="sh" id="market"><h2>Market</h2><small>Kozmetik binekler · Aslan Puanı ile</small></div>
+<div class="mk" id="mk"></div>
+
+<div class="sh" id="topluluk"><h2>Topluluk ve Destek</h2><small>Bize ulaş</small></div>
+<div class="com" id="com"></div>
+<div class="grid" style="margin-top:16px">
+<div class="glass card"><h3>Yetkili Kadrosu</h3><p>Admin, GM, Counselor ve Event Master kadroları açılışa yakın duyurulacak. Başvurular Discord üzerinden alınacak.</p></div>
+<div class="glass card"><h3>Destek ve İtiraz</h3><p>Hata, hesap sorunu ve ban itirazları için Discord’da destek kanalı açılacak. Cevap süresi hedefi: 24 saat.</p></div>
+<div class="glass card"><h3>Bağış Politikası</h3><p>Sunucu masraflarına destek isteğe bağlıdır. Güç ya da oyun avantajı satılmaz, yalnızca kozmetik ürünler olur.</p></div>
+</div>
+
+<div class="sh" id="sss"><h2>Sık Sorulan Sorular</h2></div>
+<div id="faq"></div>
+
+<div class="sh" id="indir"><h2>Efsaneni Yaz</h2><small>Windows 10 ve üzeri</small></div>
+<div class="grid st3"><div class="glass card"><div class="no">1</div><h3>Launcher’ı indir</h3><p>Tek dosya, kurulum gerekmez.</p></div><div class="glass card"><div class="no">2</div><h3>Klasörünü seç</h3><p>EA’dan kurduğun Classic Client klasörü.</p></div><div class="glass card"><div class="no">3</div><h3>Oyna</h3><p>Hesap otomatik açılır, güncelleme otomatik inir.</p></div></div>
+<div class="glass card" style="text-align:center;align-items:center;padding:40px 22px"><p style="max-width:560px;flex:none;font-size:16px">Launcher; client dosyalarını günceller, ayarları kendisi yapar. Orijinal Classic Client EA’dan ücretsiz indirilir. Önerilen: 4 GB RAM, DirectX uyumlu ekran kartı, 2 GB boş alan.</p><a href="#" class="btn" data-dl style="margin-top:16px">Launcher’ı İndir (Windows)</a></div>
+</div>
+
+<aside>
+<div class="glass side" id="kayit"><h3>Hesap</h3>
+<form id="lf" autocomplete="on"><input id="lu" placeholder="Kullanıcı adı" aria-label="Kullanıcı adı" autocomplete="username"><input id="lw" type="password" placeholder="Şifre" aria-label="Şifre" autocomplete="current-password"><button class="btn s" type="submit" style="width:100%">Giriş</button><button class="btn s g" type="button" id="reg" style="width:100%;margin-top:8px">Hesap Oluştur</button></form>
+<div id="acct" hidden></div>
+<div id="lmsg" class="note" style="min-height:18px"></div></div>
+<div class="glass side"><h3>PvP Listesi</h3>
+<div class="tabs"><button class="tab on" data-t="p">Top oyuncular</button><button class="tab" data-t="c">Top loncalar</button><button class="tab" data-t="d">Düello Ligi</button></div>
+<ul class="list" id="lp"><li><small>Yükleniyor…</small></li></ul>
+<ul class="list" id="lc" hidden><li><small>Yükleniyor…</small></li></ul>
+<ul class="list" id="ld" hidden><li><small>Yükleniyor…</small></li></ul>
+<div class="note" id="lnote">PvP öldürmelerine göre · canlı</div></div>
+<div class="glass side"><h3>Son Ölümler</h3>
+<ul class="list" id="lk"><li><small>Yükleniyor…</small></li></ul>
+<div class="note">canlı · oyuncular arası</div></div>
+</aside>
+</div>
+</main>
+
+<div class="mcta"><a href="#indir" class="btn">Oyunu İndir</a><a href="#" class="btn g" data-discord>Discord</a></div>
+<div class="ov" id="ov" role="dialog" aria-modal="true"><div class="glass md" id="md"></div></div>
+<footer><div class="wrap">
+<div class="fg">
+<div><h4>Aslan PvP</h4><p style="margin:0">Türkçe Ultima Online PvP sunucusu. Ücretsiz, adil ve rekabetçi.</p></div>
+<div><h4>Sayfa</h4><a href="#sunucu">Sunucu Bilgileri</a><a href="#rehber">Oyuncu Rehberi</a><a href="#dunya">Dünya</a><a href="#market">Market</a><a href="#sss">SSS</a></div>
+<div><h4>Topluluk</h4><a href="#" data-discord>Discord</a><a href="#" data-tg>Telegram</a><a href="#topluluk">Destek</a></div>
+<div><h4>Yasal</h4><a href="#">Kullanım Şartları</a><a href="#">Gizlilik Politikası</a><a href="#rehber">Kurallar</a></div>
+</div>
+<div class="fine">© 2026 Aslan PvP · Ultima Online, Electronic Arts’ın tescilli markasıdır. Bu sunucu EA ile bağlantılı değildir ve ticari amaç taşımaz.</div>
+</div></footer>
+
+<script>
+var CONFIG={players:0,accounts:0,online:true,discord:"#",telegram:"#",facebook:"#",youtube:"#",download:"#",video:"#",api:"",statusApi:"/api/status",marketApi:"/launcher/market.json",newsApi:"/launcher/news.json",gallery:[]};
+var KV=[["Felucca","Harita (açık PvP)"],["7.0.x","Client sürümü"],["Ücretsiz","Hesap"],["Türkçe","Destek dili"],["700 / 100","Beceri toplam / tek (taslak)"],["225","Stat sınırı (taslak)"],["Kozmetik","Bağış türü"],["2593","Port"]];
+var RM=[["ok","Web sitesi","Tamam"],["ok","Launcher","Tamam"],["ok","Sunucu kurulumu (ModernUO)","Tamam"],["ok","Hesap ve giriş sistemi","Tamam"],["ok","Market ve Aslan Puanı","Tamam"],["ok","PvP sıralaması ve nadir binek spawn'ları","Tamam"],["","Arena ve turnuva sistemi","Sırada"],["","Kale fetihleri","Sırada"],["","Açık beta","Planlandı"]];
+var GD=[["I","Bağlanma Rehberi","Client kurulumu, launcher ve ilk giriş adım adım.","g1"],["II","Yeni Oyuncu Rehberi","Başlangıç paketi, temel komutlar ve ilk saat planı.","g2"],["III","PvP Kuralları","Bölgeler, renkler, ölüm düzeni ve yasaklar.","g3"],["IV","Sınıflar ve Build’ler","Kılıç, delici, topuz, okçu ve büyücü önerileri.","g4"],["V","Beceriler ve PvP Ekipmanı","Bandaj, iksirler, büyüler ve stat dağılımı.","g5"],["VI","Kale Fetihleri","Kuşatma akışı, lonca şartları ve ödüller.","g6"],["VII","Etkinlik ve Ödüller","Turnuva formatları ve puan sistemi.","g7"],["VIII","Hesap Güvenliği","Şifre güvenliği, dolandırıcılık ve destek.","g8"]];
+var WD=[["Şehirler","Britain, Trinsic, Yew, Minoc, Moonglow ve diğer şehirlerin rehberi.","w1"],["Zindanlar","Destard, Deceit, Hythloth, Despise ve Doom hakkında bilgiler.","w2"],["Karma ve Renkler","Mavi, gri ve kırmızı karakter ne demek, ölünce ne olur?","w3"],["Ekonomi ve Üretim","Altın, banka, üretim becerileri ve hazine haritaları.","w4"]];
+var FQ=[["Hesap açmak ücretsiz mi?","Evet. Hesap ücretsizdir ve launcher ile otomatik açılır. Bağış yapana oyun dengesini bozan avantaj verilmez."],["Hangi client ile oynanır?","EA’nın ücretsiz Classic Client’ı (7.0.x) ya da ClassicUO. Launcher ikisini de sunucuya bağlar."],["Launcher olmadan bağlanabilir miyim?","Evet. Classic Client’ta <code>login.cfg</code> dosyasına <code>LoginServer=login.aslanpvp.com,2593</code> yaz."],["Hile ve macro yasak mı?","Evet. Hile, speedhack, bug kötüye kullanımı ve macro yasaktır. Tespit edilen hesaplar kalıcı kapatılır."],["Bilgisayarım yeterli mi?","Classic Client çok hafiftir. 4 GB RAM ve entegre ekran kartı çoğu zaman yeterlidir."],["Karakterim silinirse ne olur?","Discord’dan yetkili kadroya başvur. Kayıtlar tutulduğu için gerekli durumlarda geri yükleme yapılır."],["Lonca kurmak için ne gerekir?","Oyun içinde lonca taşı ile kurulur. Kale fethine katılmak için en az 5 üye gerekir (taslak)."],["Telefondan oynanır mı?","Hayır. Sunucu Windows için Classic Client ve ClassicUO ile oynanır."]];
+var P={
+g1:["REHBER · I","Bağlanma Rehberi","<h4>Launcher ile (önerilen)</h4><ol><li>Launcher’ı indir ve çalıştır.</li><li>Oyun klasörünü seç. Orijinal client EA’dan kurulmuş olmalı.</li><li>Launcher dosyaları günceller ve hesabını açar.</li><li><b>Oyna</b> tuşuna bas.</li></ol><h4>Elle bağlanma</h4><ul><li>Adres: <code>login.aslanpvp.com</code></li><li>Port: <code>2593</code></li><li>Client: <code>7.0.x</code></li></ul><p>Classic Client’ta <code>login.cfg</code> içine <code>LoginServer=login.aslanpvp.com,2593</code> yaz. ClassicUO’da IP ve port alanlarını doldur.</p><div class='tip'>Bağlanamıyorsan güvenlik duvarını ve antivirüsü kontrol et, sonra Discord’dan yaz.</div>"],
+g2:["REHBER · II","Yeni Oyuncu Rehberi","<h4>İlk 15 dakika</h4><ol><li>Karakterini oluştur ve başlangıç paketini al.</li><li>Rehber NPC’den temel eğitimi dinle.</li><li>Bankanın ve satıcıların yerini öğren.</li><li>Güvenli bir bölgede ilk PvM denemeni yap.</li><li>Kısa yol için Britain’deki moongate’i kullan.</li></ol><h4>Temel komutlar (taslak)</h4><ul><li><code>[yardim</code>: komut listesi</li><li><code>[arena</code>: arenaya ışınlanır</li><li><code>[siralama</code>: sıralamanı gösterir</li></ul><div class='tip'>Komutlar sunucu kurulurken tanımlanacak. Güncel liste duyurulacak.</div>"],
+g3:["REHBER · III","PvP Kuralları","<h4>Bölgeler</h4><ul><li><b>Şehirler:</b> Muhafızlar korur, saldırı yasak.</li><li><b>Açık alan ve zindanlar:</b> PvP serbest.</li><li><b>Arena:</b> Eşya düşmez, yalnız sıralama puanı değişir.</li></ul><h4>Yasaklar</h4><ul><li>Hile, speedhack, macro, bug kötüye kullanımı</li><li>Hakaret ve taciz</li><li>Dolandırıcılık, hesap ve eşya satışı</li><li>Başkasının hesabını kullanmak</li></ul><h4>Yaptırım</h4><p>Uyarı, geçici ban ve kalıcı ban kademeli uygulanır. İtirazlar Discord’dan yapılır.</p>"],
+g4:["REHBER · IV","Sınıflar ve Build’ler","<p>Başlangıç önerileridir. Sunucu dengesi oturdukça güncellenir.</p><div class='scroll'><table><tr><th>Sınıf</th><th>Ana beceriler</th><th>Rol</th></tr><tr><td>Kılıç ustası</td><td>Swordsmanship, Tactics, Anatomy, Healing</td><td>Dengeli yakın dövüş</td></tr><tr><td>Delici</td><td>Fencing, Tactics, Anatomy, Parrying</td><td>Hızlı ve isabetli</td></tr><tr><td>Topuz</td><td>Mace Fighting, Tactics, Anatomy, Wrestling</td><td>Ağır vuruş</td></tr><tr><td>Okçu</td><td>Archery, Tactics, Anatomy, Healing</td><td>Uzaktan hasar</td></tr><tr><td>Büyücü</td><td>Magery, Evaluating Intelligence, Meditation, Resisting Spells</td><td>Büyü hasarı ve kontrol</td></tr></table></div>"],
+g5:["REHBER · V","Beceriler ve PvP Ekipmanı","<h4>Sınırlar (taslak)</h4><ul><li>Toplam 700 beceri puanı, her beceri en fazla 100</li><li>Stat toplamı en fazla 225 (Str + Dex + Int)</li></ul><h4>PvP için temel araçlar</h4><ul><li><b>Bandaj:</b> Healing ve Anatomy ile can yenileme</li><li><b>İksirler:</b> Greater Heal, Greater Cure, Greater Agility, Explosion</li><li><b>Büyüler:</b> Energy Bolt, Flamestrike, Explosion, Paralyze, Magic Reflection</li><li><b>Kalkan ve zırh:</b> Parrying ile savunma</li></ul><div class='tip'>Alchemy ile iksir yapabilir, Inscription ile kendi büyü tomarlarını hazırlayabilirsin.</div>"],
+g6:["REHBER · VI","Kale Fetihleri","<h4>Akış</h4><ol><li>Lonca fetih saatinden önce kayıt olur.</li><li>Kuşatma belirlenen saatte başlar ve 2 saat sürer.</li><li>Süre sonunda kale bayrağını elinde tutan lonca fethi kazanır.</li></ol><h4>Ödüller</h4><ul><li>Haftalık kale sandığı</li><li>Lonca unvanı ve sıralama puanı</li><li>Kale vergisi geliri</li></ul><div class='tip'>Süreler ve ödüller taslaktır, ilk fetihten önce kesinleşecek.</div>"],
+g7:["REHBER · VII","Etkinlik ve Ödüller","<h4>Etkinlik türleri</h4><ul><li><b>Arena turnuvaları:</b> 1v1, 2v2, 3v3</li><li><b>Boss avı:</b> Zamanlı boss, en çok hasar verene ödül</li><li><b>Kale fethi:</b> Haftalık lonca savaşı</li><li><b>Zar ve çekiliş:</b> Eğlence etkinlikleri</li></ul><h4>Puan sistemi</h4><p>Etkinliklerde kazanılan puan haftalık ve sezonluk sıralamaya eklenir. Sezon sonunda ilk sıralara özel eşya, oyun parası ve unvan verilir.</p>"],
+g8:["REHBER · VIII","Hesap Güvenliği","<ul><li>Yetkililer asla şifreni istemez. İsteyene inanma.</li><li>Her yerde farklı bir şifre kullan.</li><li>Hesap ve eşya satışı yasaktır, dolandırılırsan sunucu sorumlu değildir.</li><li>Şüpheli bir durumda Discord’dan destek kanalına yaz.</li></ul><p>Kayıt sistemi açıldığında e-posta doğrulama ve şifre sıfırlama eklenecek.</p>"],
+w1:["BRITANNIA","Şehirler","<ul><li><b>Britain:</b> Başkent. Banka, dükkânlar ve moongate burada.</li><li><b>Trinsic:</b> Güneyde, paladinlerin şehri.</li><li><b>Yew:</b> Orman şehri, mahkeme ve manastır.</li><li><b>Minoc:</b> Madenciler ve demirciler.</li><li><b>Moonglow:</b> Büyücüler ve Lycaeum kütüphanesi.</li><li><b>Skara Brae:</b> Batı kıyısında, druidlerin şehri.</li><li><b>Vesper:</b> Liman ve ticaret şehri.</li><li><b>Jhelom:</b> Savaşçıların şehri, düello arenaları.</li><li><b>Cove, Magincia, Nujel’m, Ocllo, Serpent’s Hold:</b> Diğer yerleşimler.</li></ul><p>Ana şehirlerde moongate ile hızlı ulaşım vardır.</p>"],
+w2:["BRITANNIA","Zindanlar","<div class='scroll'><table><tr><th>Zindan</th><th>İçerik</th><th>Tehlike</th></tr><tr><td>Despise</td><td>Kertenkele adamlar, devler</td><td>Orta</td></tr><tr><td>Deceit</td><td>İskeletler, hayaletler, liches</td><td>Orta-Yüksek</td></tr><tr><td>Destard</td><td>Ejderhalar, drake’ler, wyrm’ler</td><td>Yüksek</td></tr><tr><td>Hythloth</td><td>Şeytanlar ve balron’lar</td><td>Çok yüksek</td></tr><tr><td>Doom</td><td>Güçlü yaratıklar ve boss’lar</td><td>Çok yüksek</td></tr></table></div><div class='tip'>Felucca zindanlarında başka oyuncular da seni avlayabilir. Yalnız girme.</div>"],
+w3:["BRITANNIA","Karma ve Renkler","<ul><li><b>Mavi:</b> Masum oyuncu.</li><li><b>Gri:</b> Suçlu. Masum birine saldırırsan gri olursun, muhafızlar sana saldırabilir.</li><li><b>Kırmızı:</b> Katil. Çok oyuncu öldürürsen kırmızı olursun.</li><li><b>Yeşil:</b> Lonca ve ittifak üyesi.</li></ul><h4>Ölünce ne olur?</h4><p>Hayalet olursun. Ankh sunağına ya da şifacıya giderek dirilebilirsin. Eşyalarını cesedinden geri alabilirsin.</p><div class='tip'>Karma ve cinayet kuralları sunucuda sıkılaştırılabilir. Güncel hali burada duyurulur.</div>"],
+w4:["BRITANNIA","Ekonomi ve Üretim","<ul><li><b>Altın:</b> Ana para birimi. Banka kutusunda güvende kalır.</li><li><b>Üretim:</b> Blacksmithy, Tailoring, Carpentry, Alchemy, Inscription, Tinkering.</li><li><b>Toplama:</b> Mining, Lumberjacking, Fishing.</li><li><b>Hazine haritaları:</b> Cartography ile çözülür, sandık bekçileriyle savaşıp ödül kazanırsın.</li></ul><p>Zanaatkârların ürettiği zırh ve silahlar PvP’de önemlidir.</p>"]
+};
+function card(o,i){return '<div class="glass card">'+(o.no?'<div class="no">'+o.no+'</div>':'')+(o.d?'<div class="d">'+o.d+'</div>':'')+'<h3>'+o.t+'</h3><p>'+o.p+'</p><button class="more" data-open="'+o.k+'">Devamını oku</button></div>'}
+function $(id){return document.getElementById(id)}
+$("kv").innerHTML=KV.map(function(a){return '<div class="glass"><b>'+a[0]+'</b><small>'+a[1]+'</small></div>'}).join("");
+// Oyuncudan gelen her metin (karakter, lonca, hesap adı) ekrana bununla basılır.
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function api(path,body){return fetch(path,body===undefined?{credentials:"same-origin"}:{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().catch(function(){return {}}).then(function(d){d.status=r.status;return d})})}
+// Duyurular launcher ile aynı dosyadan gelir (tek kaynak). Ayrıntı metni "body" alanında, bizim yazdığımız HTML'dir.
+fetch(CONFIG.newsApi).then(function(r){return r.json()}).then(function(list){
+  $("news").innerHTML=list.map(function(n,i){P["news"+i]=[n.date,n.title,n.body||"<p>"+esc(n.text)+"</p>"];return card({d:esc(n.date),t:esc(n.title),p:esc(n.text),k:"news"+i})}).join("")}).catch(function(){$("news").innerHTML='<p class="note">Duyurular yüklenemedi.</p>'});
+$("rm").innerHTML=RM.map(function(a){return '<li class="'+a[0]+'"><i>'+(a[0]==="ok"?"✓":a[0]==="wip"?"…":"○")+'</i>'+a[1]+'<span>'+a[2]+'</span></li>'}).join("");
+$("guide").innerHTML=GD.map(function(a){return card({no:a[0],t:a[1],p:a[2],k:a[3]})}).join("");
+$("world").innerHTML=WD.map(function(a){return card({d:"BRITANNIA",t:a[0],p:a[1],k:a[2]})}).join("");
+$("faq").innerHTML=FQ.map(function(a){return '<details class="glass"><summary>'+a[0]+'</summary><p>'+a[1]+'</p></details>'}).join("");
+$("com").innerHTML=[["Discord","Sohbet ve destek",CONFIG.discord],["Telegram","Duyurular",CONFIG.telegram],["Facebook","Sayfamız",CONFIG.facebook],["YouTube","Videolar",CONFIG.youtube]].map(function(a){return '<a class="glass" href="'+a[2]+'" target="_blank" rel="noopener">'+a[0]+'<small>'+a[1]+'</small></a>'}).join("");
+var ov=$("ov"),md=$("md");
+function openP(k){var p=P[k];if(!p)return;md.innerHTML='<button class="x" aria-label="Kapat">×</button><div class="d">'+p[0]+'</div><h2>'+p[1]+'</h2>'+p[2];ov.classList.add("on");document.body.style.overflow="hidden";md.scrollTop=0;md.querySelector(".x").onclick=closeP;md.querySelector(".x").focus()}
+function closeP(){ov.classList.remove("on");document.body.style.overflow=""}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-open]");if(b)openP(b.dataset.open)});
+ov.onclick=function(e){if(e.target===ov)closeP()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeP()});
+(function(){
+  function svg(g){return '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">'+(g?'<circle cx="5" cy="4" r="4" fill="#ffb04a" opacity=".6"/>':'')+'<g transform="translate(5 3) rotate(-30)" stroke="#14100a" stroke-width="1.4" stroke-linejoin="round"><rect x="-3" y="0" width="6" height="15" rx="3" fill="#b9c0c9"/><rect x="-8" y="12" width="16" height="11" rx="4" fill="#9aa3ae"/><ellipse cx="-9" cy="17" rx="3" ry="5" fill="#aab2bc"/><path d="M-7 23h14v6h-14z" fill="#8f6414"/><path d="M-3 7h6M-6 17h12" stroke="#5c646e" fill="none"/></g></svg>'}
+  try{var u=function(s){return 'url("data:image/svg+xml,'+encodeURIComponent(s)+'")'},r=document.documentElement.style;r.setProperty('--cur',u(svg(0))+' 5 3, auto');r.setProperty('--cur2',u(svg(1))+' 5 3, pointer')}catch(e){}
+})();
+document.querySelectorAll("[data-discord]").forEach(function(a){a.href=CONFIG.discord});
+document.querySelectorAll("[data-tg]").forEach(function(a){a.href=CONFIG.telegram});
+document.querySelectorAll("[data-dl]").forEach(function(a){a.href=CONFIG.download});
+$("pl").textContent=CONFIG.players;$("ac").textContent=CONFIG.accounts;$("st").textContent=CONFIG.online?"Online":"Offline";
+$("copy").onclick=function(){var b=this,t=$("ipText").textContent;try{navigator.clipboard.writeText(t).then(function(){b.textContent="Kopyalandı ✓";setTimeout(function(){b.textContent="Kopyala"},1500)})}catch(e){b.textContent="Elle kopyala"}};
+document.querySelectorAll(".tab").forEach(function(t){t.onclick=function(){document.querySelectorAll(".tab").forEach(function(x){x.classList.toggle("on",x===t)});$("lp").hidden=t.dataset.t!=="p";$("lc").hidden=t.dataset.t!=="c";$("ld").hidden=t.dataset.t!=="d";$("lnote").textContent=t.dataset.t==="d"?"Düello ELO puanına göre · canlı":"PvP öldürmelerine göre · canlı"}});
+// ---- Hesap: giriş / çıkış / puan ----
+var ME=null;
+function showMe(d){ME=d&&d.ok?d:null;$("lf").hidden=!!ME;$("acct").hidden=!ME;$("lmsg").textContent="";
+  if(!ME)return;
+  $("acct").innerHTML='<p style="margin:0 0 6px;text-align:center">Hoş geldin, <b style="color:var(--gold2)">'+esc(ME.username)+'</b></p><div class="chip" style="text-align:center;margin-bottom:10px"><b>'+ME.points+'</b><small>ASLAN PUANI</small></div>'+(ME.pending?'<p class="note">'+ME.pending+' ürün oyuna girdiğinde çantana gelecek.</p>':'')+'<p class="note">Puan, PvP’de başka oyuncuları yenerek kazanılır. Oyunda <code>.puan</code> yaz.</p><button class="btn s g" id="lo" style="width:100%">Çıkış</button>';
+  $("lo").onclick=function(){api("/api/logout",{}).then(function(){showMe(null)})}}
+function loadMe(){api("/api/me").then(showMe).catch(function(){})}
+$("lf").onsubmit=function(e){e.preventDefault();var m=$("lmsg"),u=$("lu").value.trim(),p=$("lw").value;
+  if(!u||!p){m.textContent="Kullanıcı adı ve şifreni yaz.";return}
+  m.textContent="Giriş yapılıyor…";
+  api("/api/login",{username:u,password:p}).then(function(d){if(d.ok){$("lw").value="";showMe(d)}else m.textContent=d.status===429?"Çok fazla deneme. Bir dakika bekle.":(d.message||"Giriş başarısız.")}).catch(function(){m.textContent="Sunucuya ulaşılamadı."})};
+loadMe();
+// ---- PvP sıralaması (oyun sunucusundan) ----
+function loadRankings(){api("/api/rankings").then(function(d){
+  var e='<li><small>Henüz PvP kaydı yok.</small></li>';
+  $("lp").innerHTML=(d.players||[]).map(function(x,i){return '<li><span>'+(i+1)+'. '+esc(x.name)+(x.guild?' <small>['+esc(x.guild)+']</small>':'')+'</span><em>'+x.kills+' / '+x.deaths+'</em></li>'}).join("")||e;
+  $("lc").innerHTML=(d.guilds||[]).map(function(x,i){return '<li><span>'+(i+1)+'. '+esc(x.name)+'</span><em>'+x.kills+' öldürme</em></li>'}).join("")||e;
+  $("ld").innerHTML=(d.duel||[]).map(function(x,i){return '<li><span>'+(i+1)+'. '+esc(x.name)+' <small>'+esc(x.tier)+'</small></span><em>'+x.elo+' ELO · '+x.wins+'G/'+x.losses+'M</em></li>'}).join("")||'<li><small>Henüz ligde kimse yok. 5 puanlı düello yapan sıralamaya girer.</small></li>'}).catch(function(){})}
+loadRankings();setInterval(loadRankings,60000);
+(function(){var e=$("embers");for(var i=0;i<36;i++){var s=document.createElement("i"),z=1+Math.random()*3;s.style.cssText="left:"+Math.random()*100+"%;width:"+z+"px;height:"+z+"px;box-shadow:0 0 "+z*3+"px "+z+"px #ff7a2e;animation-duration:"+(7+Math.random()*9)+"s;animation-delay:"+(-Math.random()*14)+"s";s.style.setProperty("--dx",(Math.random()*180-90)+"px");e.appendChild(s)}})();
+
+// ---- Yer tutucu görseller (kendi çizimimiz) ----
+var SC=[["Arena Savaşı","arena","#3a1030","#c8321c"],["Kale Kuşatması","castle","#1a1030","#ff7a2e"],["Zindan Keşfi","cave","#06161a","#3fd18a"],["Ejderha Avı","dragon","#2a0a0a","#ff4a1a"],["Britain Şehri","town","#14203a","#e2b45f"],["Hazine Haritası","chest","#1a1408","#f2c75a"]];
+function scene(t,a,b,i){
+  var g='<defs><linearGradient id="s'+i+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="#08060b"/></linearGradient><radialGradient id="r'+i+'"><stop offset="0" stop-color="'+b+'" stop-opacity=".9"/><stop offset="1" stop-color="'+b+'" stop-opacity="0"/></radialGradient></defs>';
+  var o='<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="'+t+'">'+g+'<rect width="320" height="180" fill="url(#s'+i+')"/><circle cx="250" cy="44" r="60" fill="url(#r'+i+')"/><circle cx="250" cy="44" r="14" fill="#fff4d8" opacity=".85"/><path d="M0 130l50-36 40 26 60-48 56 44 50-30 64 40v54H0z" fill="#0d0912" opacity=".9"/><path d="M0 150l70-18 80 14 90-20 80 16v38H0z" fill="#08060b"/>';
+  var f={
+  arena:'<ellipse cx="160" cy="138" rx="96" ry="22" fill="none" stroke="'+b+'" stroke-width="2"/><ellipse cx="160" cy="138" rx="70" ry="14" fill="#ffffff08"/><g fill="#08060b" stroke="'+b+'" stroke-width="1"><circle cx="138" cy="104" r="7"/><rect x="132" y="111" width="12" height="26" rx="4"/><circle cx="182" cy="104" r="7"/><rect x="176" y="111" width="12" height="26" rx="4"/></g><path d="M146 114l22-20M174 114l-22-20" stroke="#fff4d8" stroke-width="2"/><circle cx="160" cy="104" r="18" fill="url(#r'+i+')"/>',
+  castle:'<g fill="#0a0710"><path d="M92 150v-58h18v-12h10v12h12v-12h10v12h12v-12h10v12h18v58z"/><path d="M180 150v-70h16v-14h10v14h10v-14h10v14h16v70z"/></g><g fill="'+b+'"><rect x="118" y="108" width="6" height="12"/><rect x="144" y="108" width="6" height="12"/><rect x="206" y="104" width="6" height="14"/></g><circle cx="132" cy="84" r="22" fill="url(#r'+i+')"/><circle cx="216" cy="70" r="26" fill="url(#r'+i+')"/>',
+  cave:'<path d="M70 160V96Q70 40 160 36Q250 40 250 96V160z" fill="#02080a"/><path d="M96 40l6 26 6-26M140 36l5 34 6-34M190 38l6 28 6-28" fill="#06161a"/><ellipse cx="160" cy="132" rx="50" ry="16" fill="url(#r'+i+')"/><g fill="'+b+'"><circle cx="150" cy="104" r="2"/><circle cx="172" cy="112" r="2"/><circle cx="160" cy="92" r="2"/></g>',
+  dragon:'<path d="M60 96Q110 40 160 92Q210 40 260 96Q210 84 160 120Q110 84 60 96z" fill="#0a0608" stroke="'+b+'" stroke-width="1.5"/><ellipse cx="160" cy="104" rx="14" ry="22" fill="#0a0608" stroke="'+b+'"/><circle cx="160" cy="90" r="3" fill="'+b+'"/><circle cx="160" cy="128" r="30" fill="url(#r'+i+')"/>',
+  town:'<g fill="#0a0710"><path d="M60 150v-28l18-16 18 16v28z"/><path d="M104 150v-40l22-20 22 20v40z"/><path d="M158 150v-32l18-16 18 16v32z"/><path d="M204 150v-44l22-18 22 18v44z"/></g><g fill="'+b+'"><rect x="74" y="130" width="6" height="8"/><rect x="118" y="120" width="6" height="10"/><rect x="132" y="120" width="6" height="10"/><rect x="170" y="126" width="6" height="8"/><rect x="216" y="116" width="6" height="10"/><rect x="230" y="116" width="6" height="10"/></g>',
+  chest:'<path d="M110 150v-34h100v34z" fill="#2a1408" stroke="'+b+'" stroke-width="2"/><path d="M110 116Q160 78 210 116z" fill="#3a1c0a" stroke="'+b+'" stroke-width="2"/><rect x="154" y="112" width="12" height="16" rx="2" fill="'+b+'"/><circle cx="160" cy="108" r="46" fill="url(#r'+i+')"/>'
+  };
+  return o+f[t]+'</svg>';
+}
+function galery(){
+  var G=CONFIG.gallery&&CONFIG.gallery.length?CONFIG.gallery.map(function(x){return {t:x.title,h:'<img loading="lazy" alt="'+x.title+'" src="'+x.src+'">'}}):SC.map(function(c,i){return {t:c[0],h:scene(c[1],c[2],c[3],i)}});
+  $("gal").innerHTML=G.map(function(x,i){return '<button data-g="'+i+'" aria-label="'+x.t+'">'+x.h+'<span>'+x.t+'</span></button>'}).join("");
+  $("gal").onclick=function(e){var b=e.target.closest("[data-g]");if(!b)return;var x=G[+b.dataset.g];P.__g=["GALERİ",x.t,'<div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9">'+x.h+'</div><p class="note">Yer tutucu çizim. Gerçek ekran görüntüleri sunucu açılınca eklenecek.</p>'];openP("__g")}
+}
+galery();
+$("vid").onclick=$("vid").onkeydown=function(e){if(e.type==="keydown"&&e.key!=="Enter"&&e.key!==" ")return;if(CONFIG.video&&CONFIG.video!=="#"){window.open(CONFIG.video,"_blank","noopener")}else{P.__v=["VİDEO","Tanıtım Videosu","<p>Tanıtım videosu hazırlanıyor. Yayınlandığında burada ve Discord’da duyurulacak.</p>"];openP("__v")}};
+// ---- Etkinlik: yerel saat + geri sayım (sunucu saati: İstanbul, UTC+3) ----
+var EV=[[1,21,0,"1v1 Arena Turnuvası","Sıralama puanı, özel eşya"],[3,21,0,"Takım Savaşı (3v3)","Oyun parası, unvan"],[5,22,0,"Boss Avı","Nadir eşya"],[6,20,0,"Lonca Kale Fethi","Kale vergisi, haftalık sandık"],[0,21,0,"Zar ve Çekiliş","Oyun parası"]];
+function nxt(d,h,m,now){for(var i=0;i<9;i++){var t=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+i,h-3,m));if(new Date(t.getTime()+108e5).getUTCDay()===d&&t>now)return t}}
+function evTick(){var now=new Date(),L=EV.map(function(e){return {t:nxt(e[0],e[1],e[2],now),n:e[3],r:e[4]}}).sort(function(a,b){return a.t-b.t});
+  $("ev").innerHTML=L.map(function(x){return '<tr><td>'+x.n+'</td><td>'+x.t.toLocaleString("tr-TR",{weekday:"long",hour:"2-digit",minute:"2-digit"})+'</td><td>'+x.r+'</td></tr>'}).join("");
+  var f=L[0],ms=f.t-now,dd=Math.floor(ms/864e5),hh=Math.floor(ms%864e5/36e5),mm=Math.floor(ms%36e5/6e4),ss=Math.floor(ms%6e4/1e3);
+  $("nxt").textContent=f.n;$("ncd").textContent=(dd?dd+"g ":"")+hh+"sa "+mm+"dk "+ss+"sn"}
+evTick();setInterval(evTick,1000);
+// ---- Rehber arama ----
+$("gs").oninput=function(){var q=this.value.toLowerCase().trim(),n=0;[].forEach.call($("guide").children,function(c){var m=!q||c.textContent.toLowerCase().indexOf(q)>-1||(function(){var k=c.querySelector("[data-open]").dataset.open,p=P[k];return p&&(p[1]+p[2]).toLowerCase().indexOf(q)>-1})();c.style.display=m?"":"none";if(m)n++});$("gn").hidden=n>0};
+// ---- Mobil menü ----
+$("mb").onclick=function(){var o=$("mm").classList.toggle("on");this.setAttribute("aria-expanded",o);this.textContent=o?"✕":"☰"};
+[].forEach.call($("mm").querySelectorAll("a"),function(a){a.onclick=function(){$("mm").classList.remove("on");$("mb").textContent="☰";$("mb").setAttribute("aria-expanded",false)}});
+// ---- Hesap oluştur ----
+$("reg").onclick=function(){P.__r=["HESAP","Hesap Oluştur",'<form class="fm" id="rf" autocomplete="off" novalidate><label for="ru">Kullanıcı adı (3-16, harf ve rakam)</label><input id="ru" maxlength="16" autocomplete="username"><label for="re">E-posta</label><input id="re" type="email" autocomplete="email"><label for="rp">Şifre (en az 8 karakter)</label><input id="rp" type="password" autocomplete="new-password"><div class="str"><i id="rs"></i></div><label for="rq">Şifre tekrar</label><input id="rq" type="password" autocomplete="new-password"><label class="ck"><input type="checkbox" id="rk">Kuralları okudum ve kabul ediyorum</label><button class="btn" type="submit" style="width:100%">Hesabı Oluştur</button><div class="msg" id="rm2" hidden></div></form>'];openP("__r");
+  $("rp").oninput=function(){var v=this.value,sc=(v.length>=8)+(/[A-Z]/.test(v)&&/[a-z]/.test(v))+/\d/.test(v)+/[^A-Za-z0-9]/.test(v),c=["#c8321c","#ff7a2e","#e2b45f","#58e38a","#58e38a"][sc];$("rs").style.cssText="width:"+(v?sc*25+(v.length?0:0):0)+"%;background:"+c};
+  $("rf").onsubmit=function(e){e.preventDefault();var u=$("ru").value.trim(),m=$("re").value.trim(),p=$("rp").value,er="";
+    // Oyun istemcisi şifrede yalnız düz ASCII gönderebilir; Türkçe harfli şifreyle oyuna girilemezdi.
+    if(!/^[A-Za-z0-9]{3,16}$/.test(u))er="Kullanıcı adı 3-16 harf veya rakam olmalı.";else if(!/^\S+@\S+\.\S+$/.test(m))er="Geçerli bir e-posta gir.";else if(p.length<8||p.length>64)er="Şifre 8-64 karakter olmalı.";else if(!/^[\x20-\x7E]+$/.test(p))er="Şifrede Türkçe karakter (ç, ğ, ı, ö, ş, ü) kullanma; oyun bunları gönderemiyor.";else if(p!==$("rq").value)er="Şifreler eşleşmiyor.";else if(!$("rk").checked)er="Kuralları kabul etmelisin.";
+    var box=$("rm2");box.hidden=false;if(er){box.style.color="#ff9a8a";box.textContent=er;return}
+    box.style.color="#9db8ff";box.textContent="Gönderiliyor…";
+    api("/api/register",{username:u,email:m,password:p}).then(function(d){
+      if(d.ok){box.style.color="#58e38a";box.textContent="Hesabın oluşturuldu ve giriş yaptın. Launcher’da bu kullanıcı adı ve şifreyle oyuna girebilirsin.";showMe(d)}
+      else{box.style.color="#ff9a8a";box.textContent=d.status===429?"Çok fazla deneme. Bir dakika bekle.":(d.message||"Hata oluştu.")}}).catch(function(){box.style.color="#ff9a8a";box.textContent="Sunucuya ulaşılamadı."})}
+};
+// ---- Canlı durum (oyun sunucusundan: online, players, accounts, kills:[{killer,victim,place,time}]) ----
+function ago(t){var s=Math.max(0,(Date.now()-new Date(t))/1000);return s<60?"az önce":s<3600?Math.floor(s/60)+" dk":s<86400?Math.floor(s/3600)+" sa":Math.floor(s/86400)+" gün"}
+function loadStatus(){fetch(CONFIG.statusApi).then(function(r){return r.json()}).then(function(d){
+  $("pl").textContent=d.players;$("ac").textContent=d.accounts;$("st").textContent=d.online?"Online":"Offline";
+  document.querySelector(".chip .dot").style.cssText=d.online?"":"background:#c8321c;box-shadow:0 0 10px #c8321c";
+  $("lk").innerHTML=(d.kills||[]).slice(0,8).map(function(x){return '<li><span>'+esc(x.killer)+' → '+esc(x.victim)+'</span><small>'+ago(x.time)+'</small></li>'}).join("")||'<li><small>Henüz PvP ölümü yok.</small></li>'}).catch(function(){})}
+loadStatus();setInterval(loadStatus,30000);
+// ---- Market (launcher ile aynı market.json; launcher kartı #market/N adresini açar) ----
+var MK=[{name:"Gölge At",price:"Yakında",color:"#6b7385",image:1},{name:"Alacalı At",price:"Yakında",color:"#e9e4f2",image:2},{name:"Kızıl At",price:"Yakında",color:"#b0322a",image:3},{name:"Ateş At",price:"Yakında",color:"#e08a4a",image:4}];
+function mkPic(o,i){return '<div class="mi" style="background:radial-gradient(circle at 50% 60%,'+(o.color||"#e2b45f")+'55,transparent 70%),#0e0910"><img loading="lazy" alt="'+o.name+'" src="img/mount'+(o.image>0?o.image:i+1)+'.png" onerror="this.remove()"></div>'}
+function openM(i){var o=MK[i];if(!o)return;
+  P.__m=["MARKET",o.name,mkPic(o,i)+(o.desc?'<p>'+o.desc+'</p>':'')+'<p class="pr">'+o.price+'</p><button class="btn" id="buy" style="width:100%;margin-top:6px">Satın Al</button><div class="msg" id="bm" hidden></div><p class="note">Ethereal (kozmetik) binektir: yem istemez, ölmez, takipçi yeri kaplamaz, oyun avantajı sağlamaz. Aslan Puanı ile alınır.</p>'];openP("__m");
+  $("buy").onclick=function(){var b=$("bm"),btn=this;b.hidden=false;
+    if(!ME){b.style.color="#f7deaa";b.textContent="Satın almak için önce sağdaki panelden giriş yap.";return}
+    if(!o.id){b.style.color="#ff9a8a";b.textContent="Market şu an kapalı (oyun sunucusu çevrimdışı).";return}
+    btn.disabled=true;b.style.color="#9db8ff";b.textContent="İşleniyor…";
+    api("/api/market/buy",{id:o.id}).then(function(d){btn.disabled=false;b.style.color=d.ok?"#58e38a":"#ff9a8a";b.textContent=d.message||(d.ok?"Satın alındı.":"İşlem başarısız.");if(d.ok)loadMe()}).catch(function(){btn.disabled=false;b.style.color="#ff9a8a";b.textContent="Sunucuya ulaşılamadı."})}}
+function mkHash(){var m=/^#market\/(\d+)$/.exec(location.hash);if(!m)return;$("market").scrollIntoView();openM(+m[1]-1);history.replaceState(null,"","#market")}
+$("mk").onclick=function(e){var b=e.target.closest("[data-m]");if(b)openM(+b.dataset.m)};
+fetch(CONFIG.marketApi).then(function(r){return r.json()}).then(function(d){if(d&&d.length)MK=d}).catch(function(){}).then(function(){
+  $("mk").innerHTML=MK.map(function(o,i){return '<button class="glass" data-m="'+i+'" aria-label="'+o.name+' · '+o.price+'">'+mkPic(o,i)+'<span class="in"><span class="t">'+o.name+'</span><span class="pr">'+o.price+'</span></span></button>'}).join("");
+  mkHash()});
+window.addEventListener("hashchange",mkHash);
+</script>
+</body>
+</html>

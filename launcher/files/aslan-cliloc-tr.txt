@@ -1,0 +1,20 @@
+# Aslan PvP - Türkçe cliloc tablosu. Satır başına: numara=metin  (\n yeni satır)
+# Client bu dosyayı cuo.exe'nin yanında arar; burada olmayan numaralar oyunun İngilizce dosyasından gelir.
+# Sunucu tarafında sık görülen mesajları da buraya ekleyerek çevirebiliriz.
+
+# Sunucu seçimi
+1044579=Oynamak istediğin sunucuyu seç:
+1044577=Gecikme:
+1044578=Paket kaybı:
+1044580=Sırala:
+
+# Karakter oluşturma
+3000326=Karakterin İçin Bir Meslek Seç
+3000121=Saç
+3000122=Sakal
+1112309=Boynuz
+1112511=Yüz Boynuzu
+3000111=Güç
+3000112=Çeviklik
+3000113=Zeka
+3000050=Karakter Seçimi

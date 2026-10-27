@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Aslan PvP — Yönetim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#08060b;--pnl:#120d16;--tx:#e6dccf;--mut:#ab9c8d;--gold:#e2b45f;--fire:#ff7a2e;--ok:#58e38a;--bad:#ff6b5e;--bd:rgba(255,196,120,.16)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 Inter,system-ui,sans-serif}
+h1,h2{font-family:Cinzel,Georgia,serif;margin:0}
+header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:5;flex-wrap:wrap}
+header h1{font-size:20px;color:var(--gold)}
+.mode{font-size:13px;color:var(--mut)}
+.wrap{max-width:1200px;margin:0 auto;padding:22px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:8px 16px;border:1px solid var(--bd);border-radius:8px;background:var(--pnl);color:var(--tx);cursor:pointer;font-family:Cinzel,serif}
+.tab.on{background:var(--gold);color:#000;border-color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06);white-space:nowrap}
+th{color:var(--mut);font-weight:600;position:sticky;top:0;background:var(--pnl);z-index:1}
+tr:hover td{background:rgba(255,196,120,.04)}
+.tblwrap{overflow:auto;max-height:70vh;border:1px solid var(--bd);border-radius:12px;background:var(--pnl)}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
+.pill.ok{background:rgba(88,227,138,.15);color:var(--ok)}
+.pill.no{background:rgba(255,107,94,.15);color:var(--bad)}
+.pill.flag{background:rgba(255,122,46,.17);color:var(--fire);margin:1px 3px 1px 0}
+.btn{padding:5px 12px;border:1px solid var(--bd);border-radius:7px;background:transparent;color:var(--tx);cursor:pointer;font-size:12.5px}
+.btn.ban{border-color:rgba(255,107,94,.5);color:var(--bad)}
+.btn.unban{border-color:rgba(88,227,138,.5);color:var(--ok)}
+.btn:hover{background:rgba(255,255,255,.06)}
+.msg{padding:40px;text-align:center;color:var(--mut)}
+.sus{color:var(--fire)}
+.muted{color:var(--mut)}
+.count{font-size:12px;color:var(--mut);margin-left:auto}
+input.f{padding:7px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--pnl);color:var(--tx);min-width:200px}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚔ Aslan PvP — Yönetim</h1>
+  <span class="mode" id="mode"></span>
+  <span class="count" id="who"></span>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab on" data-t="suspects">Şüpheliler</button>
+    <button class="tab" data-t="logins">Giriş Kayıtları</button>
+    <button class="tab" data-t="builds">Sürümler</button>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
+    <input class="f" id="filter" placeholder="Hesap / IP ara…">
+    <span style="flex:1"></span>
+    <input class="f" id="banacc" placeholder="Hesap adı yaz">
+    <button class="btn ban" onclick="var a=document.getElementById('banacc').value.trim();if(a)ban(a,true)">Banla</button>
+    <button class="btn unban" onclick="var a=document.getElementById('banacc').value.trim();if(a)ban(a,false)">Ban kaldır</button>
+  </div>
+  <div id="view"><div class="msg">Yükleniyor…</div></div>
+</div>
+<script>
+var data=null, tab="suspects";
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function dt(s){try{return new Date(s).toLocaleString("tr-TR")}catch(e){return s}}
+function api(u,o){return fetch(u,Object.assign({headers:{"Content-Type":"application/json"},credentials:"same-origin"},o)).then(function(r){return r.json().then(function(j){return{s:r.status,j:j}})})}
+
+function load(){
+  api("/api/admin/guard").then(function(r){
+    if(r.s===401){document.getElementById("view").innerHTML='<div class="msg">Bu sayfa için önce <a href="/#kayit" style="color:var(--gold)">siteden giriş</a> yapmalısın (yetkili hesabı).</div>';return}
+    if(r.s===403||!r.j.ok){document.getElementById("view").innerHTML='<div class="msg">Bu sayfa sadece yetkililere açık.</div>';return}
+    data=r.j;
+    document.getElementById("mode").textContent="Doğrulama modu: "+esc(data.mode);
+    render();
+  }).catch(function(){document.getElementById("view").innerHTML='<div class="msg">Sunucuya ulaşılamadı. Oyun sunucusu kapalı olabilir.</div>'})
+}
+
+function ban(acc,b){
+  if(!confirm((b?"BAN: ":"Ban kaldır: ")+acc+"\nEmin misin?"))return;
+  api("/api/admin/ban",{method:"POST",body:JSON.stringify({target:acc,ban:b})}).then(function(r){
+    if(!r.j.ok){alert(r.j.message||"İşlem başarısız.");return}
+    load();
+  })
+}
+
+function render(){
+  var f=document.getElementById("filter").value.toLowerCase().trim();
+  var h="";
+  if(tab==="suspects"){
+    var rows=(data.suspects||[]).filter(function(x){return !f||x.account.toLowerCase().indexOf(f)>=0||(x.ips||[]).join(" ").indexOf(f)>=0});
+    if(!rows.length)h='<div class="msg">Şüpheli hesap yok. 👍</div>';
+    else{h='<div class="tblwrap"><table><thead><tr><th>Hesap</th><th>İşaret</th><th>Sebepler</th><th>IP’ler</th><th>İlk</th><th>Son</th><th>Durum</th><th></th></tr></thead><tbody>';
+    rows.forEach(function(x){
+      h+='<tr><td class="sus">'+esc(x.account)+'</td><td>'+x.count+'</td><td style="white-space:normal;max-width:320px">'+
+      (x.reasons||[]).map(function(r){return '<span class="pill flag">'+esc(r)+'</span>'}).join("")+'</td><td class="muted">'+esc((x.ips||[]).join(", "))+
+      '</td><td class="muted">'+dt(x.first)+'</td><td class="muted">'+dt(x.last)+'</td><td>'+(x.banned?'<span class="pill no">banlı</span>':'<span class="pill ok">aktif</span>')+
+      '</td><td>'+(x.banned?'<button class="btn unban" onclick="ban(\''+esc(x.account)+'\',false)">Kaldır</button>':'<button class="btn ban" onclick="ban(\''+esc(x.account)+'\',true)">Banla</button>')+'</td></tr>'});
+    h+='</tbody></table></div>'}
+  }else if(tab==="logins"){
+    var rows=(data.logins||[]).filter(function(x){return !f||(x.account||"").toLowerCase().indexOf(f)>=0||(x.ip||"").indexOf(f)>=0});
+    h='<div class="tblwrap"><table><thead><tr><th>Zaman</th><th>Hesap</th><th>IP</th><th>Sürüm</th><th>Aşama</th><th>Sonuç</th><th>Sebep / İşaret</th><th></th></tr></thead><tbody>';
+    rows.forEach(function(x){
+      var flags=(x.flags||[]).map(function(r){return '<span class="pill flag">'+esc(r)+'</span>'}).join("");
+      h+='<tr><td class="muted">'+dt(x.time)+'</td><td'+(x.banned?' class="sus"':'')+'>'+esc(x.account||"—")+'</td><td class="muted">'+esc(x.ip)+'</td><td class="muted">'+esc(x.build)+
+      '</td><td>'+esc(x.stage)+'</td><td>'+(x.ok?'<span class="pill ok">OK</span>':'<span class="pill no">RED</span>')+'</td><td style="white-space:normal;max-width:360px">'+esc(x.reason)+" "+flags+'</td><td>'+(!x.account?'':x.banned?'<button class="btn unban" onclick="ban(\''+esc(x.account)+'\',false)">Kaldır</button>':'<button class="btn ban" onclick="ban(\''+esc(x.account)+'\',true)">Banla</button>')+'</td></tr>'});
+    h+='</tbody></table></div>'
+  }else{
+    h='<div class="tblwrap"><table><thead><tr><th>Sürüm</th><th>Ad</th><th>Geçerlilik</th></tr></thead><tbody>';
+    (data.builds||[]).forEach(function(b){h+='<tr><td>'+esc(b.build)+'</td><td>'+esc(b.name)+'</td><td class="muted">'+(b.until?dt(b.until):'güncel')+'</td></tr>'});
+    h+='</tbody></table></div>'
+  }
+  document.getElementById("view").innerHTML=h;
+}
+
+Array.prototype.forEach.call(document.querySelectorAll(".tab"),function(t){t.onclick=function(){
+  Array.prototype.forEach.call(document.querySelectorAll(".tab"),function(x){x.classList.remove("on")});
+  t.classList.add("on");tab=t.dataset.t;render()}});
+document.getElementById("filter").oninput=render;
+load();
+setInterval(load,15000);
+</script>
+</body>
+</html>

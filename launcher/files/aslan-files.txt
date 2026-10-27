@@ -1,0 +1,6 @@
+aslanclient.exe
+faudio.dll
+fna3d.dll
+libtheorafile.dll
+sdl3.dll
+zlib.dll

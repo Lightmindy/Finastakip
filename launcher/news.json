@@ -1,0 +1,20 @@
+[
+  {
+    "date": "23 EKİM 2026",
+    "title": "Yeni Web Sitesi Yayında",
+    "text": "Rehber, dünya bilgisi, yol haritası ve SSS ile yenilenen site yayında.",
+    "body": "<p>Aslan PvP’nin yenilenen sitesi yayında. Duyurular, oyuncu rehberi, Britannia dünyası bilgileri, yol haritası, etkinlik takvimi ve SSS artık tek yerde.</p><h4>Yeni gelenler</h4><ul><li>Sitede hesap açma ve giriş</li><li>Canlı oyuncu sayısı, gerçek PvP sıralaması ve son ölümler</li><li>Aslan Puanı ile çalışan Market</li><li>Nadir binek spawn etkinlikleri</li></ul>"
+  },
+  {
+    "date": "YAKINDA",
+    "title": "Arena Açılıyor",
+    "text": "Turnuva arenası ve ilk sezon ödülleri duyurulacak.",
+    "body": "<p>Arena açıldığında üç formatta maç yapılacak: <b>1v1</b>, <b>2v2</b> ve <b>3v3</b>.</p><ul><li>Maçlar haftalık takvime göre yetkili gözetiminde başlar.</li><li>Arenada ölen oyuncunun eşyası düşmez.</li><li>Her galibiyet sıralama puanı kazandırır.</li></ul><h4>Sezon ödülleri</h4><p>Sezon sonunda ilk sıradakilere özel eşya, oyun parası ve unvan verilir. Ayrıntılar sezon başlamadan duyurulacak.</p>"
+  },
+  {
+    "date": "YAKINDA",
+    "title": "İlk Kale Fethi",
+    "text": "Loncalar hazırlansın, ilk kale savaşı için tarih belirleniyor.",
+    "body": "<p>İlk kuşatma tarihi belirlenince burada ve Discord’da duyurulacak.</p><h4>Katılım şartı</h4><ul><li>Lonca kayıtlı ve en az 5 üyeli olmalı.</li><li>Fetih saatinden önce kayıt yaptırılmalı.</li></ul><h4>Ödül</h4><p>Kaleyi elinde tutan lonca bir hafta boyunca kale vergisi, özel unvan ve haftalık sandık kazanır.</p>"
+  }
+]

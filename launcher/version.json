@@ -1,0 +1,50 @@
+{
+    "version":  "1.1.0.0-202610270113",
+    "files":  [
+                  {
+                      "path":  "aslan-cliloc-tr.txt",
+                      "sha256":  "03D8E588070EF0FD3A84355EFDB5015EB3C4F959F060F089B94FC0E37EC586CA",
+                      "url":  "http://127.0.0.1:8000/launcher/files/aslan-cliloc-tr.txt"
+                  },
+                  {
+                      "path":  "aslan-files.txt",
+                      "sha256":  "7C7B4B03706E1CDD0984C36FEF4A0B7CB5D24CA5AD2144059E398751371BB0EA",
+                      "url":  "http://127.0.0.1:8000/launcher/files/aslan-files.txt"
+                  },
+                  {
+                      "path":  "AslanClient.exe",
+                      "sha256":  "4CA9054B86AF66C585CDA18CE476D6DABEBAB8C325C368B1E989D2E53207B2AD",
+                      "url":  "http://127.0.0.1:8000/launcher/files/AslanClient.exe"
+                  },
+                  {
+                      "path":  "FAudio.dll",
+                      "sha256":  "6712E5AFFBD1AB0C4F819F0711E70C4A5B7DDBAEE82B5C051B8A773C20261061",
+                      "url":  "http://127.0.0.1:8000/launcher/files/FAudio.dll"
+                  },
+                  {
+                      "path":  "FNA.dll.config",
+                      "sha256":  "7A92C76FB9AC7B7DF59106160AF210445D760F95417785A805DF184504928B89",
+                      "url":  "http://127.0.0.1:8000/launcher/files/FNA.dll.config"
+                  },
+                  {
+                      "path":  "FNA3D.dll",
+                      "sha256":  "CC4FCE4770C36B6F5B4897D883A87B7D30E61734726AA837527F07DC23CD5491",
+                      "url":  "http://127.0.0.1:8000/launcher/files/FNA3D.dll"
+                  },
+                  {
+                      "path":  "libtheorafile.dll",
+                      "sha256":  "037001BECD22F98D2897A3FC388F92CA9A80B56F9B41BA4507F4452C5F1CDF87",
+                      "url":  "http://127.0.0.1:8000/launcher/files/libtheorafile.dll"
+                  },
+                  {
+                      "path":  "SDL3.dll",
+                      "sha256":  "EB46FBC3CEAF11A06EA4B9EA63F1783FBE8616018D70FEB1711C68E1A6AB2E2E",
+                      "url":  "http://127.0.0.1:8000/launcher/files/SDL3.dll"
+                  },
+                  {
+                      "path":  "zlib.dll",
+                      "sha256":  "FCF9F36B66FD053E4BFE4C599D5BD37BC66D6891A7AF8616079786B942F316F3",
+                      "url":  "http://127.0.0.1:8000/launcher/files/zlib.dll"
+                  }
+              ]
+}

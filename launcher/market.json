@@ -1,0 +1,6 @@
+[
+  { "name": "Gölge At",   "price": "150 Puan", "color": "#6b7385", "image": 1, "desc": "Gece kadar koyu, gümüş yeleli bir binek." },
+  { "name": "Alacalı At", "price": "250 Puan", "color": "#e9e4f2", "image": 2, "desc": "Beyaz üzerine alacalı desenli, göz alıcı bir binek." },
+  { "name": "Kızıl At",   "price": "350 Puan", "color": "#b0322a", "image": 3, "desc": "Kan kızılı tüyleriyle savaş meydanında hemen fark edilir." },
+  { "name": "Ateş At",    "price": "400 Puan", "color": "#e08a4a", "image": 4, "desc": "Yelesi kor gibi parlayan, ateş renkli bir binek." }
+]
